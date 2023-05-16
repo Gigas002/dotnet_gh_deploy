@@ -11,3 +11,7 @@ jobs:
     uses: ./.github/workflows/reusable-build-test.yml
     with:
       runs-on: ubuntu-latest
+  build-test-macos:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      runs-on: macos-latest
