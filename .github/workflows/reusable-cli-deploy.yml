@@ -13,8 +13,6 @@ on:
 jobs:
   test-job:
     runs-on: ${{ inputs.runs-on }}
-    env:
-      rid: ${{ inputs.rid }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
