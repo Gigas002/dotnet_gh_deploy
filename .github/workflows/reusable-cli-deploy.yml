@@ -22,7 +22,7 @@ jobs:
         with:
           dotnet-version: 7.x
       - name: Publish
-        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r $rid -o "publish/$rid" --sc false
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "$rid" -o "publish/$rid" --sc false
       - name: Zip
         run: zip -r $rid.zip publish/$rid
       - name: Generate Changelog
@@ -32,7 +32,7 @@ jobs:
         with:
           tag_name: continious
           body_path: ${{ github.workspace }}-CHANGELOG.txt
-          files: ./linux-x64.zip
+          files: ./$rid-x64.zip
           name: Continuous build
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
