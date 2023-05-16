@@ -19,12 +19,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore -c Release
     - name: Cache build output
-      uses: actions/cache@v2
+      uses: actions/cache/save@v3
+      id: cache
       with:
         path: .
-        key: $ { { runner.os }}-repo-${ { github.sha }}
-        restore-keys: |
-          $ { { runner.os }}-repo-
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
           
   test-windows:
   
@@ -32,11 +31,9 @@ jobs:
     needs: build-windows
     steps:
     - name: Restore repo
-      uses: actions/cache@v2
+      uses: actions/cache/restore@v3
+      id: restore-cache
       with:
-        path: .
-        key: $ { { runner.os }}-repo-${ { github.sha }}
-        restore-keys: |
-          $ { { runner.os }}-repo-
+        key: cache-${{ hashFiles('**/lockfiles') }}
     - name: Test
       run: dotnet test --no-restore -c Release
