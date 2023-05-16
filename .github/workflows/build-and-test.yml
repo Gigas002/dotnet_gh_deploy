@@ -5,5 +5,9 @@ on: [push, pull_request]
 jobs:
   build-test-windows:
     uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      runs-on: windows-latest
   build-test-linux:
     uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      runs-on: ubuntu-latest
