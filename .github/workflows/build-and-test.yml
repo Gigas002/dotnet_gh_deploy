@@ -16,9 +16,9 @@ jobs:
     with:
       runs-on: macos-latest
       
-  publish-win-cli:
-    runs-on: windows-latest
-    needs: build-test-windows
+  publish-linux-cli:
+    runs-on: linux-latest
+    needs: build-test-linux
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
@@ -27,10 +27,12 @@ jobs:
           dotnet-version: 7.x
       - name: Restore dependencies
         run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore -c Release
       - name: Publish
-        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" --no-restore -c Release -r win-x64 -o "publish/win-x64" --sc false
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" --no-restore --no-build -c Release -r linux-x64 -o "publish/linux-x64" --sc false
       - name: Zip
-        run: zip -r win-x64.zip publish
+        run: zip -r linux-x64.zip publish/linux-x64
       - name: Generate Changelog
         run: echo "# Release details" > ${{ github.workspace }}-CHANGELOG.txt
       - name: CHeck dirs
@@ -43,7 +45,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: ${{ github.workspace }}-CHANGELOG.txt
-          files: ./win-x64.zip
+          files: ./linux-x64.zip
           name: Continuous build
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
