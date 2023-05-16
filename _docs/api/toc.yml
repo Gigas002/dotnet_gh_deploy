@@ -1,0 +1,12 @@
+### YamlMime:TableOfContent
+items:
+- uid: Deploy.Core
+  name: Deploy.Core
+  items:
+  - uid: Deploy.Core.Company
+    name: Company
+  - uid: Deploy.Core.Context
+    name: Context
+  - uid: Deploy.Core.User
+    name: User
+memberLayout: SamePage

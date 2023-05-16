@@ -1,0 +1,71 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": ["Deploy.Core/**.csproj"],
+          "exclude": ["**/bin/**", "**/obj/**"]
+        }
+      ],
+      "dest": "_docs/api",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "noRestore": false,
+      "namespaceLayout": "flattened",
+      "memberLayout": "samePage",
+      "allowCompilationErrors": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["**"],
+        "src": "_docs/api",
+        "dest": "api"
+      },
+      {
+        "files": ["CHANGELOG.md", "CONTRIBUTING.md", "LICENSE.md"]
+      },
+      {
+        "files": ["index.md", "toc.yml"],
+        "src": "_docs"
+      },
+      {
+        "files": ["*.md"],
+        "src": "Deploy.Cli"
+      },
+      {
+        "files": ["*.md"],
+        "src": "Deploy.Tests"
+      },
+      {
+        "files": ["*.md"],
+        "src": "Deploy.Core",
+        "dest": "api"
+      }
+    ],
+    "resource": [
+      {
+        "files": ["**"],
+        "src": "/Resources",
+        "dest": "images"
+      }
+    ],
+    "globalMetadata": {
+      "_appFaviconPath": "images/Icon.ico",
+      "_appLogoPath": "images/Icon.png"
+    },
+
+    "output": "docs",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "modern"
+    ],
+    "postProcessors": [],
+    "keepFileLink": false,
+    "disableGitFeatures": false
+  }
+}

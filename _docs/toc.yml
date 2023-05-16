@@ -1,0 +1,9 @@
+- name: Home
+  href: index.md
+- name: Core
+  href: api/
+  homepage: ../Deploy.Core/index.md
+- name: Cli
+  href: ../Deploy.Cli/cli-index.md
+- name: Tests
+  href: ../Deploy.Tests/tests-index.md

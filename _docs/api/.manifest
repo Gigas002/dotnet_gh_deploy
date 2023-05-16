@@ -1,0 +1,22 @@
+{
+  "Deploy.Core": "Deploy.Core.yml",
+  "Deploy.Core.Company": "Deploy.Core.Company.yml",
+  "Deploy.Core.Company.#ctor": "Deploy.Core.Company.yml",
+  "Deploy.Core.Company.#ctor(System.Int32,System.String)": "Deploy.Core.Company.yml",
+  "Deploy.Core.Company.Id": "Deploy.Core.Company.yml",
+  "Deploy.Core.Company.Name": "Deploy.Core.Company.yml",
+  "Deploy.Core.Company.ToString": "Deploy.Core.Company.yml",
+  "Deploy.Core.Company.Users": "Deploy.Core.Company.yml",
+  "Deploy.Core.Context": "Deploy.Core.Context.yml",
+  "Deploy.Core.Context.Companies": "Deploy.Core.Context.yml",
+  "Deploy.Core.Context.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)": "Deploy.Core.Context.yml",
+  "Deploy.Core.Context.Users": "Deploy.Core.Context.yml",
+  "Deploy.Core.User": "Deploy.Core.User.yml",
+  "Deploy.Core.User.#ctor": "Deploy.Core.User.yml",
+  "Deploy.Core.User.#ctor(System.Int32,System.String,System.Int32)": "Deploy.Core.User.yml",
+  "Deploy.Core.User.AddAge(System.Int32)": "Deploy.Core.User.yml",
+  "Deploy.Core.User.Age": "Deploy.Core.User.yml",
+  "Deploy.Core.User.Company": "Deploy.Core.User.yml",
+  "Deploy.Core.User.Id": "Deploy.Core.User.yml",
+  "Deploy.Core.User.Name": "Deploy.Core.User.yml"
+}
