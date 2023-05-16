@@ -32,7 +32,7 @@ jobs:
         with:
           tag_name: continious
           body_path: ${{ github.workspace }}-CHANGELOG.txt
-          files: ./${{ inputs.rid }}-x64.zip
+          files: ./${{ inputs.rid }}.zip
           name: Continuous build
           token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
