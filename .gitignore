@@ -2,6 +2,7 @@
 *.db
 bin/
 obj/
+publish/
 Migrations/
 _docs/index.md
 _docs/LICENSE.md

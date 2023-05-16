@@ -5,7 +5,17 @@ namespace Deploy.Cli;
 
 public class Program
 {
-    public static async Task Main()
+    public static async Task Main(string[] args)
+    {
+        bool runTest = args.Length > 0;
+
+        if (runTest)
+            await TestDb();
+        else
+            Console.WriteLine("Hello world!");
+    }
+
+    public static async Task TestDb()
     {
         // add data
         await using (var db = new Context())
