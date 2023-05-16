@@ -57,18 +57,6 @@
         <member name="M:Deploy.Core.Context.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
             <inheritdoc/>
         </member>
-        <member name="T:Deploy.Core.Migrations.InitialCreate">
-            <inheritdoc />
-        </member>
-        <member name="M:Deploy.Core.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Deploy.Core.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Deploy.Core.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
         <member name="T:Deploy.Core.User">
             <summary>
             User
