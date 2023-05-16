@@ -4,48 +4,28 @@
   "xrefmap": "xrefmap.yml",
   "files": [
     {
-      "type": "Conceptual",
-      "source_relative_path": "CHANGELOG.md",
+      "type": "Resource",
+      "source_relative_path": "Resources/Icon.ico",
       "output": {
-        ".html": {
-          "relative_path": "CHANGELOG.html"
+        "resource": {
+          "relative_path": "images/Icon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Resources/Icon.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/Icon.png"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "Deploy.Cli/cli-index.md",
-      "output": {
-        ".html": {
-          "relative_path": "cli-index.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "Deploy.Core/index.md",
-      "output": {
-        ".html": {
-          "relative_path": "api/index.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "Deploy.Tests/tests-index.md",
-      "output": {
-        ".html": {
-          "relative_path": "tests-index.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "LICENSE.md",
+      "source_relative_path": "_docs/LICENSE.md",
       "output": {
         ".html": {
           "relative_path": "LICENSE.html"
@@ -94,14 +74,31 @@
       "version": ""
     },
     {
-      "type": "Toc",
-      "source_relative_path": "_docs/api/toc.yml",
+      "type": "Conceptual",
+      "source_relative_path": "_docs/articles/cli-index.md",
       "output": {
         ".html": {
-          "relative_path": "api/toc.html"
-        },
-        ".json": {
-          "relative_path": "api/toc.json"
+          "relative_path": "articles/cli-index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "_docs/articles/core-index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/core-index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "_docs/articles/tests-index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/tests-index.html"
         }
       },
       "version": ""
