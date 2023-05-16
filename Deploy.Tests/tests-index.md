@@ -1,3 +1,0 @@
-# Deploy.Tests
-
-Tests page

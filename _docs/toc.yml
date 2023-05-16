@@ -1,9 +1,9 @@
 - name: Home
   href: index.md
-- name: Core
-  href: api/
-  homepage: ../Deploy.Core/index.md
+- name: Library
+  href: api/toc.yml
+  homepage: articles/core-index.md
 - name: Cli
-  href: ../Deploy.Cli/cli-index.md
+  href: articles/cli-index.md
 - name: Tests
-  href: ../Deploy.Tests/tests-index.md
+  href: articles/tests-index.md

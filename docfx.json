@@ -25,30 +25,14 @@
         "dest": "api"
       },
       {
-        "files": ["CHANGELOG.md", "CONTRIBUTING.md", "LICENSE.md"]
-      },
-      {
-        "files": ["index.md", "toc.yml"],
+        "files": ["articles/**.md", "articles/**/toc.yml", "toc.yml", "*.md"],
         "src": "_docs"
-      },
-      {
-        "files": ["*.md"],
-        "src": "Deploy.Cli"
-      },
-      {
-        "files": ["*.md"],
-        "src": "Deploy.Tests"
-      },
-      {
-        "files": ["*.md"],
-        "src": "Deploy.Core",
-        "dest": "api"
       }
     ],
     "resource": [
       {
         "files": ["**"],
-        "src": "/Resources",
+        "src": "Resources",
         "dest": "images"
       }
     ],
@@ -60,10 +44,7 @@
     "output": "docs",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
-    "template": [
-      "default",
-      "modern"
-    ],
+    "template": ["default", "modern"],
     "postProcessors": [],
     "keepFileLink": false,
     "disableGitFeatures": false
