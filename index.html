@@ -16,18 +16,18 @@
       
       
       <meta name="docfx:docurl" content="https://github.com/senketsu03/dotnet_gh_deploy/blob/master/_docs/index.md/#L1">
-
-      <script type="module">
-        import docfx from './public/main.js'
-        window.docfx = docfx
-        window.MathJax = {
-          options: {
-            processHtmlClass: ['tex2jax_process', 'math']
-          }
-        }
-      </script>
-      <script type="text/javascript" src="public/docfx.min.js"></script>
   </head>
+
+  <script type="module">
+    import options from './public/main.js'
+    import { init } from './public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
 
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
@@ -75,6 +75,8 @@
 <h1 id="dotnet_gh_deploy">dotnet_gh_deploy</h1>
 
 <p>Training to use GitHub CI only to deploy dotnet stuff</p>
+<h2 id="notes">Notes</h2>
+<p>You'll need to select a branch <code>gh-pages</code> for the first deployment, see: <a href="https://github.com/marketplace/actions/github-pages-action#%EF%B8%8F-first-deployment-with-github_token">https://github.com/marketplace/actions/github-pages-action#%EF%B8%8F-first-deployment-with-github_token</a></p>
 <h2 id="resources">Resources</h2>
 <p>Icons: <a href="https://www.flaticon.com/packs/far-west">https://www.flaticon.com/packs/far-west</a></p>
 <h2 id="license">License</h2>
