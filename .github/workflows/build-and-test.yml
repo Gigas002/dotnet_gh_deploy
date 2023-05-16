@@ -3,37 +3,7 @@ name: build-and-test
 on: [push, pull_request]
 
 jobs:
-
-  build-windows:
-
-    runs-on: windows-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore -c Release
-    - name: Cache build output
-      uses: actions/cache/save@v3
-      id: cache
-      with:
-        path: .
-        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-          
-  test-windows:
-  
-    runs-on: windows-latest
-    needs: build-windows
-    steps:
-    - name: Restore repo
-      uses: actions/cache/restore@v3
-      id: restore-cache
-      with:
-        key: cache-${{ hashFiles('**/lockfiles') }}
-    - name: Test
-      run: dotnet test --no-restore -c Release
+  build-test-windows:
+    uses: ./.github/workflows/reusable-build-test.yml
+  build-test-linux:
+    uses: ./.github/workflows/reusable-build-test.yml
