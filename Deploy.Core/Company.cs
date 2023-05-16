@@ -18,7 +18,19 @@ public class Company
     /// <summary>
     /// Company users
     /// </summary>
-    public IEnumerable<User> Users { get; } = new List<User>();
+    public IEnumerable<User> Users { get; set; } = null!;
+
+    /// <summary>
+    /// Init company
+    /// </summary>
+    public Company() { }
+
+    /// <summary>
+    /// Init company
+    /// </summary>
+    /// <param name="id">Id</param>
+    /// <param name="name">Name</param>
+    public Company(int id, string name) => (Id, Name) = (id, name);
 
     /// <inheritdoc/>
     public override string ToString()
