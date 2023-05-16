@@ -18,7 +18,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish-docs:
+
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Chekout
@@ -34,7 +35,11 @@ jobs:
         cp LICENSE.md _docs/LICENSE.md
         docfx metadata
         docfx build
-
+        
+  deploy-pages:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:  
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
