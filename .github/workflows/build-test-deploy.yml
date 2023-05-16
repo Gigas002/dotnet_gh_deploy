@@ -16,10 +16,25 @@ jobs:
     with:
       runs-on: macos-latest
       
+  publish-windows-cli:
+    needs: build-test-windows
+    uses: ./.github/workflows/reusable-cli-deploy.yml
+    with:
+      runs-on: windows-latest
+      rid: "win-x64"
+      
   publish-linux-cli:
     needs: build-test-linux
     uses: ./.github/workflows/reusable-cli-deploy.yml
     with:
       runs-on: ubuntu-latest
       rid: "linux-x64"
+      
+  publish-macos-cli:
+    needs: build-test-macos
+    uses: ./.github/workflows/reusable-cli-deploy.yml
+    with:
+      runs-on: macos-latest
+      rid: "osx-x64"
+
 
