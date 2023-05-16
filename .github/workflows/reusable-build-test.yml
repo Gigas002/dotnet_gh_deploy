@@ -10,8 +10,6 @@ jobs:
   test-job:
     runs-on: ${{ inputs.runs-on }}
     steps:
-      - name: Print operating system
-        run: echo "Running on ${{ runner.os }}"
       - uses: actions/checkout@v3
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
