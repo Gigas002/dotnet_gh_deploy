@@ -1,0 +1,27 @@
+name: 'Deploy release'
+description: 'Reads version prefix and suffix'
+inputs:
+  rid:
+    description: 'Runtime identifier'
+    required: true
+    type: string
+  version:
+    description: 'Release version'
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate Changelog
+      run: echo "# Release details" > ${{ github.workspace }}-CHANGELOG.txt
+    - name: Create and upload Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ inputs.version }}
+        body_path: ${{ github.workspace }}-CHANGELOG.txt
+        files: ./${{ inputs.rid }}.zip
+        name: v${{ inputs.version }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+      shell: pwsh
+      
