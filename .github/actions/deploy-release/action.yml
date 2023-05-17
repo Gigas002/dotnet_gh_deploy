@@ -1,5 +1,5 @@
 name: 'Deploy release'
-description: 'Reads version prefix and suffix'
+description: 'Deploy release'
 inputs:
   rid:
     description: 'Runtime identifier'
@@ -9,19 +9,23 @@ inputs:
     description: 'Release version'
     required: true
     type: string
+  token:
+    description: 'GitHub token'
+    required: true
+    type: string
 
 runs:
   using: "composite"
   steps:
-    - name: Generate Changelog
+    - id: generate-changelog
       run: echo "# Release details" > ${{ github.workspace }}-CHANGELOG.txt
-    - name: Create and upload Release
+      shell: pwsh
+    - id: create-release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ inputs.version }}
         body_path: ${{ github.workspace }}-CHANGELOG.txt
         files: ./${{ inputs.rid }}.zip
         name: v${{ inputs.version }}
-        token: ${{ secrets.GITHUB_TOKEN }}
-      shell: pwsh
+        token: ${{ inputs.token }}
       
