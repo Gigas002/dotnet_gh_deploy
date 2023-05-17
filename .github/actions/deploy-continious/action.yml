@@ -9,7 +9,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Create and upload Release
+    - id: create-release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: continious
@@ -17,5 +17,4 @@ runs:
         name: Continuous build
         token: ${{ secrets.GITHUB_TOKEN }}
         prerelease: true
-      shell: pwsh
       
