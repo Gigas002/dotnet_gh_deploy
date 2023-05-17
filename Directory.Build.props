@@ -1,0 +1,52 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- essential build info -->
+    <TargetFramework>net7.0</TargetFramework>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionSuffix>preview.1</VersionSuffix>
+    <AssemblyVersion>0.1.0.10</AssemblyVersion>
+    <FileVersion>0.1.0.10</FileVersion>
+    <Configurations>Debug;Release</Configurations>
+
+    <!-- metadata -->
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Authors>senketsu03</Authors>
+    <Company>senketsu03</Company>
+    <Description>Deploy study library</Description>
+    <Copyright>Copyright © senketsu03 2023</Copyright>
+    <PackageProjectUrl>https://senketsu03.github.io/dotnet_gh_deploy</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/senketsu03/dotnet_gh_deploy</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/senketsu03/dotnet_gh_deploy/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>test</PackageTags>
+
+    <!-- additional build props -->
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+    <!-- resources -->
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <None Include="..\Resources\Icon.png" Pack="true" Visible="true" PackagePath="$(PackageIcon)" />
+  </ItemGroup>
+
+</Project>
