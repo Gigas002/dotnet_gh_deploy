@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET
+      - name: dotnet-setup
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.x
