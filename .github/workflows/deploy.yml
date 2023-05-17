@@ -27,15 +27,14 @@ jobs:
         with:
           dotnet-version: 7.x
           
-      - name: dotnet-build
-        run: dotnet build -c Release -r "${{ inputs.rid }}"
-          
       - name: dotnet-publish
         run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "publish/${{ inputs.rid }}" --sc false --no-build
       - name: zip-artifacts
         run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
         
         # pack core TODO move
+      - name: dotnet-build
+        run: dotnet build -c Release
       - name: dotnet-pack
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build
 
