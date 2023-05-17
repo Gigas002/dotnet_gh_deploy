@@ -54,12 +54,10 @@ jobs:
         run: echo "::set-output name=version::$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix").Node.InnerText"
       - name: Print Version
         run: |
-          if ($VERSION) {
-            echo "The version is $VERSION"
+          if (${{ steps.version.outputs.version }}) {
+            echo "The version is ${{ steps.version.outputs.version }}"
           } else {
             echo "Empty"
           }
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
 
 
