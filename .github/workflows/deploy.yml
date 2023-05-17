@@ -31,22 +31,17 @@ jobs:
       - name: zip-artifacts
         run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
 
-      # TODO: local action can be used I guess
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
-        run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
+        uses: ./.github/actions/deploy-release
+        with:
+          rid: ${{ inputs.rid }}
+          version: ${{ steps.read-version.outputs.prefix }}
+#         run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
       - name: deploy-continious
         if: steps.read-version.outputs.suffix != ''
-        run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
+        uses: ./.github/actions/deploy-continious
+        with:
+          rid: ${{ inputs.rid }}
+#         run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
         
-#       - name: Generate Changelog
-#         run: echo "# Release details" > ${{ github.workspace }}-CHANGELOG.txt
-#       - name: Create and upload Release
-#         uses: softprops/action-gh-release@v1
-#         with:
-#           tag_name: continious
-#           body_path: ${{ github.workspace }}-CHANGELOG.txt
-#           files: ./${{ inputs.rid }}.zip
-#           name: Continuous build
-#           token: ${{ secrets.GITHUB_TOKEN }}
-#           prerelease: true
