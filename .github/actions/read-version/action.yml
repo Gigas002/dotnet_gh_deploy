@@ -10,9 +10,6 @@ outputs:
         
 runs:
   using: "composite"
-  defaults:
-    run:
-      shell: pwsh
   steps:
     - id: version
       run: |
@@ -23,3 +20,4 @@ runs:
         $XPath = "/Project/PropertyGroup/VersionSuffix"
         $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
         echo "suffix=$versionSuffix" >> $env:GITHUB_OUTPUT
+      shell: pwsh
