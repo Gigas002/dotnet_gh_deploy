@@ -3,6 +3,9 @@ name: build-test-deploy
 on: [push, pull_request]
 
 jobs:
+
+# building and testing tasks
+
   build-test-windows:
     uses: ./.github/workflows/reusable-build-test.yml
     with:
@@ -16,25 +19,47 @@ jobs:
     with:
       runs-on: macos-latest
       
+# publishing tasks
+      
   publish-windows-cli:
     needs: build-test-windows
     uses: ./.github/workflows/reusable-cli-deploy.yml
     with:
       runs-on: windows-latest
       rid: "win-x64"
-      
   publish-linux-cli:
     needs: build-test-linux
     uses: ./.github/workflows/reusable-cli-deploy.yml
     with:
       runs-on: ubuntu-latest
       rid: "linux-x64"
-      
   publish-macos-cli:
     needs: build-test-macos
     uses: ./.github/workflows/reusable-cli-deploy.yml
     with:
       runs-on: macos-latest
       rid: "osx-x64"
+
+# experimental
+
+  read-version:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v3
+      - name: Read Version
+        id: version
+        run: echo "::set-output name=version::$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix").Node.InnerText"
+      - name: Print Version
+        run: |
+          if ($VERSION) {
+            echo "The version is $VERSION"
+          } else {
+            echo "Empty"
+          }
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
 
 
