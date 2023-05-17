@@ -57,9 +57,9 @@ jobs:
           $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
           echo "Select-XML output:"
           echo $versionSuffix
-          echo $versionSuffix >> $GITHUB_ENV
-          echo "$GITHUB_ENV content:"
-          cat "$GITHUB_ENV"
+          echo "version=$versionSuffix" >> "$GITHUB_OUTPUT"
+          echo "GITHUB_OUTPUT content:"
+          cat "$GITHUB_OUTPUT"
         shell: pwsh
       - name: Print Version
         run: |
