@@ -28,7 +28,7 @@ jobs:
           dotnet-version: 7.x
           
       - name: dotnet-publish
-        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "publish/${{ inputs.rid }}" --sc false --no-build
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "publish/${{ inputs.rid }}" --sc false
       - name: zip-artifacts
         run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
         
