@@ -96,20 +96,26 @@ jobs:
 #         run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }} on Ubuntu"
 
   deploy-release:
-    needs: read-version2
-    if: needs.read-version2.outputs.suffix == ''
+#     needs: read-version2
+#     if: needs.read-version2.outputs.suffix == ''
     runs-on: ubuntu-latest
     steps:
+      - name: Read version
+        id: read-version
+        uses: ./.github/actions/read-version
       - name: Deploy Release
-        run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }}"
+        run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
 
   deploy-continious:
-    needs: read-version2
-    if: needs.read-version2.outputs.suffix != ''
+#     needs: read-version2
+#     if: needs.read-version2.outputs.suffix != ''
     runs-on: ubuntu-latest
     steps:
+      - name: Read version
+        id: read-version
+        uses: ./.github/actions/read-version
       - name: Deploy Continious
-        run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }}"
+        run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
 
 
 
