@@ -24,6 +24,24 @@ jobs:
     uses: ./.github/workflows/reusable-build-test.yml
     with:
       runs-on: ubuntu-latest
+      
+  build-test-linux2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Read version
+      uses: ./.github/workflows/reusable-read-version.yml
+    - name: Build and Test
+      uses: ./.github/workflows/reusable-build-test.yml
+#     - name: Set versions
+#       id: version
+#       run: |
+#         echo "prefix=${{ needs.read-version.outputs.prefix }}" >> $env:GITHUB_OUTPUT
+#         echo "suffix=${{ needs.read-version.outputs.suffix }}" >> $env:GITHUB_OUTPUT
+#     outputs:
+#       suffix: ${{ steps.version.outputs.suffix }}
+#       prefix: ${{ steps.version.outputs.prefix }}
+
+      
   build-test-macos:
     needs: read-version
     uses: ./.github/workflows/reusable-build-test.yml
@@ -58,10 +76,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Release
-        if: needs.read-version.outputs.suffix == ''
+        if: needs.build-test-linuxn2.outputs.suffix == ''
         run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }} on Ubuntu"
       - name: Deploy Continious
-        if: needs.read-version.outputs.suffix != ''
+        if: needs.build-test-linux2.outputs.suffix != ''
         run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }} on Ubuntu"
 
   deploy-release:
