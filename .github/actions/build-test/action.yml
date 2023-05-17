@@ -1,11 +1,5 @@
 name: 'Build test'
 description: 'Build solution and run tests'
-inputs:
-  runs-on:
-    description: 'The operating system to run the job on'
-    required: true
-    type: string
-
 runs:
   using: "composite"
   steps:
@@ -15,7 +9,10 @@ runs:
         dotnet-version: 7.x
     - id: dotnet-restore
       run: dotnet restore
+      shell: pwsh
     - id: dotnet-build
       run: dotnet build --no-restore -c Release
+      shell: pwsh
     - id: dotnet-test
       run: dotnet test --no-restore -c Release
+      shell: pwsh
