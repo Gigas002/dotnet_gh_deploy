@@ -52,11 +52,12 @@ jobs:
       - name: Read Version
         id: version
         run: |
-          echo "Directory.Build.props content:"
-          cat "Directory.Build.props"
+          $Path = "Directory.Build.props"
+          $XPath = "/Project/PropertyGroup/VersionSuffix"
+          $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
           echo "Select-XML output:"
-          echo "$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix/text()").Value"
-          echo "version=$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix/text()").Value" >> $GITHUB_ENV
+          echo $versionSuffix
+          echo $versionSuffix >> $GITHUB_ENV
           echo "$GITHUB_ENV content:"
           cat "$GITHUB_ENV"
         shell: pwsh
