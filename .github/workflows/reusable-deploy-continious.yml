@@ -1,0 +1,40 @@
+name: reusable-deploy-continious
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: string
+      rid:
+        description: 'Runtime identifier'
+        required: true
+        type: string
+        
+jobs:
+
+  deploy:
+    runs-on: ${{ inputs.runs-on }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x
+          
+      - name: Publish
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "publish/${{ inputs.rid }}" --sc false
+      - name: Zip
+        run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
+      
+      - name: Create and upload Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: continious
+          files: ./${{ inputs.rid }}.zip
+          name: Continuous build
+          token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: true
