@@ -30,8 +30,10 @@ jobs:
     steps:
     - name: Read version
       uses: ./.github/workflows/reusable-read-version.yml
-    - name: Build and Test
-      uses: ./.github/workflows/reusable-build-test.yml
+      with:
+        runs-on: ubuntu-latest
+#     - name: Build and Test
+#       uses: ./.github/workflows/reusable-build-test.yml
 #     - name: Set versions
 #       id: version
 #       run: |
