@@ -55,10 +55,10 @@ jobs:
           echo "Directory.Build.props content:"
           cat "Directory.Build.props"
           echo "Select-XML output:"
-          echo "$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix").Node.InnerText"
-          echo "version=$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix").Node.InnerText" >> $GITHUB_OUTPUT
-          echo "$GITHUB_OUTPUT content:"
-          cat "$GITHUB_OUTPUT"
+          echo "$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix/text()").Value"
+          echo "version=$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix/text()").Value" >> $GITHUB_ENV
+          echo "$GITHUB_ENV content:"
+          cat "$GITHUB_ENV"
         shell: pwsh
       - name: Print Version
         run: |
