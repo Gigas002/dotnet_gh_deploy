@@ -11,6 +11,14 @@ jobs:
     uses: ./.github/workflows/reusable-read-version.yml
     with:
       runs-on: ubuntu-latest
+      
+  read-version2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+    - name: Read version
+      uses: ./.github/actions/read-version
 
 # building and testing tasks
 
@@ -25,23 +33,24 @@ jobs:
     with:
       runs-on: ubuntu-latest
       
-  build-test-linux2:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
-    - name: Read version
-      uses: ./.github/workflows/reusable-read-version.yml
-    - name: Build and Test
-      uses: ./.github/workflows/reusable-build-test.yml
-    - name: Set versions
-      id: version
-      run: |
-        echo "prefix=${{ needs.read-version.outputs.prefix }}" >> $env:GITHUB_OUTPUT
-        echo "suffix=${{ needs.read-version.outputs.suffix }}" >> $env:GITHUB_OUTPUT
-    outputs:
-      suffix: ${{ steps.version.outputs.suffix }}
-      prefix: ${{ steps.version.outputs.prefix }}
+#   build-test-linux2:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Check out repository
+#       uses: actions/checkout@v3
+#     - name: Read version
+#       uses: ./.github/actions/read-version
+#     # uses: ./.github/workflows/reusable-read-version.yml
+#     - name: Build and Test
+#       uses: ./.github/workflows/reusable-build-test.yml
+#     - name: Set versions
+#       id: version
+#       run: |
+#         echo "prefix=${{ needs.read-version.outputs.prefix }}" >> $env:GITHUB_OUTPUT
+#         echo "suffix=${{ needs.read-version.outputs.suffix }}" >> $env:GITHUB_OUTPUT
+#     outputs:
+#       suffix: ${{ steps.version.outputs.suffix }}
+#       prefix: ${{ steps.version.outputs.prefix }}
 
       
   build-test-macos:
@@ -73,28 +82,28 @@ jobs:
 
 # experimental deploy depending on props version info
 
-  deploy-linux:
-    needs: build-test-linux2
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy Release
-        if: needs.build-test-linux2.outputs.suffix == ''
-        run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }} on Ubuntu"
-      - name: Deploy Continious
-        if: needs.build-test-linux2.outputs.suffix != ''
-        run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }} on Ubuntu"
+#   deploy-linux:
+#     needs: build-test-linux2
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy Release
+#         if: needs.build-test-linux2.outputs.suffix == ''
+#         run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }} on Ubuntu"
+#       - name: Deploy Continious
+#         if: needs.build-test-linux2.outputs.suffix != ''
+#         run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }} on Ubuntu"
 
   deploy-release:
-    needs: read-version
-    if: needs.read-version.outputs.suffix == ''
+    needs: read-version2
+    if: needs.read-version2.outputs.suffix == ''
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Release
         run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }}"
 
   deploy-continious:
-    needs: read-version
-    if: needs.read-version.outputs.suffix != ''
+    needs: read-version2
+    if: needs.read-version2.outputs.suffix != ''
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Continious
