@@ -40,29 +40,7 @@ jobs:
       runs-on: macos-latest
       rid: "osx-x64"
 
-# experimental
-
-#   read-version:
-#     runs-on: ubuntu-latest
-#     defaults:
-#       run:
-#         shell: pwsh
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Read Version
-#         id: version
-#         run: |
-#           $Path = "Directory.Build.props"
-#           $XPath = "/Project/PropertyGroup/VersionSuffix"
-#           $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
-#           echo "suffix=$versionSuffix" >> $env:GITHUB_OUTPUT
-#           $XPath = "/Project/PropertyGroup/VersionPrefix"
-#           $versionPrefix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
-#           echo "prefix=$versionPrefix" >> $env:GITHUB_OUTPUT
-#       - name: Print Version
-#         run: |
-#           echo "The suffix is ${{ steps.version.outputs.suffix }}"
-#           echo "The prefix is ${{ steps.version.outputs.prefix }}"
+# experimental deploy depending on props version info
 
   read-version:
     defaults:
