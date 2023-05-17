@@ -7,7 +7,7 @@ on:
         required: true
         type: string
 jobs:
-  test-job:
+  build-test:
     runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: actions/checkout@v3
