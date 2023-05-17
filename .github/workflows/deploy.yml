@@ -37,11 +37,13 @@ jobs:
         with:
           rid: ${{ inputs.rid }}
           version: ${{ steps.read-version.outputs.prefix }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 #         run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
       - name: deploy-continious
         if: steps.read-version.outputs.suffix != ''
         uses: ./.github/actions/deploy-continious
         with:
           rid: ${{ inputs.rid }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 #         run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
         
