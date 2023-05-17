@@ -55,11 +55,12 @@ jobs:
         env:
           VERSION: ${{ steps.version.outputs.version }}
       - name: Print Version
-        run: |
-          if ($VERSION) {
-            echo "The version is $VERSION"
-          } else {
-            echo "Empty"
-          }
+        run: echo ${{ steps.version.outputs.version }}
+#         |
+#           if ($VERSION) {
+#             echo "The version is $VERSION"
+#           } else {
+#             echo "Empty"
+#           }
 
 
