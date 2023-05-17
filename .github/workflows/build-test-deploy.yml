@@ -51,11 +51,13 @@ jobs:
       - uses: actions/checkout@v3
       - name: Read Version
         id: version
-        run: echo "::set-output name=version::$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix").Node.InnerText"
+        run: echo "version=$(Select-XML -Path "Directory.Build.props" -XPath "//VersionSuffix").Node.InnerText" >> $GITHUB_OUTPUT
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
       - name: Print Version
         run: |
-          if (${{ steps.version.outputs.version }}) {
-            echo "The version is ${{ steps.version.outputs.version }}"
+          if ($VERSION) {
+            echo "The version is $VERSION"
           } else {
             echo "Empty"
           }
