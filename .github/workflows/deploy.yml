@@ -1,0 +1,52 @@
+name: deploy
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: string
+      rid:
+        description: 'Runtime identifier'
+        required: true
+        type: string
+        
+jobs:
+  deploy:
+    runs-on: ${{ inputs.runs-on }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v3
+      - name: read-version
+        id: read-version
+        uses: ./.github/actions/read-version
+      - name: dotnet-setup
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x
+      - name: dotnet-publish
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "publish/${{ inputs.rid }}" --sc false
+      - name: zip-artifacts
+        run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
+
+      # TODO: local action can be used I guess
+      - name: deploy-release
+        if: steps.read-version.outputs.suffix == ''
+        run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
+      - name: deploy-continious
+        if: steps.read-version.outputs.suffix != ''
+        run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
+        
+#       - name: Generate Changelog
+#         run: echo "# Release details" > ${{ github.workspace }}-CHANGELOG.txt
+#       - name: Create and upload Release
+#         uses: softprops/action-gh-release@v1
+#         with:
+#           tag_name: continious
+#           body_path: ${{ github.workspace }}-CHANGELOG.txt
+#           files: ./${{ inputs.rid }}.zip
+#           name: Continuous build
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           prerelease: true
