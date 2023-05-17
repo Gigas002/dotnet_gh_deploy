@@ -7,27 +7,17 @@ jobs:
 # building and testing tasks
 
   build-test-windows:
-    uses: ./.github/workflows/reusable-build-test.yml
+    uses: ./.github/workflows/build-test.yml
     with:
       runs-on: windows-latest
   build-test-linux:
-    uses: ./.github/workflows/reusable-build-test.yml
+    uses: ./.github/workflows/build-test.yml
     with:
       runs-on: ubuntu-latest
   build-test-macos:
-    uses: ./.github/workflows/reusable-build-test.yml
+    uses: ./.github/workflows/build-test.yml
     with:
       runs-on: macos-latest
-      
-# build test experimental
-
-  build-test-linux-2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-      - name: Build and test
-        uses: ./.github/actions/build-test
       
 # publishing tasks
       
