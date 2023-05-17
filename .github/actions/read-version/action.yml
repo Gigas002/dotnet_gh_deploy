@@ -1,0 +1,37 @@
+name: 'Read version'
+description: 'Reads version's prefix and suffix'
+inputs:
+  runs-on:
+    description: 'The operating system to run the job on'
+    required: true
+    type: string
+outputs:
+  prefix:
+    description: 'Version prefix'
+    value: ${{ jobs.read-version.outputs.prefix }}
+  suffix:
+    description: 'Version suffix'
+    value: ${{ jobs.read-version.outputs.suffix }}
+        
+runs:
+  using: "composite"
+  runs-on: ${{ inputs.runs-on }}
+  defaults:
+    run:
+      shell: pwsh
+  outputs:
+    prefix: ${{ steps.version.outputs.prefix }}
+    suffix: ${{ steps.version.outputs.suffix }}
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Read Version
+      id: version
+      run: |
+        $Path = "Directory.Build.props"
+        $XPath = "/Project/PropertyGroup/VersionPrefix"
+        $versionPrefix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
+        echo "prefix=$versionPrefix" >> $env:GITHUB_OUTPUT
+        $XPath = "/Project/PropertyGroup/VersionSuffix"
+        $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
+        echo "suffix=$versionSuffix" >> $env:GITHUB_OUTPUT
