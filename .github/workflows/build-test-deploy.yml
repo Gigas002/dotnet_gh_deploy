@@ -65,6 +65,9 @@ jobs:
 #           echo "The prefix is ${{ steps.version.outputs.prefix }}"
 
   read-version:
+    defaults:
+      run:
+        shell: pwsh
     runs-on: ubuntu-latest
     outputs:
       suffix: ${{ steps.version.outputs.suffix }}
