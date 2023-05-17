@@ -53,6 +53,17 @@ jobs:
 
 # experimental deploy depending on props version info
 
+  deploy-linux:
+    needs: build-test-linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Release
+        if: needs.read-version.outputs.suffix == ''
+        run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }} on Ubuntu"
+      - name: Deploy Continious
+        if: needs.read-version.outputs.suffix != ''
+        run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }} on Ubuntu"
+
   deploy-release:
     needs: read-version
     if: needs.read-version.outputs.suffix == ''
