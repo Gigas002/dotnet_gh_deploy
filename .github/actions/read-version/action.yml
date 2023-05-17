@@ -3,22 +3,18 @@ description: 'Reads version prefix and suffix'
 outputs:
   prefix:
     description: 'Version prefix'
-    value: ${{ jobs.read-version.outputs.prefix }}
+    value: ${{ steps.version.outputs.prefix }}
   suffix:
     description: 'Version suffix'
-    value: ${{ jobs.read-version.outputs.suffix }}
+    value: ${{ steps.version.outputs.suffix }}
         
 runs:
   using: "composite"
   defaults:
     run:
       shell: pwsh
-  outputs:
-    prefix: ${{ steps.version.outputs.prefix }}
-    suffix: ${{ steps.version.outputs.suffix }}
   steps:
-    - name: Read Version
-      id: version
+    - id: version
       run: |
         $Path = "Directory.Build.props"
         $XPath = "/Project/PropertyGroup/VersionPrefix"
