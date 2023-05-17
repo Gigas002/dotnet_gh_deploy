@@ -4,59 +4,17 @@ on: [push, pull_request]
 
 jobs:
 
-# read version.prefix and version.suffix
-# get as: needs.read-version.outputs.prefix
-
-#   read-version:
-#     uses: ./.github/workflows/reusable-read-version.yml
-#     with:
-#       runs-on: ubuntu-latest
-      
-#   read-version2:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Check out repository
-#       uses: actions/checkout@v3
-#     - name: Read version
-#       uses: ./.github/actions/read-version
-#       with:
-#         runs-on: ubuntu-latest
-
 # building and testing tasks
 
   build-test-windows:
-#     needs: read-version
     uses: ./.github/workflows/reusable-build-test.yml
     with:
       runs-on: windows-latest
   build-test-linux:
-#     needs: read-version
     uses: ./.github/workflows/reusable-build-test.yml
     with:
       runs-on: ubuntu-latest
-      
-#   build-test-linux2:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Check out repository
-#       uses: actions/checkout@v3
-#     - name: Read version
-#       uses: ./.github/actions/read-version
-#     # uses: ./.github/workflows/reusable-read-version.yml
-#     - name: Build and Test
-#       uses: ./.github/workflows/reusable-build-test.yml
-#     - name: Set versions
-#       id: version
-#       run: |
-#         echo "prefix=${{ needs.read-version.outputs.prefix }}" >> $env:GITHUB_OUTPUT
-#         echo "suffix=${{ needs.read-version.outputs.suffix }}" >> $env:GITHUB_OUTPUT
-#     outputs:
-#       suffix: ${{ steps.version.outputs.suffix }}
-#       prefix: ${{ steps.version.outputs.prefix }}
-
-      
   build-test-macos:
-#     needs: read-version
     uses: ./.github/workflows/reusable-build-test.yml
     with:
       runs-on: macos-latest
@@ -84,20 +42,8 @@ jobs:
 
 # experimental deploy depending on props version info
 
-#   deploy-linux:
-#     needs: build-test-linux2
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Deploy Release
-#         if: needs.build-test-linux2.outputs.suffix == ''
-#         run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }} on Ubuntu"
-#       - name: Deploy Continious
-#         if: needs.build-test-linux2.outputs.suffix != ''
-#         run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }} on Ubuntu"
-
-  deploy-release:
-#     needs: read-version2
-#     if: needs.read-version2.outputs.suffix == ''
+  deploy-linux:
+    needs: build-test-linux
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -106,20 +52,35 @@ jobs:
         id: read-version
         uses: ./.github/actions/read-version
       - name: Deploy Release
+        if: steps.read-version.outputs.suffix == ''
         run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
-
-  deploy-continious:
-#     needs: read-version2
-#     if: needs.read-version2.outputs.suffix != ''
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-      - name: Read version
-        id: read-version
-        uses: ./.github/actions/read-version
       - name: Deploy Continious
+        if: steps.read-version.outputs.suffix != ''
         run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
+
+#   deploy-release:
+# #     if: needs.read-version2.outputs.suffix == ''
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repository
+#         uses: actions/checkout@v3
+#       - name: Read version
+#         id: read-version
+#         uses: ./.github/actions/read-version
+#       - name: Deploy Release
+#         run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
+
+#   deploy-continious:
+# #     if: needs.read-version2.outputs.suffix != ''
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repository
+#         uses: actions/checkout@v3
+#       - name: Read version
+#         id: read-version
+#         uses: ./.github/actions/read-version
+#       - name: Deploy Continious
+#         run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
 
 
 
