@@ -7,6 +7,9 @@ outputs:
   suffix:
     description: 'Version suffix'
     value: ${{ steps.version.outputs.suffix }}
+  build:
+    description: 'Build number, taken from AssemblyVersion'
+    value: ${{ steps.version.outputs.build }}
         
 runs:
   using: "composite"
@@ -17,7 +20,13 @@ runs:
         $XPath = "/Project/PropertyGroup/VersionPrefix"
         $versionPrefix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
         echo "prefix=$versionPrefix" >> $env:GITHUB_OUTPUT
+        
         $XPath = "/Project/PropertyGroup/VersionSuffix"
         $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
         echo "suffix=$versionSuffix" >> $env:GITHUB_OUTPUT
+        
+        $XPath = "/Project/PropertyGroup/AssemblyVersion"
+        $assemblyVersion = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
+        $buildVersion = $assemblyVersion.split('.')[-1]
+        echo "build=$buildVersion" >> $env:GITHUB_OUTPUT
       shell: pwsh
