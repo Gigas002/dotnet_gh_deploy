@@ -13,6 +13,9 @@ on:
 jobs:
   test-job:
     runs-on: ${{ inputs.runs-on }}
+    defaults:
+      run:
+        shell: pwsh
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
@@ -22,7 +25,8 @@ jobs:
       - name: Publish
         run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "publish/${{ inputs.rid }}" --sc false
       - name: Zip
-        run: zip -r ${{ inputs.rid }}.zip publish/${{ inputs.rid }}
+        run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
+#         run: zip -r ${{ inputs.rid }}.zip publish/${{ inputs.rid }}
       - name: Generate Changelog
         run: echo "# Release details" > ${{ github.workspace }}-CHANGELOG.txt
       - name: Create and upload Release
