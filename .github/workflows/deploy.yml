@@ -36,7 +36,9 @@ jobs:
       - name: dotnet-build
         run: dotnet build -c Release
       - name: dotnet-pack
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build
+        run: |
+         echo build number: ${{ steps.read-version.outputs.build }}
+          dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
 
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
