@@ -23,38 +23,38 @@ jobs:
       
   publish-windows-cli:
     needs: build-test-windows
-    uses: ./.github/workflows/reusable-cli-deploy.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       runs-on: windows-latest
       rid: "win-x64"
   publish-linux-cli:
     needs: build-test-linux
-    uses: ./.github/workflows/reusable-cli-deploy.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       runs-on: ubuntu-latest
       rid: "linux-x64"
   publish-macos-cli:
     needs: build-test-macos
-    uses: ./.github/workflows/reusable-cli-deploy.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       runs-on: macos-latest
       rid: "osx-x64"
 
 # experimental deploy depending on props version info
 
-  deploy-linux:
-    needs: build-test-linux
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
-      - name: Read version
-        id: read-version
-        uses: ./.github/actions/read-version
-      - name: Deploy Release
-        if: steps.read-version.outputs.suffix == ''
-        run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
-      - name: Deploy Continious
-        if: steps.read-version.outputs.suffix != ''
-        run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
+#   deploy-linux:
+#     needs: build-test-linux
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repository
+#         uses: actions/checkout@v3
+#       - name: Read version
+#         id: read-version
+#         uses: ./.github/actions/read-version
+#       - name: Deploy Release
+#         if: steps.read-version.outputs.suffix == ''
+#         run: echo "Deploying release version ${{ steps.read-version.outputs.prefix }}"
+#       - name: Deploy Continious
+#         if: steps.read-version.outputs.suffix != ''
+#         run: echo "Deploying continious version ${{ steps.read-version.outputs.prefix }}-${{ steps.read-version.outputs.suffix }}"
 
