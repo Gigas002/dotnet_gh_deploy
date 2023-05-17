@@ -32,16 +32,16 @@ jobs:
         run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
 
       - name: deploy-release
-#         if: steps.read-version.outputs.suffix == ''
+        if: steps.read-version.outputs.suffix == ''
         uses: ./.github/actions/deploy-release
         with:
           rid: ${{ inputs.rid }}
           version: ${{ steps.read-version.outputs.prefix }}
           token: ${{ secrets.GITHUB_TOKEN }}
-#       - name: deploy-continious
-#         if: steps.read-version.outputs.suffix != ''
-#         uses: ./.github/actions/deploy-continious
-#         with:
-#           rid: ${{ inputs.rid }}
-#           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: deploy-continious
+        if: steps.read-version.outputs.suffix != ''
+        uses: ./.github/actions/deploy-continious
+        with:
+          rid: ${{ inputs.rid }}
+          token: ${{ secrets.GITHUB_TOKEN }}
         
