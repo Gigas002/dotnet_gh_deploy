@@ -1,0 +1,21 @@
+name: 'Deploy continious'
+description: 'Deploy continious build'
+inputs:
+  rid:
+    description: 'Runtime identifier'
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create and upload Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: continious
+        files: ./${{ inputs.rid }}.zip
+        name: Continuous build
+        token: ${{ secrets.GITHUB_TOKEN }}
+        prerelease: true
+      shell: pwsh
+      
