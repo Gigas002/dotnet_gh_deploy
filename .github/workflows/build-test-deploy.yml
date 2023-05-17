@@ -100,6 +100,8 @@ jobs:
 #     if: needs.read-version2.outputs.suffix == ''
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
       - name: Read version
         id: read-version
         uses: ./.github/actions/read-version
@@ -111,6 +113,8 @@ jobs:
 #     if: needs.read-version2.outputs.suffix != ''
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
       - name: Read version
         id: read-version
         uses: ./.github/actions/read-version
