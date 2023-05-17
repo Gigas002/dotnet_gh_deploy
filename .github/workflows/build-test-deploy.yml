@@ -54,23 +54,18 @@ jobs:
         run: |
           $Path = "Directory.Build.props"
           $XPath = "/Project/PropertyGroup/VersionSuffix"
-          $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
-          echo "Select-XML output:"
-          echo $versionSuffix
-          echo "version=$versionSuffix" >> $env:GITHUB_OUTPUT
-          echo "GITHUB_OUTPUT content:"
-          cat "$GITHUB_OUTPUT"
+          echo "suffix=$(Select-Xml -Path $Path -XPath $Xpath).Node.InnerText" >> $env:GITHUB_OUTPUT
       - name: Print Version
+        env:
+          VERSION: ${{ steps.version.outputs.suffix }}
         run: |
-          echo "steps.version.outputs.version context:"
-          echo "${{ steps.version.outputs.version }}"
-          if ($VERSION) {
-            echo "The version is $VERSION"
+          if (${{ steps.version.outputs.suffix }}) {
+            echo "The version is ${{ steps.version.outputs.suffix }}"
+            echo $VERSION
           } else {
             echo "Empty"
           }
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
+
 #       - name: Read Version
 #         id: version
 #         run: |
