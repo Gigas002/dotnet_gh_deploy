@@ -78,10 +78,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Release
-        if: needs.build-test-linuxn2.outputs.suffix == ''
+        if: needs.build-test-linux.outputs.suffix == ''
         run: echo "Deploying release version ${{ needs.read-version.outputs.prefix }} on Ubuntu"
       - name: Deploy Continious
-        if: needs.build-test-linux2.outputs.suffix != ''
+        if: needs.build-test-linux.outputs.suffix != ''
         run: echo "Deploying continious version ${{ needs.read-version.outputs.prefix }}-${{ needs.read-version.outputs.suffix }} on Ubuntu"
 
   deploy-release:
