@@ -23,18 +23,21 @@ jobs:
       
   deploy-windows:
     needs: build-test-windows
+    if: github.event_name == 'push'
     uses: ./.github/workflows/deploy.yml
     with:
       runs-on: windows-latest
       rid: "win-x64"
   deploy-linux:
     needs: build-test-linux
+    if: github.event_name == 'push'
     uses: ./.github/workflows/deploy.yml
     with:
       runs-on: ubuntu-latest
       rid: "linux-x64"
   deploy-macos:
     needs: build-test-macos
+    if: github.event_name == 'push'
     uses: ./.github/workflows/deploy.yml
     with:
       runs-on: macos-latest
