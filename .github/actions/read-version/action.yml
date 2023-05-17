@@ -1,5 +1,5 @@
 name: 'Read version'
-description: 'Reads version's prefix and suffix'
+description: 'Reads version prefix and suffix'
 outputs:
   prefix:
     description: 'Version prefix'
