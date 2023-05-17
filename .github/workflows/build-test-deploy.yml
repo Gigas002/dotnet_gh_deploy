@@ -42,27 +42,32 @@ jobs:
 
 # experimental deploy depending on props version info
 
+#   read-version:
+#     defaults:
+#       run:
+#         shell: pwsh
+#     runs-on: ubuntu-latest
+#     outputs:
+#       suffix: ${{ steps.version.outputs.suffix }}
+#       prefix: ${{ steps.version.outputs.prefix }}
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#       - name: Read Version
+#         id: version
+#         run: |
+#           $Path = "Directory.Build.props"
+#           $XPath = "/Project/PropertyGroup/VersionSuffix"
+#           $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
+#           echo "suffix=$versionSuffix" >> $env:GITHUB_OUTPUT
+#           $XPath = "/Project/PropertyGroup/VersionPrefix"
+#           $versionPrefix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
+#           echo "prefix=$versionPrefix" >> $env:GITHUB_OUTPUT
+
   read-version:
-    defaults:
-      run:
-        shell: pwsh
-    runs-on: ubuntu-latest
-    outputs:
-      suffix: ${{ steps.version.outputs.suffix }}
-      prefix: ${{ steps.version.outputs.prefix }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Read Version
-        id: version
-        run: |
-          $Path = "Directory.Build.props"
-          $XPath = "/Project/PropertyGroup/VersionSuffix"
-          $versionSuffix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
-          echo "suffix=$versionSuffix" >> $env:GITHUB_OUTPUT
-          $XPath = "/Project/PropertyGroup/VersionPrefix"
-          $versionPrefix = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
-          echo "prefix=$versionPrefix" >> $env:GITHUB_OUTPUT
+    uses: ./.github/workflows/reusable-read-version.yml
+    with:
+      runs-on: ubuntu-latest
 
   deploy-release:
     needs: read-version
