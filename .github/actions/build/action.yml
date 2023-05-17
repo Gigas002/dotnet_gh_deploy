@@ -1,0 +1,11 @@
+name: 'Build'
+description: 'Build solution'
+runs:
+  using: "composite"
+  steps:
+    - id: dotnet-restore
+      run: dotnet restore
+      shell: pwsh
+    - id: dotnet-build
+      run: dotnet build --no-restore -c Release
+      shell: pwsh
