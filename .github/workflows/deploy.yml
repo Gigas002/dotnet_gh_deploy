@@ -57,15 +57,15 @@ jobs:
       
       - name: echo-on-ubuntu
         if: ${{ inputs.runs-on }} == 'ubuntu-latest'
-        run: echo This is ubuntu
+        run: echo This is ${{ inputs.runs-on }}
         
       - name: echo-on-macos
         if: ${{ inputs.runs-on }} == 'macos-latest'
-        run: echo This is macos
+        run: echo This is ${{ inputs.runs-on }}
         
       - name: echo-on-windows
         if: ${{ inputs.runs-on }} == 'windows-latest'
-        run: echo This is windows
+        run: echo This is ${{ inputs.runs-on }}
         
         
         
