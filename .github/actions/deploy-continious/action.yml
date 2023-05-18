@@ -42,5 +42,4 @@ runs:
         name: Continuous build
         token: ${{ inputs.gh-token }}
         prerelease: true
-      shell: pwsh
       
