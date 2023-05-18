@@ -32,9 +32,7 @@ jobs:
           dotnet-version: 7.x
           
       - name: dotnet-publish
-        run: |
-          echo Publishing path: "${{ inputs.publish-path }}/${{ inputs.rid }}"
-          dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "${{ inputs.publish-path }}/${{ inputs.rid }}" --sc false
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "${{ inputs.publish-path }}/${{ inputs.rid }}" --sc false
       - name: zip-artifacts
         run: Compress-Archive -Path ${{ inputs.publish-path }}/${{ inputs.rid }}/* -Destination ${{ inputs.publish-path }}/${{ inputs.rid }}.zip
         
