@@ -30,7 +30,6 @@ runs:
         foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
         {
             echo Dummy: ${{ inputs.dummy }}
-            echo Dummy2: ${{ secrets.DUMMY }}
             echo dotnet nuget push $file.FullName --source "https://api.nuget.org/v3/index.json" --skip-duplicate
             dotnet nuget push $file.FullName -k ${{ inputs.nuget-token }} -s "https://api.nuget.org/v3/index.json" -ss "https://api.nuget.org/v3/index.json" --skip-duplicate
         }
