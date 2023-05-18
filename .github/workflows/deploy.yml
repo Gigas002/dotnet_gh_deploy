@@ -14,10 +14,6 @@ on:
         description: 'Source to publish nuget package on github feed'
         required: true
         type: string
-      dummy:
-        description: 'Its me'
-        required: true
-        type: string
     secrets:
       NUGET_API_KEY:
         required: true
@@ -32,9 +28,6 @@ jobs:
       rid: ''
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Echo dummy
-        run: echo ${{env.dummy}}
       
       - name: Set rid for ubuntu
         if: ${{inputs.runs-on == 'ubuntu-latest'}}
