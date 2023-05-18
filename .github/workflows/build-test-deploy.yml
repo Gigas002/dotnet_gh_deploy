@@ -29,6 +29,7 @@ jobs:
       runs-on: windows-latest
       rid: "win-x64"
       publish-path: 'publish'
+      gh-nuget-source: 'senketsu03'
     secrets:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   deploy-linux:
@@ -39,6 +40,7 @@ jobs:
       runs-on: ubuntu-latest
       rid: "linux-x64"
       publish-path: 'publish'
+      gh-nuget-source: 'senketsu03'
     secrets:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   deploy-macos:
@@ -49,5 +51,6 @@ jobs:
       runs-on: macos-latest
       rid: "osx-x64"
       publish-path: 'publish'
+      gh-nuget-source: 'senketsu03'
     secrets:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
