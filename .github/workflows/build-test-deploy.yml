@@ -6,15 +6,6 @@ jobs:
 
 # building and testing tasks
 
-  echo-env:
-    runs-on: ubuntu-latest
-    steps:
-      - name: echo env
-        run: |
-          echo Dummy: $DUMMY
-          echo Dummy_env: ${{ env.DUMMY }}
-          echo Dummy_secret: ${{ secrets.DUMMY }}
-
   build-test-windows:
     uses: ./.github/workflows/build-test.yml
     with:
