@@ -27,7 +27,7 @@ runs:
         {
             echo $file.FullName
             echo dotnet nuget push $file.FullName -s "https://api.nuget.org/v3/index.json" --skip-duplicate
-            dotnet nuget push $file -k ${{ inputs.nuget-token }} -s "https://api.nuget.org/v3/index.json" --skip-duplicate
+            dotnet nuget push $file.FullName -k ${{ inputs.nuget-token }} -s "https://api.nuget.org/v3/index.json" --skip-duplicate
         }
       shell: pwsh
     - id: push-github-nupkg
