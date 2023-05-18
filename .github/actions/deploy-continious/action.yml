@@ -5,7 +5,7 @@ inputs:
     description: 'Runtime identifier'
     required: true
     type: string
-  token:
+  gh-token:
     description: 'GitHub token'
     required: true
     type: string
@@ -19,6 +19,6 @@ runs:
         tag_name: continious
         files: ./${{ inputs.rid }}.zip
         name: Continuous build
-        token: ${{ inputs.token }}
+        token: ${{ inputs.gh-token }}
         prerelease: true
       
