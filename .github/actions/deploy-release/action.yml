@@ -25,14 +25,14 @@ runs:
       run: echo "Placeholder"
       shell: pwsh
     - id: generate-changelog
-      run: echo "# Release details" > ${{ github.workspace }}-CHANGELOG.txt
+      run: echo "# Release details" > ${{github.workspace}}-CHANGELOG.txt
       shell: pwsh
     - id: create-release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: v${{ inputs.version }}
-        body_path: ${{ github.workspace }}-CHANGELOG.txt
-        files: ${{ inputs.publish-path }}/${{ inputs.rid }}.zip
-        name: v${{ inputs.version }}
-        token: ${{ inputs.gh-token }}
+        tag_name: v${{inputs.version}}
+        body_path: ${{github.workspace}}-CHANGELOG.txt
+        files: ${{inputs.publish-path}}/${{inputs.rid}}.zip
+        name: v${{inputs.version}}
+        token: ${{inputs.gh-token}}
       
