@@ -13,10 +13,6 @@ inputs:
     description: 'GitHub token'
     required: true
     type: string
-  nuget-token:
-    description: 'Nuget API key'
-    required: true
-    type: string
   publish-path:
     description: 'Path to published artifacts'
     required: true
@@ -25,16 +21,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: push-nuget-nupkg
-      run: |
-        foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
-        {
-            dotnet nuget push $file -k ${{ inputs.nuget-token }} -s https://api.nuget.org/v3/index.json --skip-duplicate
-        }
-      shell: pwsh
-    - id: push-github-nupkg
-      run: echo "Placeholder"
-      shell: pwsh
     - id: push-github-docker
       run: echo "Placeholder"
       shell: pwsh
