@@ -10,6 +10,10 @@ on:
         description: 'Runtime identifier'
         required: true
         type: string
+      publish-path:
+        description: 'Base path to publish artifact'
+        required: true
+        type: string
         
 jobs:
   deploy:
@@ -28,19 +32,19 @@ jobs:
           dotnet-version: 7.x
           
       - name: dotnet-publish
-        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "publish/${{ inputs.rid }}" --sc false
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "${{ inputs.runs-on }}/${{ inputs.rid }}" --sc false
       - name: zip-artifacts
-        run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination publish/${{ inputs.rid }}.zip
+        run: Compress-Archive -Path ${{ inputs.runs-on }}/${{ inputs.rid }}/* -Destination ${{ inputs.runs-on }}/${{ inputs.rid }}.zip
         
       - name: dotnet-build
         run: dotnet build -c Release
         
       - name: dotnet-pack-release
         if: steps.read-version.outputs.suffix == ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.runs-on }}/Nupkg" --no-build
       - name: dotnet-pack-continious
         if: steps.read-version.outputs.suffix != ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.runs-on }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
 
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
@@ -49,6 +53,7 @@ jobs:
           rid: ${{ inputs.rid }}
           version: ${{ steps.read-version.outputs.prefix }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: deploy-continious
         if: steps.read-version.outputs.suffix != ''
         uses: ./.github/actions/deploy-continious
@@ -56,5 +61,5 @@ jobs:
           rid: ${{ inputs.rid }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           nuget-token: ${{ secrets.NUGET_API_KEY }}
-          publish-path: 'publish'
+          publish-path: ${{ inputs.runs-on }}
         
