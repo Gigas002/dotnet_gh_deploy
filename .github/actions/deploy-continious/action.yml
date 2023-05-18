@@ -30,8 +30,10 @@ runs:
       shell: pwsh
     - id: push-github-nupkg
       run: echo "Placeholder"
+      shell: pwsh
     - id: push-github-docker
       run: echo "Placeholder"
+      shell: pwsh
     - id: create-release
       uses: softprops/action-gh-release@v1
       with:
@@ -40,4 +42,5 @@ runs:
         name: Continuous build
         token: ${{ inputs.gh-token }}
         prerelease: true
+      shell: pwsh
       
