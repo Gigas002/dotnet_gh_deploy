@@ -38,7 +38,7 @@ jobs:
         if: ${{ inputs.runs-on == 'macos-latest' }}
         run: echo 'runtimes=osx-x64' >> $GITHUB_ENV
       - name: Echo variable
-        run: echo ${{env.runtimes}}
+        run: echo '${{env.runtimes}}'
 
 
 
