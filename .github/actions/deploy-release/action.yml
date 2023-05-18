@@ -46,7 +46,7 @@ runs:
       with:
         tag_name: v${{ inputs.version }}
         body_path: ${{ github.workspace }}-CHANGELOG.txt
-        files: ./${{ inputs.rid }}.zip
+        files: ${{ inputs.publish-path }}/${{ inputs.rid }}.zip
         name: v${{ inputs.version }}
         token: ${{ inputs.gh-token }}
       
