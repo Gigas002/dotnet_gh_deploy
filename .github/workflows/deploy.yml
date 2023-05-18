@@ -28,8 +28,15 @@ jobs:
     env:
       runtimes: ''
     steps:
-      - name: Set variable
-        run: echo "runtimes=my.docker.repo/awesome-image:release" >> $GITHUB_ENV
+      - name: Set variable for ubuntu
+        if: ${{ inputs.runs-on == 'ubuntu-latest' }}
+        run: echo 'runtimes=linux-x64' >> $GITHUB_ENV
+      - name: Set variable for windows
+        if: ${{ inputs.runs-on == 'windows-latest' }}
+        run: echo 'runtimes=win-x64' >> $GITHUB_ENV
+      - name: Set variable for macos
+        if: ${{ inputs.runs-on == 'macos-latest' }}
+        run: echo 'runtimes=osx-x64' >> $GITHUB_ENV
       - name: Echo variable
         run: echo ${{env.runtimes}}
 
