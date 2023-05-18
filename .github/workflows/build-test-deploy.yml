@@ -17,6 +17,9 @@ jobs:
 #     with:
 #       runs-on:  ${{ matrix.os }}
 
+# passing env to jobs
+# see: https://github.com/orgs/community/discussions/26671
+
   build-test-windows:
     uses: ./.github/workflows/build-test.yml
     with:
@@ -40,8 +43,7 @@ jobs:
       runs-on: windows-latest
       publish-path: 'publish'
       gh-nuget-source: 'senketsu03'
-    secrets:
-      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+    secrets: inherit
   deploy-linux:
     needs: build-test-linux
     if: github.event_name == 'push'
@@ -51,7 +53,6 @@ jobs:
       publish-path: 'publish'
       gh-nuget-source: 'senketsu03'
     secrets: inherit
-#       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   deploy-macos:
     needs: build-test-macos
     if: github.event_name == 'push'
@@ -60,5 +61,4 @@ jobs:
       runs-on: macos-latest
       publish-path: 'publish'
       gh-nuget-source: 'senketsu03'
-    secrets:
-      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+    secrets: inherit
