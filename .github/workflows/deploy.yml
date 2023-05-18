@@ -47,10 +47,10 @@ jobs:
         run: dotnet build -c Release
         
       - name: dotnet-pack-release
-        if: steps.read-version.outputs.suffix == '' && ${{ inputs.runs-on }} == 'ubuntu-latest'
+        if: (steps.read-version.outputs.suffix == '') && (${{ inputs.runs-on }} == 'ubuntu-latest')
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build
       - name: dotnet-pack-continious
-        if: steps.read-version.outputs.suffix != '' && ${{ inputs.runs-on }} == 'ubuntu-latest'
+        if: (steps.read-version.outputs.suffix != '') && (${{ inputs.runs-on }} == 'ubuntu-latest')
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
 
       - name: push-nuget-nupkg
