@@ -24,8 +24,8 @@ runs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: continious
-        files: ${{ inputs.publish-path }}/${{ inputs.rid }}.zip
+        files: ${{inputs.publish-path}}/${{inputs.rid}}.zip
         name: Continuous build
-        token: ${{ inputs.gh-token }}
+        token: ${{inputs.gh-token}}
         prerelease: true
       
