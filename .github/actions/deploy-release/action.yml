@@ -9,7 +9,7 @@ inputs:
     description: 'Release version'
     required: true
     type: string
-  token:
+  gh-token:
     description: 'GitHub token'
     required: true
     type: string
@@ -27,5 +27,5 @@ runs:
         body_path: ${{ github.workspace }}-CHANGELOG.txt
         files: ./${{ inputs.rid }}.zip
         name: v${{ inputs.version }}
-        token: ${{ inputs.token }}
+        token: ${{ inputs.gh-token }}
       
