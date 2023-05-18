@@ -29,10 +29,11 @@ runs:
         }
       shell: pwsh
     - id: push-github-nupkg
+    # TODO: get NAMESPACE as argument
       run: |
         foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
         {
-            dotnet nuget push $file -s "github" -ss "github" --skip-duplicate
+            dotnet nuget push $file -k ${{ inputs.gh-token }} -s "https://nuget.pkg.github.com/senketsu03/index.json" -ss "https://nuget.pkg.github.com/senketsu03/index.json" --skip-duplicate
         }
       shell: pwsh
     - id: push-github-docker
