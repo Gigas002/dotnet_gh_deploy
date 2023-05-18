@@ -28,15 +28,17 @@ jobs:
       rid: ''
     steps:
       - uses: actions/checkout@v3
-      - name: Set variable for ubuntu
+      
+      - name: Set rid for ubuntu
         if: ${{inputs.runs-on == 'ubuntu-latest'}}
-        run: echo 'runtimes=linux-x64' >> $env:GITHUB_ENV
-      - name: Set variable for windows
+        run: echo 'rid=linux-x64' >> $env:GITHUB_ENV
+      - name: Set rid for windows
         if: ${{inputs.runs-on == 'windows-latest'}}
-        run: echo 'runtimes=win-x64' >> $env:GITHUB_ENV
-      - name: Set variable for macos
+        run: echo 'rid=win-x64' >> $env:GITHUB_ENV
+      - name: Set rid for macos
         if: ${{inputs.runs-on == 'macos-latest'}}
-        run: echo 'runtimes=osx-x64' >> $env:GITHUB_ENV
+        run: echo 'rid=osx-x64' >> $env:GITHUB_ENV
+        
       - name: read-version
         id: read-version
         uses: ./.github/actions/read-version
