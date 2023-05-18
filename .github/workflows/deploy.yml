@@ -49,6 +49,12 @@ jobs:
         if: steps.read-version.outputs.suffix != ''
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
 
+      - name: echo env
+        run: |
+          echo Dummy: $DUMMY
+          echo Dummy_env: ${{ env.DUMMY }}
+          echo Dummy_secret: ${{ secrets.DUMMY }}
+
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
         uses: ./.github/actions/deploy-release
