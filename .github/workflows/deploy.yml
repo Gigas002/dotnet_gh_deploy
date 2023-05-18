@@ -15,6 +15,9 @@ on:
         required: true
         type: string
         
+env:
+  DUMMY: ${{ secrets.DUMMY }}
+        
 jobs:
   deploy:
     runs-on: ${{ inputs.runs-on }}
@@ -61,6 +64,6 @@ jobs:
           rid: ${{ inputs.rid }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           nuget-token: ${{ secrets.NUGET_API_KEY }}
-          dummy: ${{ secrets.DUMMY }}
+          dummy: ${{ env.DUMMY }}
           publish-path: ${{ inputs.publish-path }}
         
