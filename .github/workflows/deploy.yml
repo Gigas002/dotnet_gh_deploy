@@ -23,6 +23,18 @@ on:
         required: true
         
 jobs:
+  variables:
+    runs-on: ${{ inputs.runs-on }}
+    env:
+      runtimes: ''
+    steps:
+      - name: Set variable
+        run: echo "runtimes=my.docker.repo/awesome-image:release" >> $GITHUB_ENV
+      - name: Echo variable
+        run: echo ${{env.runtimes}}
+
+
+
   deploy:
     runs-on: ${{ inputs.runs-on }}
     defaults:
