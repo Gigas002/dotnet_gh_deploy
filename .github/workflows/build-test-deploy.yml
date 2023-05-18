@@ -30,7 +30,7 @@ jobs:
       rid: "win-x64"
       publish-path: 'publish'
     secrets:
-      DUMMY: ${{ secrets.DUMMY }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   deploy-linux:
     needs: build-test-linux
     if: github.event_name == 'push'
@@ -40,7 +40,7 @@ jobs:
       rid: "linux-x64"
       publish-path: 'publish'
     secrets:
-      DUMMY: ${{ secrets.DUMMY }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   deploy-macos:
     needs: build-test-macos
     if: github.event_name == 'push'
@@ -50,4 +50,4 @@ jobs:
       rid: "osx-x64"
       publish-path: 'publish'
     secrets:
-      DUMMY: ${{ secrets.DUMMY }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
