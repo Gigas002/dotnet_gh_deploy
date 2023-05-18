@@ -61,5 +61,6 @@ jobs:
           rid: ${{ inputs.rid }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           nuget-token: ${{ secrets.NUGET_API_KEY }}
+          dummy: ${{ secrets.DUMMY }}
           publish-path: ${{ inputs.publish-path }}
         
