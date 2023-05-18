@@ -62,7 +62,7 @@ jobs:
       
       - name: push-nuget-nupkg
         run: |
-          foreach($file in (Get-ChildItem '${{inputs.publish-path}/' -Recurse -Include *.nupkg))
+          foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
           {
               dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
           }
