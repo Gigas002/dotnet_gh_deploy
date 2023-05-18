@@ -29,6 +29,7 @@ jobs:
       runs-on: windows-latest
       rid: "win-x64"
       publish-path: 'publish'
+      DUMMY: ${{ secrets.DUMMY }}
   deploy-linux:
     needs: build-test-linux
     if: github.event_name == 'push'
@@ -37,6 +38,7 @@ jobs:
       runs-on: ubuntu-latest
       rid: "linux-x64"
       publish-path: 'publish'
+      DUMMY: ${{ secrets.DUMMY }}
   deploy-macos:
     needs: build-test-macos
     if: github.event_name == 'push'
@@ -45,3 +47,4 @@ jobs:
       runs-on: macos-latest
       rid: "osx-x64"
       publish-path: 'publish'
+      DUMMY: ${{ secrets.DUMMY }}
