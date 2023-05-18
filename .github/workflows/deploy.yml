@@ -42,12 +42,27 @@ jobs:
       - name: dotnet-build
         run: dotnet build -c Release
         
-      - name: dotnet-pack-release
+      - name: dotnet-pack
         if: steps.read-version.outputs.suffix == ''
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build
       - name: dotnet-pack-continious
         if: steps.read-version.outputs.suffix != ''
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
+
+      - name: push-nuget-nupkg
+        run: |
+          foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
+          {
+              dotnet nuget push $file -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+          }
+        shell: pwsh
+      - id: push-github-nupkg
+      # TODO: get NAMESPACE as argument
+        run: |
+          foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
+          {
+              dotnet nuget push $file -k ${{ secrets.GITHUB_TOKEN }} -s "https://nuget.pkg.github.com/senketsu03/index.json" -ss "https://nuget.pkg.github.com/senketsu03/index.json" --skip-duplicate
+          }
 
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
@@ -56,7 +71,6 @@ jobs:
           rid: ${{ inputs.rid }}
           version: ${{ steps.read-version.outputs.prefix }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
-          nuget-token: ${{ secrets.NUGET_API_KEY }}
           publish-path: ${{ inputs.publish-path }}
           
       - name: deploy-continious
@@ -65,6 +79,5 @@ jobs:
         with:
           rid: ${{ inputs.rid }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
-          nuget-token: ${{ secrets.NUGET_API_KEY }}
           publish-path: ${{ inputs.publish-path }}
         
