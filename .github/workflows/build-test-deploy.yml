@@ -2,9 +2,6 @@ name: build-test-deploy
 
 on: [push, pull_request]
 
-env:
-  PUBLISH_PATH: 'publish'
-
 jobs:
 
 # building and testing tasks
@@ -31,7 +28,7 @@ jobs:
     with:
       runs-on: windows-latest
       rid: "win-x64"
-      publish-path: ${{ env.PUBLISH_PATH }}
+      publish-path: 'publish'
   deploy-linux:
     needs: build-test-linux
     if: github.event_name == 'push'
@@ -39,7 +36,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       rid: "linux-x64"
-      publish-path: ${{ env.PUBLISH_PATH }}
+      publish-path: 'publish'
   deploy-macos:
     needs: build-test-macos
     if: github.event_name == 'push'
@@ -47,4 +44,4 @@ jobs:
     with:
       runs-on: macos-latest
       rid: "osx-x64"
-      publish-path: ${{ env.PUBLISH_PATH }}
+      publish-path: 'publish'
