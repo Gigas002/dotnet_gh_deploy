@@ -17,10 +17,6 @@ inputs:
     description: 'Path to published artifacts'
     required: true
     type: string
-  dummy:
-    description: 'Nuget API key'
-    required: true
-    type: string
     
 runs:
   using: "composite"
