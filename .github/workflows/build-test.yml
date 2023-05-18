@@ -8,7 +8,7 @@ on:
         type: string
 jobs:
   build-test:
-    runs-on: ${{ inputs.runs-on }}
+    runs-on: ${{inputs.runs-on}}
     steps:
       - uses: actions/checkout@v3
       - name: dotnet-setup
