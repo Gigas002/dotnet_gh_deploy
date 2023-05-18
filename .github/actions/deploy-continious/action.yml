@@ -9,15 +9,30 @@ inputs:
     description: 'GitHub token'
     required: true
     type: string
-
+  nuget-token:
+    description: 'Nuget API key'
+    required: true
+    type: string
+  publish-path:
+    description: 'Path to published artifacts'
+    required: true
+    type: string
+    
 runs:
   using: "composite"
   steps:
+#     - id: push-nuget
+#       run: |
+#         foreach($file in (Get-ChildItem "publish/" -Recurse -Include *.nupkg))
+#         {
+#             dotnet nuget push $file -k $apiKey -s https://api.nuget.org/v3/index.json --skip-duplicate
+#         }
+#       shell: pwsh
     - id: create-release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: continious
-        files: ./${{ inputs.rid }}.zip
+        files: ${{ inputs.publish-path }}/${{ inputs.rid }}.zip
         name: Continuous build
         token: ${{ inputs.gh-token }}
         prerelease: true
