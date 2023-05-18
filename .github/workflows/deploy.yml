@@ -6,10 +6,6 @@ on:
         description: 'The operating system to run the job on'
         required: true
         type: string
-      rid:
-        description: 'Runtime identifier'
-        required: true
-        type: string
       publish-path:
         description: 'Base path to publish artifact'
         required: true
@@ -23,32 +19,24 @@ on:
         required: true
         
 jobs:
-  variables:
-    runs-on: ${{ inputs.runs-on }}
-    env:
-      runtimes: ''
-    steps:
-      - name: Set variable for ubuntu
-        if: ${{ inputs.runs-on == 'ubuntu-latest' }}
-        run: echo 'runtimes=linux-x64' >> $env:GITHUB_ENV
-      - name: Set variable for windows
-        if: ${{ inputs.runs-on == 'windows-latest' }}
-        run: echo 'runtimes=win-x64' >> $env:GITHUB_ENV
-      - name: Set variable for macos
-        if: ${{ inputs.runs-on == 'macos-latest' }}
-        run: echo 'runtimes=osx-x64' >> $env:GITHUB_ENV
-      - name: Echo variable
-        run: echo '${{ env.runtimes }}'
-
-
-
   deploy:
-    runs-on: ${{ inputs.runs-on }}
+    runs-on: ${{inputs.runs-on}}
     defaults:
       run:
         shell: pwsh
+    env:
+      rid: ''
     steps:
       - uses: actions/checkout@v3
+      - name: Set variable for ubuntu
+        if: ${{inputs.runs-on == 'ubuntu-latest'}}
+        run: echo 'runtimes=linux-x64' >> $env:GITHUB_ENV
+      - name: Set variable for windows
+        if: ${{inputs.runs-on == 'windows-latest'}}
+        run: echo 'runtimes=win-x64' >> $env:GITHUB_ENV
+      - name: Set variable for macos
+        if: ${{inputs.runs-on == 'macos-latest'}}
+        run: echo 'runtimes=osx-x64' >> $env:GITHUB_ENV
       - name: read-version
         id: read-version
         uses: ./.github/actions/read-version
@@ -58,47 +46,47 @@ jobs:
           dotnet-version: 7.x
           
       - name: dotnet-publish
-        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "${{ inputs.publish-path }}/${{ inputs.rid }}" --sc false
+        run: dotnet publish 'Deploy.Cli/Deploy.Cli.csproj' -c Release -r ${{env.rid}} -o '${{inputs.publish-path}}/${{env.rid}}' --sc false
       - name: zip-artifacts
-        run: Compress-Archive -Path ${{ inputs.publish-path }}/${{ inputs.rid }}/* -Destination ${{ inputs.publish-path }}/${{ inputs.rid }}.zip
+        run: Compress-Archive -Path '${{inputs.publish-path}}/${{env.rid}}/*' -Destination '${{inputs.publish-path}}/${{env.rid}}.zip'
         
       - name: dotnet-build
         run: dotnet build -c Release
         
       - name: dotnet-pack-release
         if: steps.read-version.outputs.suffix == ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build
       - name: dotnet-pack-continious
         if: steps.read-version.outputs.suffix != ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build --version-suffix ci-${{steps.read-version.outputs.build}}
       
       - name: push-nuget-nupkg
         run: |
-          foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
+          foreach($file in (Get-ChildItem '${{inputs.publish-path}/' -Recurse -Include *.nupkg))
           {
-              dotnet nuget push $file -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+              dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
           }
       - name: push-github-nupkg
         run: |
-          foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
+          foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
           {
-              dotnet nuget push $file -k ${{ secrets.GITHUB_TOKEN }} -s "https://nuget.pkg.github.com/${{ inputs.gh-nuget-source }}/index.json" -ss "https://nuget.pkg.github.com/${{ inputs.gh-nuget-source }}/index.json" --skip-duplicate
+              dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' -ss 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
           }
 
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
         uses: ./.github/actions/deploy-release
         with:
-          rid: ${{ inputs.rid }}
-          version: ${{ steps.read-version.outputs.prefix }}
-          gh-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-path: ${{ inputs.publish-path }}
+          rid: ${{env.rid}}
+          version: ${{steps.read-version.outputs.prefix}}
+          gh-token: ${{secrets.GITHUB_TOKEN}}
+          publish-path: ${{inputs.publish-path}}
           
       - name: deploy-continious
         if: steps.read-version.outputs.suffix != ''
         uses: ./.github/actions/deploy-continious
         with:
-          rid: ${{ inputs.rid }}
-          gh-token: ${{ secrets.GITHUB_TOKEN }}
-          publish-path: ${{ inputs.publish-path }}
+          rid: ${{inputs.rid}}
+          gh-token: ${{secrets.GITHUB_TOKEN}}
+          publish-path: ${{inputs.publish-path}}
         
