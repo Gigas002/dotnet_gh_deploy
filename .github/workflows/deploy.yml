@@ -32,19 +32,19 @@ jobs:
           dotnet-version: 7.x
           
       - name: dotnet-publish
-        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "${{ inputs.runs-on }}/${{ inputs.rid }}" --sc false
+        run: dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r "${{ inputs.rid }}" -o "${{ inputs.publish-path }}/${{ inputs.rid }}" --sc false
       - name: zip-artifacts
-        run: Compress-Archive -Path ${{ inputs.runs-on }}/${{ inputs.rid }}/* -Destination ${{ inputs.runs-on }}/${{ inputs.rid }}.zip
+        run: Compress-Archive -Path ${{ inputs.publish-path }}}/${{ inputs.rid }}/* -Destination ${{ inputs.publish-path }}/${{ inputs.rid }}.zip
         
       - name: dotnet-build
         run: dotnet build -c Release
         
       - name: dotnet-pack-release
         if: steps.read-version.outputs.suffix == ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.runs-on }}/Nupkg" --no-build
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build
       - name: dotnet-pack-continious
         if: steps.read-version.outputs.suffix != ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.runs-on }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
 
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
@@ -61,5 +61,5 @@ jobs:
           rid: ${{ inputs.rid }}
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           nuget-token: ${{ secrets.NUGET_API_KEY }}
-          publish-path: ${{ inputs.runs-on }}
+          publish-path: ${{ inputs.publish-path }}
         
