@@ -47,20 +47,21 @@ jobs:
         run: dotnet build -c Release
         
       - name: dotnet-pack-release
-        if: steps.read-version.outputs.suffix == ''
+        if: steps.read-version.outputs.suffix == '' && ${{ inputs.runs-on }} == 'ubuntu-latest'
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build
       - name: dotnet-pack-continious
-        if: steps.read-version.outputs.suffix != ''
+        if: steps.read-version.outputs.suffix != '' && ${{ inputs.runs-on }} == 'ubuntu-latest'
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
 
       - name: push-nuget-nupkg
+        if: ${{ inputs.runs-on }} == 'ubuntu-latest'
         run: |
           foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
           {
               dotnet nuget push $file -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
           }
       - name: push-github-nupkg
-      # TODO: get NAMESPACE as argument
+        if: ${{ inputs.runs-on }} == 'ubuntu-latest'
         run: |
           foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
           {
