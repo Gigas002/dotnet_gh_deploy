@@ -25,7 +25,8 @@ runs:
       run: |
         foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
         {
-            dotnet nuget push $file -k ${{ inputs.nuget-token }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+            echo $file
+            dotnet nuget push $file -k ${{ inputs.nuget-token }} -s "https://api.nuget.org/v3/index.json" --skip-duplicate
         }
       shell: pwsh
     - id: push-github-nupkg
