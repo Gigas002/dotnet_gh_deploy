@@ -2,6 +2,9 @@ name: build-test-deploy
 
 on: [push, pull_request]
 
+env:
+  DUMMY: 'karasique'
+
 jobs:
 
 # building and testing tasks
@@ -40,6 +43,7 @@ jobs:
       runs-on: windows-latest
       publish-path: 'publish'
       gh-nuget-source: 'senketsu03'
+      dummy: ${{env.DUMMY}}
     secrets:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   deploy-linux:
@@ -50,6 +54,7 @@ jobs:
       runs-on: ubuntu-latest
       publish-path: 'publish'
       gh-nuget-source: 'senketsu03'
+      dummy: ${{env.DUMMY}}
     secrets:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   deploy-macos:
@@ -60,5 +65,6 @@ jobs:
       runs-on: macos-latest
       publish-path: 'publish'
       gh-nuget-source: 'senketsu03'
+      dummy: ${{env.DUMMY}}
     secrets:
       NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
