@@ -32,13 +32,15 @@ jobs:
       - name: zip-artifacts
         run: Compress-Archive -Path publish/${{ inputs.rid }}/* -Destination ${{ inputs.rid }}.zip
         
-        # pack core TODO move
       - name: dotnet-build
         run: dotnet build -c Release
-      - name: dotnet-pack
-        run: |
-         echo build number: ${{ steps.read-version.outputs.build }}
-          dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
+        
+      - name: dotnet-pack-release
+        if: steps.read-version.outputs.suffix == ''
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build
+      - name: dotnet-pack-continious
+        if: steps.read-version.outputs.suffix != ''
+        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "publish/Deploy.Core" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
 
       - name: deploy-release
         if: steps.read-version.outputs.suffix == ''
