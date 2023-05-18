@@ -53,22 +53,6 @@ jobs:
         if: steps.read-version.outputs.suffix != ''
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build --version-suffix ci-${{ steps.read-version.outputs.build }}
       
-      
-      
-      - name: echo-on-ubuntu
-        if: ${{ inputs.runs-on == 'ubuntu-latest' }}
-        run: echo This is ${{ inputs.runs-on }}
-        
-      - name: echo-on-macos
-        if: ${{ inputs.runs-on == 'macos-latest' }}
-        run: echo This is ${{ inputs.runs-on }}
-        
-      - name: echo-on-windows
-        if: ${{ inputs.runs-on == 'windows-latest' }}
-        run: echo This is ${{ inputs.runs-on }}
-        
-        
-        
       - name: push-nuget-nupkg
         run: |
           foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
