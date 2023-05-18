@@ -14,6 +14,10 @@ on:
         description: 'Base path to publish artifact'
         required: true
         type: string
+      gh-nuget-source:
+        description: 'Source to publish nuget package on github feed'
+        required: true
+        type: string
     secrets:
       NUGET_API_KEY:
         required: true
@@ -42,7 +46,7 @@ jobs:
       - name: dotnet-build
         run: dotnet build -c Release
         
-      - name: dotnet-pack
+      - name: dotnet-pack-release
         if: steps.read-version.outputs.suffix == ''
         run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{ inputs.publish-path }}/Nupkg" --no-build
       - name: dotnet-pack-continious
@@ -55,13 +59,12 @@ jobs:
           {
               dotnet nuget push $file -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
           }
-        shell: pwsh
-      - id: push-github-nupkg
+      - name: push-github-nupkg
       # TODO: get NAMESPACE as argument
         run: |
           foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
           {
-              dotnet nuget push $file -k ${{ secrets.GITHUB_TOKEN }} -s "https://nuget.pkg.github.com/senketsu03/index.json" -ss "https://nuget.pkg.github.com/senketsu03/index.json" --skip-duplicate
+              dotnet nuget push $file -k ${{ secrets.GITHUB_TOKEN }} -s "https://nuget.pkg.github.com/${{ inputs.gh-nuget-source }}/index.json" -ss "https://nuget.pkg.github.com/${{ inputs.gh-nuget-source }}/index.json" --skip-duplicate
           }
 
       - name: deploy-release
