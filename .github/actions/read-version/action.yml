@@ -3,13 +3,13 @@ description: 'Reads version prefix and suffix'
 outputs:
   prefix:
     description: 'Version prefix'
-    value: ${{ steps.version.outputs.prefix }}
+    value: ${{steps.version.outputs.prefix}}
   suffix:
     description: 'Version suffix'
-    value: ${{ steps.version.outputs.suffix }}
+    value: ${{steps.version.outputs.suffix}}
   build:
     description: 'Build number, taken from AssemblyVersion'
-    value: ${{ steps.version.outputs.build }}
+    value: ${{steps.version.outputs.build}}
         
 runs:
   using: "composite"
