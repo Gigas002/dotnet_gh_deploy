@@ -29,7 +29,11 @@ runs:
         }
       shell: pwsh
     - id: push-github-nupkg
-      run: echo "Placeholder"
+      run: |
+        foreach($file in (Get-ChildItem "${{ inputs.publish-path }}/" -Recurse -Include *.nupkg))
+        {
+            dotnet nuget push $file -s "github" -ss "github" --skip-duplicate
+        }
       shell: pwsh
     - id: push-github-docker
       run: echo "Placeholder"
