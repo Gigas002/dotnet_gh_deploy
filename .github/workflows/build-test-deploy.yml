@@ -38,7 +38,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       runs-on: windows-latest
-      rid: "win-x64"
+      rid: 'win-x64'
       publish-path: 'publish'
       gh-nuget-source: 'senketsu03'
     secrets:
