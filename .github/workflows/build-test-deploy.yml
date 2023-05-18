@@ -6,13 +6,16 @@ jobs:
 
 # building and testing tasks
 
-  build-test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/build-test.yml
-    with:
-      runs-on:  ${{ matrix.os }}
+# no point in matrix without deploy tasks
+# see discussion: https://github.com/orgs/community/discussions/42335
+
+#   build-test:
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest, windows-latest, macos-latest]
+#     uses: ./.github/workflows/build-test.yml
+#     with:
+#       runs-on:  ${{ matrix.os }}
 
   build-test-windows:
     uses: ./.github/workflows/build-test.yml
@@ -28,27 +31,6 @@ jobs:
       runs-on: macos-latest
       
 # publishing tasks
-
-
-
-
-  deploy:
-    needs: build-test-${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    if: github.event_name == 'push'
-    uses: ./.github/workflows/deploy.yml
-    with:
-      runs-on: ubuntu-latest
-      rid: ''
-      publish-path: ''
-      gh-nuget-source: ''
-    secrets:
-      NUGET_API_KEY: ''
-      
-      
-      
       
   deploy-windows:
     needs: build-test-windows
