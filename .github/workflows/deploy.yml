@@ -19,34 +19,6 @@ on:
         required: true
         
 jobs:
-
-  test-set-rid:
-    runs-on: ${{inputs.runs-on}}
-    defaults:
-      run:
-        shell: pwsh
-    env:
-      rid: ''
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: set-rid
-        run: |
-          if ('${{inputs.runs-on}}' -eq 'ubuntu-latest')
-          {
-              echo 'rid=linux-x64' >> $env:GITHUB_ENV
-          }
-          elseif ('${{inputs.runs-on}}' -eq 'windows-latest')
-          {
-              echo 'rid=win-x64' >> $env:GITHUB_ENV
-          }
-          else
-          {
-              echo 'rid=osx-x64' >> $env:GITHUB_ENV
-          } 
-          
-      - name: echo-rid
-        run: echo '${{env.rid}}'
   
   deploy:
     runs-on: ${{inputs.runs-on}}
@@ -94,20 +66,13 @@ jobs:
         run: |
           if ('${{steps.read-version.outputs.suffix}}')
           {
-              echo 'Continious'
+              dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build --version-suffix ci-${{steps.read-version.outputs.build}}
           }
           else
           {
-              echo 'Release'
+              dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build
           }
-        
-      - name: dotnet-pack-release
-        if: steps.read-version.outputs.suffix == ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build
-      - name: dotnet-pack-continious
-        if: steps.read-version.outputs.suffix != ''
-        run: dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build --version-suffix ci-${{steps.read-version.outputs.build}}
-      
+          
       - name: push-nuget-nupkg
         run: |
           foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
