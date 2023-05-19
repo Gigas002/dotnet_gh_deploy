@@ -17,9 +17,6 @@ on:
 jobs:
   deploy-docker-hub:
     runs-on: ${{inputs.runs-on}}
-    defaults:
-      run:
-        shell: pwsh
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -59,9 +56,6 @@ jobs:
 
   deploy-docker-github:
     runs-on: ${{inputs.runs-on}}
-    defaults:
-      run:
-        shell: pwsh
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -89,12 +83,12 @@ jobs:
 #           docker build -t ${{steps.meta.outputs.tags}} -f Dockerfile .
 #           docker push ${{steps.meta.outputs.tags}}
           
-#       - name: Build and push Docker image
-#         uses: docker/build-push-action@v4
-#         with:
-#           context: .
-#           file: ./Dockerfile
-#           push: ${{github.event_name != 'pull_request'}}
-#           tags: ${{steps.meta.outputs.tags}}
-#           labels: ${{steps.meta.outputs.labels}}
+      - name: docker-github-build-push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: ${{github.event_name != 'pull_request'}}
+          tags: ${{steps.meta.outputs.tags}}
+          labels: ${{steps.meta.outputs.labels}}
         
