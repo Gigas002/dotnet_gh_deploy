@@ -32,11 +32,11 @@ jobs:
       
       - name: set-rid
         run: |
-          if (${{inputs.runs-on == 'ubuntu-latest'}})
+          if (${{inputs.runs-on}} == 'ubuntu-latest')
           {
               echo 'rid=linux-x64' >> $env:GITHUB_ENV
           }
-          elseif (${{inputs.runs-on == 'windows-latest'}})
+          elseif (${{inputs.runs-on}} == 'windows-latest')
           {
               echo 'rid=win-x64' >> $env:GITHUB_ENV
           }
