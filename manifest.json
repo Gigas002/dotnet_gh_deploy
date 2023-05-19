@@ -24,16 +24,6 @@
       "version": ""
     },
     {
-      "type": "Conceptual",
-      "source_relative_path": "_docs/LICENSE.md",
-      "output": {
-        ".html": {
-          "relative_path": "LICENSE.html"
-        }
-      },
-      "version": ""
-    },
-    {
       "type": "ManagedReference",
       "source_relative_path": "_docs/api/Deploy.Core.Company.yml",
       "output": {
