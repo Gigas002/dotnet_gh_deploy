@@ -1,19 +1,71 @@
+#region variables
+
+$publishPath = "publish"
+
+# TODO: array
+$projectToPublish = "Deploy.Cli/Deploy.Cli.csproj"
+
+#endregion
+
+#region remove publish directory if it exists
+
+echo "Removing previous publish directory: $publish"
+Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
+
+#endregion
+
+#region decide runtime
+
 echo "Publishing native binaries for:"
 
 if ($IsWindows)
 {
-    $r = "win-x64"
+    $rid = "win-x64"
 }
 elseif ($IsLinux)
 {
-    $r = "linux-x64"
+    $rid = "linux-x64"
 }
 elseif ($IsMacOS)
 {
-    $r = "osx-x64"
+    $rid = "osx-x64"
 }
 
-echo $r
-dotnet publish "Deploy.Cli/Deploy.Cli.csproj" -c Release -r $r -o "publish/$r" --sc false
+echo $rid
+
+#endregion
+
+#region publish apps
+
+# TODO: add /tl after net8 release
+dotnet publish "$projectToPublish" -c Release -r $rid -o "$publishPath/$rid" --sc false --verbosity quiet
+
+#endregion
+
+#region publish nupkgs
+
+echo "Publishing nupkgs"
+
+# TODO: args
+./nuget.ps1
+
+#endregion
+
+#region cp docs
+
+echo "Copy documents/Remove pdbs"
+
+cp "*.md" "$publishPath/$rid/"
+rm "$publishPath/$rid/*.pdb"
+
+#endregion
+
+#region zip artifacts
+
+echo "Zip artifacts"
+
+Compress-Archive -Path "$publishPath/$rid/*" -Destination "$publishPath/$rid.zip"
+
+#endregion
 
 echo "Publish finished"
