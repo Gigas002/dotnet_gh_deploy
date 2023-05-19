@@ -31,8 +31,8 @@ runs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{inputs.version}}
-        body_path: ${{github.workspace}}-CHANGELOG.txt
+        generate_release_notes: true
+#         body_path: ${{github.workspace}}-CHANGELOG.txt
         files: ${{inputs.publish-path}}/${{inputs.rid}}.zip
-        name: v${{inputs.version}}
         token: ${{inputs.gh-token}}
       
