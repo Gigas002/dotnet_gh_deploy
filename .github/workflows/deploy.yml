@@ -18,7 +18,7 @@ on:
       gh-nuget-source:
         description: 'Source to publish nuget package on github feed'
         required: false
-        default: ${{github.repository_owner}}
+        default: senketsu03
         type: string
   workflow_call:
     inputs:
