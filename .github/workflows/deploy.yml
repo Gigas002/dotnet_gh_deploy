@@ -82,11 +82,12 @@ jobs:
               dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
           }
           
+           #   dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' -ss 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
       - name: push-github-nupkg
         run: |
           foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
           {
-              dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' -ss 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
+              dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
           }
           
       - name: set-deploy-properties
