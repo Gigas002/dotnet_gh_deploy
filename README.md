@@ -6,6 +6,8 @@
 
 ![Dependabot Status](https://flat.badgen.net/github/dependabot/senketsu03/dotnet_gh_deploy)
 
+[![codecov](https://codecov.io/github/senketsu03/dotnet_gh_deploy/branch/master/graph/badge.svg)](https://codecov.io/github/senketsu03/dotnet_gh_deploy)
+
 Training to use GitHub CI only to deploy dotnet stuff
 
 ## Notes
