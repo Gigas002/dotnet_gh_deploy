@@ -2,6 +2,10 @@ name: build-test-deploy
 
 on: [push, pull_request]
 
+permissions:
+  packages: write
+  contents: read
+
 jobs:
 
 # building and testing tasks
@@ -42,7 +46,7 @@ jobs:
     with:
       runs-on: windows-latest
       publish-path: 'publish'
-      gh-nuget-source: 'senketsu03'
+      gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
   deploy-linux:
     needs: build-test-linux
@@ -51,7 +55,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       publish-path: 'publish'
-      gh-nuget-source: 'senketsu03'
+      gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
   deploy-macos:
     needs: build-test-macos
@@ -60,7 +64,7 @@ jobs:
     with:
       runs-on: macos-latest
       publish-path: 'publish'
-      gh-nuget-source: 'senketsu03'
+      gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
     
 # Docker release -- section here
@@ -97,22 +101,19 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-        
-      - name: Echo actor
-        run: echo 'Actor is == ${{github.actor}}'
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: senketsu03
-          password: ${{secrets.GH_PACKAGE_FEED_TOKEN}}
+          username: ${{github.repository_owner}}
+          password: ${{secrets.GITHUB_TOKEN}}
           
       - name: Extract docker image metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: senketsu03/deploy.cli
+          images: ${{github.repository_owner}}/deploy.cli
           
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
