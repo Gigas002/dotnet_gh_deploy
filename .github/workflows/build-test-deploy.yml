@@ -111,17 +111,17 @@ jobs:
         with:
           images: ${{github.repository_owner}}/deploy.cli
           
-      - name: Push image
-        run: |
-          docker build -t ghcr.io/${{github.repository_owner}}/${{github.repository}}/deploy.cli:latest -f Dockerfile .
-          docker push ghcr.io/${{github.repository_owner}}/${{github.repository}}/deploy.cli:latest
+#       - name: Manual build and push Docker image
+#         run: |
+#           docker build -t ghcr.io/${{github.repository_owner}}/${{github.repository}}/deploy.cli:latest -f Dockerfile .
+#           docker push ghcr.io/${{github.repository_owner}}/${{github.repository}}/deploy.cli:latest
           
-#       - name: Build and push Docker image
-#         uses: docker/build-push-action@v4
-#         with:
-#           context: .
-#           file: ./Dockerfile
-#           push: ${{github.event_name != 'pull_request'}}
-#           tags: ${{steps.meta.outputs.tags}}
-#           labels: ${{steps.meta.outputs.labels}}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: ${{github.event_name != 'pull_request'}}
+          tags: ${{steps.meta.outputs.tags}}
+          labels: ${{steps.meta.outputs.labels}}
 
