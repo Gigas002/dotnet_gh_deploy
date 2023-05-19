@@ -10,6 +10,9 @@ outputs:
   build:
     description: 'Build number, taken from AssemblyVersion'
     value: ${{steps.version.outputs.build}}
+  docker-tag:
+    description: 'Latest for ci, vprefix for release'
+    value: ${{steps.version.outputs.docker-tag}}
         
 runs:
   using: "composite"
@@ -29,4 +32,13 @@ runs:
         $assemblyVersion = (Select-Xml -Path $Path -XPath $Xpath).Node.InnerText
         $buildVersion = $assemblyVersion.split('.')[-1]
         echo "build=$buildVersion" >> $env:GITHUB_OUTPUT
+        
+        if ('$versionSuffix')
+        {
+            echo 'docker-tag=latest' >> $env:GITHUB_OUTPUT
+        }
+        else
+        {
+            echo 'docker-tag=v$versionPrefix' >> $env:GITHUB_OUTPUT
+        }
       shell: pwsh
