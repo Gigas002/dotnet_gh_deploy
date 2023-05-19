@@ -98,7 +98,7 @@ jobs:
           }
           else
           {
-              echo 'tag_name=v${{inputs.version}}' >> $env:GITHUB_ENV
+              echo 'tag_name=v${{steps.read-version.outputs.prefix}}' >> $env:GITHUB_ENV
               echo 'prerelease=false' >> $env:GITHUB_ENV
           }
       
