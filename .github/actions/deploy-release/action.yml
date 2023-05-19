@@ -24,15 +24,11 @@ runs:
     - id: push-github-docker
       run: echo "Placeholder"
       shell: pwsh
-    - id: generate-changelog
-      run: echo "# Release details" > ${{github.workspace}}-CHANGELOG.txt
-      shell: pwsh
     - id: create-release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{inputs.version}}
         generate_release_notes: true
-#         body_path: ${{github.workspace}}-CHANGELOG.txt
         files: ${{inputs.publish-path}}/${{inputs.rid}}.zip
         token: ${{inputs.gh-token}}
       
