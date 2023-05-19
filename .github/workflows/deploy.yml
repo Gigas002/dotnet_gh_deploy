@@ -1,5 +1,25 @@
 name: deploy
 on:
+  workflow_dispatch:
+    inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+      publish-path:
+        description: 'Base path to publish artifact'
+        required: false
+        default: 'publish'
+        type: string
+      gh-nuget-source:
+        description: 'Source to publish nuget package on github feed'
+        required: false
+        default: ${{github.repository_owner}}
+        type: string
   workflow_call:
     inputs:
       runs-on:
