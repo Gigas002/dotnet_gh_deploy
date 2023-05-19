@@ -30,11 +30,12 @@ jobs:
         id: read-version
         uses: ./.github/actions/read-version
         
+              # echo 'version=latest' >> $env:GITHUB_ENV
       - name: set-version
         run: |
           if ('${{steps.read-version.outputs.suffix}}')
           {
-              echo 'version=latest' >> $env:GITHUB_ENV
+              echo 'version=v${{steps.read-version.outputs.prefix}}' >> $env:GITHUB_ENV
           }
           else
           {
