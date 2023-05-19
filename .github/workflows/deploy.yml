@@ -58,19 +58,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Set rid for ubuntu
-        if: ${{inputs.runs-on == 'ubuntu-latest'}}
-        run: echo 'rid=linux-x64' >> $env:GITHUB_ENV
-      - name: Set rid for windows
-        if: ${{inputs.runs-on == 'windows-latest'}}
-        run: echo 'rid=win-x64' >> $env:GITHUB_ENV
-      - name: Set rid for macos
-        if: ${{inputs.runs-on == 'macos-latest'}}
-        run: echo 'rid=osx-x64' >> $env:GITHUB_ENV
+      - name: set-rid
+        run: |
+          if ('${{inputs.runs-on}}' -eq 'ubuntu-latest')
+          {
+              echo 'rid=linux-x64' >> $env:GITHUB_ENV
+          }
+          elseif ('${{inputs.runs-on}}' -eq 'windows-latest')
+          {
+              echo 'rid=win-x64' >> $env:GITHUB_ENV
+          }
+          else
+          {
+              echo 'rid=osx-x64' >> $env:GITHUB_ENV
+          } 
         
       - name: read-version
         id: read-version
         uses: ./.github/actions/read-version
+        
       - name: dotnet-setup
         uses: actions/setup-dotnet@v3
         with:
@@ -83,6 +89,17 @@ jobs:
         
       - name: dotnet-build
         run: dotnet build -c Release
+        
+      - name: dotnet-pack
+        run: |
+          if ('${{steps.read-version.outputs.suffix}}')
+          {
+              echo 'Continious'
+          }
+          else
+          {
+              echo 'Release'
+          }
         
       - name: dotnet-pack-release
         if: steps.read-version.outputs.suffix == ''
@@ -97,6 +114,7 @@ jobs:
           {
               dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
           }
+          
       - name: push-github-nupkg
         run: |
           foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
