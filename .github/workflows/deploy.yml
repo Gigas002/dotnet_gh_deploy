@@ -88,6 +88,19 @@ jobs:
           {
               dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' -ss 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
           }
+          
+      - name: set-deploy-properties
+        run: |
+          if ('${{steps.read-version.outputs.suffix}}')
+          {
+              echo 'tag_name=continious' >> $env:GITHUB_ENV
+              echo 'prerelease=true' >> $env:GITHUB_ENV
+          }
+          else
+          {
+              echo 'tag_name=v${{inputs.version}}' >> $env:GITHUB_ENV
+              echo 'prerelease=false' >> $env:GITHUB_ENV
+          }
       
       - name: deploy
         uses: softprops/action-gh-release@v1
