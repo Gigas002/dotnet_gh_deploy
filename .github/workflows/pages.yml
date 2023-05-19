@@ -2,9 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: ["master"]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -36,9 +34,9 @@ jobs:
         docfx metadata
         docfx build
          
-    - name: Deploy
+    - name: Deploy pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{secrets.GITHUB_TOKEN}}
         publish_dir: docs
 
