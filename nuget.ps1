@@ -12,5 +12,5 @@ foreach($file in (Get-ChildItem $packDir -Recurse -Include *.nupkg))
     dotnet nuget push $file -k $apiKey -s https://api.nuget.org/v3/index.json --skip-duplicate
 
     # for github package feed
-    # dotnet nuget push $file -s "github" -ss "github" --skip-duplicate
+    # dotnet nuget push $file -k $apiKey -s https://nuget.pkg.github.com/senketsu03/index.json -ss https://nuget.pkg.github.com/senketsu03/index.json --skip-duplicate
 }
