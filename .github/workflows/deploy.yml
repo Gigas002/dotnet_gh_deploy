@@ -19,6 +19,29 @@ on:
         required: true
         
 jobs:
+
+  test-set-rid:
+    runs-on: ${{inputs.runs-on}}
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      rid: ''
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: set-rid
+        run: |
+          if (${{inputs.runs-on == 'ubuntu-latest'}})
+            echo 'rid=linux-x64' >> $env:GITHUB_ENV
+          elseif (${{inputs.runs-on == 'windows-latest'}})
+            echo 'rid=win-x64' >> $env:GITHUB_ENV
+          else
+            echo 'rid=osx-x64' >> $env:GITHUB_ENV
+            
+      - name: echo-rid
+        run: echo '${{env.rid}}'
+  
   deploy:
     runs-on: ${{inputs.runs-on}}
     defaults:
