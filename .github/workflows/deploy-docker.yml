@@ -32,7 +32,7 @@ jobs:
         
       - name: set-version
         run: |
-          if (steps.read-version.outputs.suffix)
+          if (${{steps.read-version.outputs.suffix}})
           {
               echo 'version=latest' >> $env:GITHUB_ENV
           }
