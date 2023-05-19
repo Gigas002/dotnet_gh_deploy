@@ -65,70 +65,11 @@ jobs:
     
 # Docker release -- section here
 
-  deploy-docker-hub:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{secrets.DOCKER_USERNAME}}
-          password: ${{secrets.DOCKER_PASSWORD}}
-          
-      - name: Extract docker image metadata
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{secrets.DOCKER_USERNAME}}/deploy.cli
-          
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./Dockerfile
-          push: ${{github.event_name != 'pull_request'}}
-          tags: ${{steps.meta.outputs.tags}}
-          labels: ${{steps.meta.outputs.labels}}
-          
-          # Doesnt work, see: https://github.com/peter-evans/dockerhub-description/issues/10
-#       - name: Update Docker Hub Description
-#         uses: peter-evans/dockerhub-description@v3
-#         with:
-#           username: ${{secrets.DOCKER_USERNAME}}
-#           password: ${{secrets.DOCKER_PASSWORD}}
-
-  deploy-docker-github:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-        
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{github.repository_owner}}
-          password: ${{secrets.GITHUB_TOKEN}}
-          
-      - name: Extract docker image metadata
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ghcr.io/${{github.repository_owner}}/${{github.repository}}/deploy.cli
-          
-#       - name: Manual build and push Docker image
-#         run: |
-#           docker build -t ${{steps.meta.outputs.tags}} -f Dockerfile .
-#           docker push ${{steps.meta.outputs.tags}}
-          
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./Dockerfile
-          push: ${{github.event_name != 'pull_request'}}
-          tags: ${{steps.meta.outputs.tags}}
-          labels: ${{steps.meta.outputs.labels}}
+  deploy-docker:
+    needs: build-test-linux
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/deploy-docker.yml
+    with:
+      runs-on: ubuntu-latest
+    secrets: inherit
 
