@@ -109,7 +109,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{github.repository_owner}}/deploy.cli
+          images: ghcr.io/${{github.repository_owner}}/${{github.repository}}/deploy.cli
+#           images: ${{github.repository_owner}}/deploy.cli
           
 #       - name: Manual build and push Docker image
 #         run: |
