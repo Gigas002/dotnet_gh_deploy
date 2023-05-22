@@ -1,4 +1,4 @@
-cp README.md _docs/index.md
+Copy-Item README.md _docs/index.md
 docfx metadata
 docfx build
-docfx serve
+# docfx serve
