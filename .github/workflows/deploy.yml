@@ -1,9 +1,5 @@
 name: deploy
-on:
-  push:
-    branches:
-      - master
-      
+on:   
   workflow_dispatch:
     inputs:
       runs-on:
