@@ -36,4 +36,25 @@ public class ContextTests
 
         db.Dispose();
     }
+
+    [Test]
+    public void OnConfiguringTest()
+    {
+        // ctor and setters
+        var db = new Context();
+
+        // users
+        var mockUsers = new Mock<DbSet<User>>();
+        db.Users = mockUsers.Object;
+        Assert.NotNull(db.Users);
+
+        // companies
+        var mockCompanies = new Mock<DbSet<Company>>();
+        db.Companies = mockCompanies.Object;
+        Assert.NotNull(db.Companies);
+
+        Assert.DoesNotThrow(() => db.SaveChanges());
+
+        db.Dispose();
+    }
 }
