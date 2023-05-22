@@ -8,3 +8,4 @@ _docs/index.md
 _docs/LICENSE.md
 _docs/api
 TestResults/
+*.Artifacts/
