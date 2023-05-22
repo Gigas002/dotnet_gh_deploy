@@ -3,6 +3,8 @@
   <PropertyGroup>
     <!-- essential build info -->
     <TargetFramework>net7.0</TargetFramework>
+    <!-- requires net8.0 -->
+    <!-- <UseArtifactsOutput>true</UseArtifactsOutput> -->
     <VersionPrefix>0.2.4</VersionPrefix>
     <VersionSuffix>preview.0</VersionSuffix>
     <AssemblyVersion>0.2.4.1</AssemblyVersion>
