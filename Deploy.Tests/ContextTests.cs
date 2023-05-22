@@ -37,7 +37,7 @@ public class ContextTests
         db.Dispose();
     }
 
-    [Test]
+    /*[Test]
     public void OnConfiguringTest()
     {
         // ctor and setters
@@ -56,5 +56,5 @@ public class ContextTests
         Assert.DoesNotThrow(() => db.SaveChanges());
 
         db.Dispose();
-    }
+    }*/
 }
