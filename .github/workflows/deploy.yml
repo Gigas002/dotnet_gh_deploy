@@ -34,9 +34,6 @@ on:
         description: 'Source to publish nuget package on github feed'
         required: true
         type: string
-    secrets:
-      NUGET_API_KEY:
-        required: true
         
 jobs:
   
