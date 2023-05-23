@@ -35,11 +35,11 @@ on:
         required: true
         type: string
  
-env:
-  rid: ''
-  tag: ''
-  prerelease: true
-  project: ("Deploy.Cli/Deploy.Cli.csproj") 
+# env:
+#   rid: ''
+#   tag: ''
+#   prerelease: true
+#   project: ("Deploy.Cli/Deploy.Cli.csproj") 
  
 jobs:
 
@@ -48,14 +48,14 @@ jobs:
     defaults:
       run:
         shell: pwsh
-#     env:
-#       rid: ''
-#       tag: ''
-#       prerelease: true
+    env:
+      rid: ''
+      tag: ''
+      prerelease: true
 #       project: ("Deploy.Cli/Deploy.Cli.csproj")
     strategy:
       matrix:
-        project: ${{fromJson(env.projects)}}
+        project: ["Deploy.Cli/Deploy.Cli.csproj"]
     steps:
         - uses: actions/checkout@v3
       
@@ -78,7 +78,7 @@ jobs:
 
         - name: dotnet-publish
           run: |
-            dotnet publish "${{env.project}}" -c Release -r ${{env.rid}} -o "${{inputs.publish-path}}/${{env.rid}}" --sc false
+            dotnet publish "${{matrix.project}}" -c Release -r ${{env.rid}} -o "${{inputs.publish-path}}/${{env.rid}}" --sc false
         - name: zip-artifacts
           run: |
             Compress-Archive -Path "${{inputs.publish-path}}/${{env.rid}}/*" -Destination "${{inputs.publish-path}}/${{env.rid}}.zip"
