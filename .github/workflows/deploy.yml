@@ -96,15 +96,21 @@ jobs:
             
         - name: dotnet-publish
           run: dotnet publish "${{matrix.project}}" -c Release -r ${{env.rid}} -o "${{env.publish-path}}" --sc false
+        
+        - name: copy-docs
+          run: |
+            Copy-Item "*.md" "${{env.publish-path}}/"
+            Remove-Item "${{env.publish-path}}/*.pdb"
+        
         - name: zip-artifacts
-          run: Compress-Archive -Path "${{env.publish-path}}/*" -Destination "${{env.artifactPath}}"
+          run: Compress-Archive -Path "${{env.publish-path}}/*" -Destination "${{env.artifact-path}}"
 
         - name: deploy-binaries
           uses: softprops/action-gh-release@v1
           with:
             tag_name: ${{env.tag}}
             generate_release_notes: true
-            files: ${{env.artifactPath}}
+            files: ${{env.artifact-path}}
             token: ${{secrets.GITHUB_TOKEN}}
             prerelease: ${{env.prerelease}}
         
