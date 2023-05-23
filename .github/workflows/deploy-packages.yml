@@ -76,25 +76,20 @@ jobs:
               dotnet pack "${{matrix.package}}" -c Release -o "${{inputs.publish-base}}/nupkg" --no-build
           }
           
+      # TODO: matrix
+          
       - name: push-nuget-nupkg
         uses: ./.github/actions/push-nupkg
         with:
           publish-base: ${{inputs.publish-base}}
           api-key: ${{secrets.NUGET_API_KEY}}
           package-feed: "https://api.nuget.org/v3/index.json"
-          
-#       - name: push-nuget-nupkg
-#         run: |
-#           foreach($file in (Get-ChildItem '${{inputs.publish-base}}/' -Recurse -Include *.nupkg))
-#           {
-#               dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
-#           }
-          
-      - name: push-github-nupkg
-        run: |
-          foreach($file in (Get-ChildItem '${{inputs.publish-base}}/' -Recurse -Include *.nupkg))
-          {
-              dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
-          }
-          
         
+      - name: push-github-nupkg
+        uses: ./.github/actions/push-nupkg
+        with:
+          publish-base: ${{inputs.publish-base}}
+          api-key: ${{secrets.GITHUB_TOKEN}}
+          package-feed: "https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json"
+          
+      
