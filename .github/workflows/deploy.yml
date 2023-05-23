@@ -26,7 +26,7 @@ on:
         description: 'The operating system to run the job on'
         required: true
         type: string
-      publish-path:
+      publish-base:
         description: 'Base path to publish artifact'
         required: true
         type: string
