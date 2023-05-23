@@ -10,3 +10,4 @@ _docs/api
 TestResults/
 *.Artifacts/
 artifacts/
+secrets.txt
