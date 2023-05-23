@@ -73,19 +73,19 @@ jobs:
           else
           {
               Write-Output "Pack release: ${{steps.read-version.outputs.prefix}}"
-              dotnet pack "${{matrix.package}}" -c Release -o "${{inputs.publish-path}}/nupkg" --no-build
+              dotnet pack "${{matrix.package}}" -c Release -o "${{inputs.publish-base}}/nupkg" --no-build
           }
           
       - name: push-nuget-nupkg
         run: |
-          foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
+          foreach($file in (Get-ChildItem '${{inputs.publish-base}}/' -Recurse -Include *.nupkg))
           {
               dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
           }
           
       - name: push-github-nupkg
         run: |
-          foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
+          foreach($file in (Get-ChildItem '${{inputs.publish-base}}/' -Recurse -Include *.nupkg))
           {
               dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
           }
