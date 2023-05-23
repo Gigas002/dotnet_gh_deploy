@@ -1,6 +1,6 @@
 <#
 .DESCRIPTION
-    Script for publishing nuget packages
+    Script for deploying nuget packages
 
 .EXAMPLE
     ./script.ps1 -o "publish/nupkg" -g "name" -i "proj1/proj1.csproj","proj2/proj2.csproj"
@@ -33,7 +33,13 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("g", "github-feed-name")]
-    [string] $githubFeedName = "senketsu03"
+    [string] $githubFeedName = "senketsu03",
+
+    # Directory.Build.props path
+    [Parameter ()]
+    [ValidateNotNullOrEmpty ()]
+    [Alias("p")]
+    [string] $buildPropsPath = "Directory.Build.props"
 )
 
 #region Constants
@@ -46,25 +52,25 @@ Set-Variable GithubFeed -Option ReadOnly -Value "https://nuget.pkg.github.com/$g
 #region Functions declartions
 
 function DotnetPack([string] $versionSuffix, [string] $buildVersion) {
-    Write-Output "dotnet build/dotnet pack started"
+    Write-Host "dotnet build/dotnet pack started" -ForegroundColor Yellow
 
     foreach ($project in $inputs) {
-        Write-Output "Building: $project"
+        Write-Host "Building: $project" -ForegroundColor Yellow
 
         dotnet build $project /tl -c Release --verbosity quiet
 
-        if ($versionSuffix) {
-            Write-Output "Pack prerelease: $buildVersion"
+        if ("$versionSuffix") {
+            Write-Host "Pack prerelease (build): $buildVersion" -ForegroundColor Yellow
             dotnet pack $project /tl -c Release -o $output --no-build --verbosity quiet --version-suffix ci-$buildVersion
         }
         else {
-            Write-Output "Pack release: $versionPrefix"
+            Write-Host "Pack release: $versionPrefix" -ForegroundColor Yellow
             dotnet pack $project /tl -c Release -o $output --no-build --verbosity quiet
         }
     }
 
-    Write-Output "dotnet build/dotnet pack finished"
-    Write-Output "packages are ready at: $output"
+    Write-Host "dotnet build/dotnet pack finished" -ForegroundColor Yellow
+    Write-Host "packages are ready at: $output" -ForegroundColor Yellow
 }
 
 function DotnetNugetPush([string] $file, [SecureString] $token, [string] $feed) {
@@ -75,19 +81,19 @@ function DotnetNugetPush([string] $file, [SecureString] $token, [string] $feed) 
 }
 
 function PushPackages() {
-    Write-Output "dotnet nuget push started"
+    Write-Host "dotnet nuget push started" -ForegroundColor Yellow
 
     foreach ($file in (Get-ChildItem $output -Recurse -Include *.nupkg)) {
         DotnetNugetPush $file $nugetToken $NugetFeed
         DotnetNugetPush $file $githubToken $GithubFeed
     }
 
-    Write-Output "dotnet nuget push finished"
+    Write-Host "dotnet nuget push finished" -ForegroundColor Yellow
 }
 
 #endregion
 
-$versionPrefix, $versionSuffix, $buildVersion, $dockerTag = ./read_version.ps1
+$versionPrefix, $versionSuffix, $buildVersion, $dockerTag = ./read_version.ps1 -p $buildPropsPath
 
 DotnetPack $versionSuffix $buildVersion
 PushPackages

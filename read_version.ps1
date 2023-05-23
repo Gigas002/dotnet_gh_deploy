@@ -46,4 +46,6 @@ else {
 
 #endregion
 
+Write-Host "prefix: $versionPrefix, suffix: $versionSuffix, build: $buildVersion, docker: $dockerTag" -ForegroundColor Yellow
+
 return $versionPrefix, $versionSuffix, $buildVersion, $dockerTag
