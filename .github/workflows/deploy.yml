@@ -51,18 +51,11 @@ jobs:
       
       - name: set-rid
         run: |
-          if ('${{inputs.runs-on}}' -eq 'ubuntu-latest')
-          {
-              echo 'rid=linux-x64' >> $env:GITHUB_ENV
+          switch ("${{inputs.runs-on}}") {
+            "ubuntu-latest" { Write-Output "rid=linux-x64" >> $env:GITHUB_ENV; break }
+            "windows-latest" { Write-Output "rid=win-x64" >> $env:GITHUB_ENV; break }
+            default { Write-Output "rid=osx-x64" >> $env:GITHUB_ENV; break }
           }
-          elseif ('${{inputs.runs-on}}' -eq 'windows-latest')
-          {
-              echo 'rid=win-x64' >> $env:GITHUB_ENV
-          }
-          else
-          {
-              echo 'rid=osx-x64' >> $env:GITHUB_ENV
-          } 
         
       - name: read-version
         id: read-version
