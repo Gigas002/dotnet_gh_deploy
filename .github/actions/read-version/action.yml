@@ -1,3 +1,5 @@
+# refer to read_version.ps1 for standalone script
+
 name: 'Read version'
 description: 'Reads version prefix and suffix'
 outputs:
