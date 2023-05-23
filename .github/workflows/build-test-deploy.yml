@@ -44,7 +44,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       runs-on: windows-latest
-      publish-path: 'publish'
+      publish-base: 'publish'
       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
   deploy-linux:
@@ -53,7 +53,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       runs-on: ubuntu-latest
-      publish-path: 'publish'
+      publish-base: 'publish'
       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
   deploy-macos:
@@ -62,7 +62,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       runs-on: macos-latest
-      publish-path: 'publish'
+      publish-base: 'publish'
       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
     
