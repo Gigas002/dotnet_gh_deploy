@@ -85,11 +85,13 @@ jobs:
         run: |
           if ('${{steps.read-version.outputs.suffix}}')
           {
-              dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build --version-suffix ci-${{steps.read-version.outputs.build}}
+              Write-Output "Pack prerelease: ${{steps.read-version.outputs.build}}"
+              dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/nupkg" --no-build --version-suffix ci-${{steps.read-version.outputs.build}}
           }
           else
           {
-              dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/Nupkg" --no-build
+              Write-Output "Pack release: ${{steps.read-version.outputs.prefix}}"
+              dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/nupkg" --no-build
           }
           
       - name: push-nuget-nupkg
