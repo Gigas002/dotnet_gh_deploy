@@ -15,6 +15,11 @@ on:
         required: false
         default: 'publish'
         type: string
+      publish-base:
+        description: 'Base path to publish artifact'
+        required: false
+        default: 'publish'
+        type: string
       gh-nuget-source:
         description: 'Source to publish nuget package on github feed'
         required: false
@@ -35,12 +40,6 @@ on:
         required: true
         type: string
  
-# env:
-#   rid: ''
-#   tag: ''
-#   prerelease: true
-#   project: ("Deploy.Cli/Deploy.Cli.csproj") 
- 
 jobs:
 
   experimental-deploy:
@@ -52,37 +51,34 @@ jobs:
       rid: ''
       tag: ''
       prerelease: true
-#       project: ("Deploy.Cli/Deploy.Cli.csproj")
+      project-name: ''
+      publish-path: ''
+      artifact-path: ''
     strategy:
       matrix:
         project: ["Deploy.Cli/Deploy.Cli.csproj"]
     steps:
         - uses: actions/checkout@v3
       
-        - name: set-rid
+        - name: set-env
           run: |
             switch ("${{inputs.runs-on}}") {
               "ubuntu-latest" { Write-Output "rid=linux-x64" >> $env:GITHUB_ENV; break }
               "windows-latest" { Write-Output "rid=win-x64" >> $env:GITHUB_ENV; break }
               default { Write-Output "rid=osx-x64" >> $env:GITHUB_ENV; break }
             }
-
+            
+            $projectName = Split-Path -Path "${{matrix.project}}" -Leaf -Resolve | Split-Path -LeafBase
+            $publishPath = "${{env.publish-base}}/$projectName/${{env.rid}}"
+            $artifactPath = "${{env.publish-base}}/${projectName}_${{env.rid}}.zip"
+            Write-Output "project-name=$projectName" >> $env:GITHUB_ENV
+            Write-Output "publish-path=$publishPath" >> $env:GITHUB_ENV
+            Write-Output "artifact-path=$artifactPath" >> $env:GITHUB_ENV
+            
         - name: read-version
           id: read-version
           uses: ./.github/actions/read-version
-
-        - name: dotnet-setup
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: 7.x
-
-        - name: dotnet-publish
-          run: |
-            dotnet publish "${{matrix.project}}" -c Release -r ${{env.rid}} -o "${{inputs.publish-path}}/${{env.rid}}" --sc false
-        - name: zip-artifacts
-          run: |
-            Compress-Archive -Path "${{inputs.publish-path}}/${{env.rid}}/*" -Destination "${{inputs.publish-path}}/${{env.rid}}.zip"
-
+            
         - name: set-deploy-properties
           run: |
             if ("${{steps.read-version.outputs.suffix}}")
@@ -96,12 +92,22 @@ jobs:
                 Write-Output "prerelease=false" >> $env:GITHUB_ENV
             }
 
-        - name: deploy
+        - name: dotnet-setup
+          uses: actions/setup-dotnet@v3
+          with:
+            dotnet-version: 7.x
+            
+        - name: dotnet-publish
+          run: dotnet publish "${{matrix.project}}" -c Release -r ${{env.rid}} -o "${{env.publish-path}}" --sc false
+        - name: zip-artifacts
+          run: Compress-Archive -Path "${{env.publish-path}}/*" -Destination "${{env.artifactPath}}"
+
+        - name: deploy-binaries
           uses: softprops/action-gh-release@v1
           with:
             tag_name: ${{env.tag}}
             generate_release_notes: true
-            files: ${{inputs.publish-path}}/${{env.rid}}.zip
+            files: ${{env.artifactPath}}
             token: ${{secrets.GITHUB_TOKEN}}
             prerelease: ${{env.prerelease}}
         
