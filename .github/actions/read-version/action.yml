@@ -28,7 +28,7 @@ runs:
         $versionSuffix = (Select-Xml -Path $path -XPath $VersionSuffixPath).Node.InnerText
         $assemblyVersion = (Select-Xml -Path $path -XPath $AssemblyVersionPath).Node.InnerText
         $buildVersion = $assemblyVersion.Split('.')[-1]
-        $dockerTag
+        $dockerTag = ""
 
         if ("$versionSuffix") {
             $dockerTag = "latest"
