@@ -15,11 +15,6 @@ on:
         required: false
         default: 'publish'
         type: string
-#       gh-nuget-source:
-#         description: 'Source to publish nuget package on github feed'
-#         required: false
-#         default: senketsu03
-#         type: string
   workflow_call:
     inputs:
       runs-on:
@@ -30,10 +25,6 @@ on:
         description: 'Base path to publish artifact'
         required: true
         type: string
-#       gh-nuget-source:
-#         description: 'Source to publish nuget package on github feed'
-#         required: true
-#         type: string
  
 jobs:
 
@@ -113,98 +104,4 @@ jobs:
             files: ${{env.artifact-path}}
             token: ${{secrets.GITHUB_TOKEN}}
             prerelease: ${{env.prerelease}}
-        
-
-
-
-
-
-
-
-
-#   deploy:
-#     runs-on: ${{inputs.runs-on}}
-#     defaults:
-#       run:
-#         shell: pwsh
-#     env:
-#       rid: ''
-#       tag_name: ''
-#       prerelease: true
-#     steps:
-#       - uses: actions/checkout@v3
-      
-#       - name: set-rid
-#         run: |
-#           switch ("${{inputs.runs-on}}") {
-#             "ubuntu-latest" { Write-Output "rid=linux-x64" >> $env:GITHUB_ENV; break }
-#             "windows-latest" { Write-Output "rid=win-x64" >> $env:GITHUB_ENV; break }
-#             default { Write-Output "rid=osx-x64" >> $env:GITHUB_ENV; break }
-#           }
-        
-#       - name: read-version
-#         id: read-version
-#         uses: ./.github/actions/read-version
-        
-#       - name: dotnet-setup
-#         uses: actions/setup-dotnet@v3
-#         with:
-#           dotnet-version: 7.x
-          
-#       - name: dotnet-publish
-#         run: dotnet publish 'Deploy.Cli/Deploy.Cli.csproj' -c Release -r ${{env.rid}} -o '${{inputs.publish-path}}/${{env.rid}}' --sc false
-#       - name: zip-artifacts
-#         run: Compress-Archive -Path '${{inputs.publish-path}}/${{env.rid}}/*' -Destination '${{inputs.publish-path}}/${{env.rid}}.zip'
-        
-#       - name: dotnet-build
-#         run: dotnet build -c Release
-        
-#       - name: dotnet-pack
-#         run: |
-#           if ('${{steps.read-version.outputs.suffix}}')
-#           {
-#               Write-Output "Pack prerelease: ${{steps.read-version.outputs.build}}"
-#               dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/nupkg" --no-build --version-suffix ci-${{steps.read-version.outputs.build}}
-#           }
-#           else
-#           {
-#               Write-Output "Pack release: ${{steps.read-version.outputs.prefix}}"
-#               dotnet pack "Deploy.Core/Deploy.Core.csproj" -c Release -o "${{inputs.publish-path}}/nupkg" --no-build
-#           }
-          
-#       - name: push-nuget-nupkg
-#         run: |
-#           foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
-#           {
-#               dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
-#           }
-          
-#       - name: push-github-nupkg
-#         run: |
-#           foreach($file in (Get-ChildItem '${{inputs.publish-path}}/' -Recurse -Include *.nupkg))
-#           {
-#               dotnet nuget push $file -k ${{secrets.GITHUB_TOKEN}} -s 'https://nuget.pkg.github.com/${{inputs.gh-nuget-source}}/index.json' --skip-duplicate
-#           }
-          
-#       - name: set-deploy-properties
-#         run: |
-#           if ('${{steps.read-version.outputs.suffix}}')
-#           {
-#               echo 'tag_name=continious' >> $env:GITHUB_ENV
-#               echo 'prerelease=true' >> $env:GITHUB_ENV
-#           }
-#           else
-#           {
-#               echo 'tag_name=v${{steps.read-version.outputs.prefix}}' >> $env:GITHUB_ENV
-#               echo 'prerelease=false' >> $env:GITHUB_ENV
-#           }
-      
-#       - name: deploy
-#         uses: softprops/action-gh-release@v1
-#         with:
-#           tag_name: ${{env.tag_name}}
-#           generate_release_notes: true
-#           files: ${{inputs.publish-path}}/${{env.rid}}.zip
-#           token: ${{secrets.GITHUB_TOKEN}}
-#           prerelease: ${{env.prerelease}}
         
