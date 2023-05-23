@@ -80,7 +80,7 @@ jobs:
   deploy-packages-linux:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-binaries.yml
+    uses: ./.github/workflows/deploy-packages.yml
     with:
       runs-on: ubuntu-latest
       publish-base: 'publish'
@@ -89,7 +89,7 @@ jobs:
   deploy-packages-macos:
     needs: build-test-macos
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-binaries.yml
+    uses: ./.github/workflows/deploy-packages.yml
     with:
       runs-on: macos-latest
       publish-base: 'publish'
