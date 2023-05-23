@@ -10,4 +10,4 @@ dotnet test /tl --collect:"XPlat Code Coverage"
 # upload test results
 # codecov -t $token
 
-Write-Host "Finished test/codecov process" -ForegroundColor Yellow
+Write-Host "Finished test/codecov process" -ForegroundColor Green

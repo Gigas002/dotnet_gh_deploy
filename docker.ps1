@@ -82,6 +82,8 @@ function DeployDocker([string]$registry, [string] $username, [SecureString] $tok
 
 #endregion
 
+Write-Host "Deploy of docker images started..." -ForegroundColor Yellow
+
 foreach ($imageKey in $inputs.Keys) {
     $dockerHubTag = "$dockerHubUsername/${imageKey}:$dockerTag"
     $githubTag = "$GithubRegistry/$githubUserName/$githubRepoName/${imageKey}:$dockerTag"
@@ -89,3 +91,5 @@ foreach ($imageKey in $inputs.Keys) {
     DeployDocker $DockerHubRegistry $dockerHubUsername $dockerHubToken $imageKey $dockerHubTag
     DeployDocker $GithubRegistry $githubUsername $githubToken $imageKey $githubTag
 }
+
+Write-Host "Finished deploy of docker images" -ForegroundColor Green

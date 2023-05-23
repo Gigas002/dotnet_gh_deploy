@@ -1,91 +1,75 @@
-#region variables
+<#
+.DESCRIPTION
+    Script for publishing applications. Requires .sln and Directory.Build.props
 
-$publishPath = "publish"
+.EXAMPLE
+    ./script.ps1 -o "publish" -i "proj1/proj1.csproj","proj2/proj2.csproj"
 
-# TODO: array
-$projectToPublish = "Deploy.Cli/Deploy.Cli.csproj"
+.LINK
+    https://github.com/senketsu03/dotnet_gh_deploy
+#>
 
-#endregion
+[CmdletBinding(PositionalBinding = $false)]
+param (
+    # Output (publish) path
+    [Parameter ()]
+    [ValidateNotNullOrEmpty ()]
+    [string] $output = "publish",
 
-#region remove publish directory if it exists
+    # Paths to projects to publish
+    [Parameter ()]
+    [ValidateNotNullOrEmpty ()]
+    [string[]] $inputs = ("Deploy.Cli/Deploy.Cli.csproj",
+                          "Deploy.Benchmarks/Deploy.Benchmarks.csproj",
+                          "Deploy.Gui/Deploy.Gui.csproj")
+)
 
-Write-Output "Removing previous publish directory: $publish"
-Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
+#region Functions
 
-#endregion
+function DotnetPublish([string] $project, [string] $publishPath, [string] $rid) {
+    Write-Host "Publishing $project into $publishPath..." -ForegroundColor Yellow
 
-#region decide runtime
+    dotnet publish /tl "$project" -c Release -r $rid -o "$publishPath" --sc false --verbosity quiet
 
-Write-Output "Publishing native binaries for:"
-
-if ($IsWindows)
-{
-    $rid = "win-x64"
+    Write-Host "Publishing $project finished" -ForegroundColor Green
 }
-elseif ($IsLinux)
-{
-    $rid = "linux-x64"
+
+function CopyDocs([string] $publishPath) {
+    Write-Host "Copying docs into $publishPath..." -ForegroundColor Yellow
+
+    Copy-Item "*.md" "$publishPath/"
+    Remove-Item "$publishPath/*.pdb"
+
+    Write-Host "Finished copying docs" -ForegroundColor Green
 }
-elseif ($IsMacOS)
-{
-    $rid = "osx-x64"
+
+function ZipArtifacts([string] $project, [string] $publishPath, [string] $rid) {
+    Write-Host "Zip artifacts for $publishPath..." -ForegroundColor Yellow
+
+    Compress-Archive -Path "$publishPath/*" -Destination "$output/$project/$project_$rid.zip"
+    
+    Write-Host "Finished zip artifacts" -ForegroundColor Green
 }
 
-Write-Output $rid
-
 #endregion
 
-#region run tests
+Write-Host "Removing previous publish directory: $output" -ForegroundColor Yellow
+Remove-Item -Path $output -Recurse -Force -ErrorAction SilentlyContinue
 
-# TODO: args
-./test.ps1
+switch ($true) {
+    $IsWindows { $rid = "win-x64"; break }
+    $IsLinux { $rid = "linux-x64"; break }
+    $IsMacOS { $rid = "osx-x64"; break }
+}  
 
-#endregion
+Write-Host "Publishing native binaries for: $rid" -ForegroundColor Yellow
 
-#region build docs
+foreach ($project in $inputs) {
+    $projectName = Split-Path -Path $project -Leaf -Resolve | Split-Path -LeafBase
+    $publishPath = "$output/$projectName/$rid"
+    DotnetPublish $project $publishPath $rid
+    CopyDocs $publishPath
+    ZipArtifacts $projectName $publishPath $rid
+}
 
-./docs.ps1
-
-#endregion
-
-#region publish apps
-
-# TODO: add `/tl` after net8 release
-dotnet publish "$projectToPublish" -c Release -r $rid -o "$publishPath/$rid" --sc false --verbosity quiet
-
-#endregion
-
-#region publish nupkgs
-
-Write-Output "Publishing nupkgs"
-
-# TODO: args
-./nuget.ps1
-
-#endregion
-
-#region cp docs
-
-Write-Output "Copy documents/Remove pdbs"
-
-Copy-Item "*.md" "$publishPath/$rid/"
-Remove-Item "$publishPath/$rid/*.pdb"
-
-#endregion
-
-#region zip artifacts
-
-Write-Output "Zip artifacts"
-
-Compress-Archive -Path "$publishPath/$rid/*" -Destination "$publishPath/$rid.zip"
-
-#endregion
-
-#region publish docker
-
-# TODO: args
-./docker.ps1
-
-#endregion
-
-Write-Output "Publish finished"
+Write-Host "Publish finished" -ForegroundColor Green

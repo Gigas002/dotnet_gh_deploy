@@ -8,4 +8,4 @@ docfx metadata
 docfx build
 # docfx serve
 
-Write-Host "Finished generating docs with docfx" -ForegroundColor Yellow
+Write-Host "Finished generating docs with docfx" -ForegroundColor Green

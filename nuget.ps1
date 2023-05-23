@@ -52,7 +52,7 @@ Set-Variable GithubFeed -Option ReadOnly -Value "https://nuget.pkg.github.com/$g
 #region Functions declartions
 
 function DotnetPack([string] $versionSuffix, [string] $buildVersion) {
-    Write-Host "dotnet build/dotnet pack started" -ForegroundColor Yellow
+    Write-Host "dotnet build/dotnet pack started..." -ForegroundColor Yellow
 
     foreach ($project in $inputs) {
         Write-Host "Building: $project" -ForegroundColor Yellow
@@ -69,8 +69,8 @@ function DotnetPack([string] $versionSuffix, [string] $buildVersion) {
         }
     }
 
-    Write-Host "dotnet build/dotnet pack finished" -ForegroundColor Yellow
-    Write-Host "packages are ready at: $output" -ForegroundColor Yellow
+    Write-Host "dotnet build/dotnet pack finished" -ForegroundColor Green
+    Write-Host "packages are ready at: $output" -ForegroundColor Green
 }
 
 function DotnetNugetPush([string] $file, [SecureString] $token, [string] $feed) {
@@ -81,14 +81,14 @@ function DotnetNugetPush([string] $file, [SecureString] $token, [string] $feed) 
 }
 
 function PushPackages() {
-    Write-Host "dotnet nuget push started" -ForegroundColor Yellow
+    Write-Host "dotnet nuget push started..." -ForegroundColor Yellow
 
     foreach ($file in (Get-ChildItem $output -Recurse -Include *.nupkg)) {
         DotnetNugetPush $file $nugetToken $NugetFeed
         DotnetNugetPush $file $githubToken $GithubFeed
     }
 
-    Write-Host "dotnet nuget push finished" -ForegroundColor Yellow
+    Write-Host "dotnet nuget push finished" -ForegroundColor Green
 }
 
 #endregion
