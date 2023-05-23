@@ -46,7 +46,7 @@ function CopyDocs([string] $publishPath) {
 function ZipArtifacts([string] $project, [string] $publishPath, [string] $rid) {
     Write-Host "Zip artifacts for $publishPath..." -ForegroundColor Yellow
 
-    Compress-Archive -Path "$publishPath/*" -Destination "$output/$project/$project_$rid.zip"
+    Compress-Archive -Path "$publishPath/*" -Destination "$output/${project}_${rid}.zip"
     
     Write-Host "Finished zip artifacts" -ForegroundColor Green
 }
@@ -65,7 +65,7 @@ switch ($true) {
 Write-Host "Publishing native binaries for: $rid" -ForegroundColor Yellow
 
 foreach ($project in $inputs) {
-    $projectName = Split-Path -Path $project -Leaf -Resolve | Split-Path -LeafBase
+    $projectName = Split-Path -Path "$project" -Leaf -Resolve | Split-Path -LeafBase
     $publishPath = "$output/$projectName/$rid"
     DotnetPublish $project $publishPath $rid
     CopyDocs $publishPath
