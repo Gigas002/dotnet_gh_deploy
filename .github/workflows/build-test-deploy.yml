@@ -45,7 +45,6 @@ jobs:
     with:
       runs-on: windows-latest
       publish-base: 'publish'
-#       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
   deploy-binaries-linux:
     needs: build-test-linux
@@ -54,7 +53,6 @@ jobs:
     with:
       runs-on: ubuntu-latest
       publish-base: 'publish'
-#       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
   deploy-binaries-macos:
     needs: build-test-macos
@@ -63,7 +61,6 @@ jobs:
     with:
       runs-on: macos-latest
       publish-base: 'publish'
-#       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
     
 # deploy peckages
