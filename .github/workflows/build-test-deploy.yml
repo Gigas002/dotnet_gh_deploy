@@ -38,32 +38,32 @@ jobs:
       
 # publishing tasks
       
-  deploy-windows:
+  deploy-binaries-windows:
     needs: build-test-windows
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: windows-latest
       publish-base: 'publish'
-      gh-nuget-source: ${{github.repository_owner}}
+#       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
-  deploy-linux:
+  deploy-binaries-linux:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: ubuntu-latest
       publish-base: 'publish'
-      gh-nuget-source: ${{github.repository_owner}}
+#       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
-  deploy-macos:
+  deploy-binaries-macos:
     needs: build-test-macos
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: macos-latest
       publish-base: 'publish'
-      gh-nuget-source: ${{github.repository_owner}}
+#       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
     
 # Docker release -- section here
