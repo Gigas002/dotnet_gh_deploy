@@ -77,11 +77,18 @@ jobs:
           }
           
       - name: push-nuget-nupkg
-        run: |
-          foreach($file in (Get-ChildItem '${{inputs.publish-base}}/' -Recurse -Include *.nupkg))
-          {
-              dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
-          }
+        uses: ./.github/actions/push-nupkg
+        with:
+          publish-base: ${{inputs.publish-base}}
+          api-key: ${{secrets.NUGET_API_KEY}}
+          package-feed: "https://api.nuget.org/v3/index.json"
+          
+#       - name: push-nuget-nupkg
+#         run: |
+#           foreach($file in (Get-ChildItem '${{inputs.publish-base}}/' -Recurse -Include *.nupkg))
+#           {
+#               dotnet nuget push $file -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json --skip-duplicate
+#           }
           
       - name: push-github-nupkg
         run: |
