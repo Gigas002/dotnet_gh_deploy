@@ -113,7 +113,6 @@ jobs:
     with:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
-      user: ${{github.repository_owner}}
       project: ${{matrix.project}}
       project-dockerfile: 'Dockerfile'
     secrets:
