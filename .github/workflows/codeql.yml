@@ -2,6 +2,9 @@ name: "CodeQL"
 
 on: [push, pull_request]
 
+concurrency:
+  group: "codeql"
+
 jobs:
   analyze:
     name: analyze
