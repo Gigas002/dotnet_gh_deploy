@@ -65,15 +65,15 @@ jobs:
     
 # deploy peckages
 
-  deploy-packages-windows:
-    needs: build-test-windows
-    if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-packages.yml
-    with:
-      runs-on: windows-latest
-      publish-base: 'publish'
-      gh-nuget-source: ${{github.repository_owner}}
-    secrets: inherit
+#   deploy-packages-windows:
+#     needs: build-test-windows
+#     if: github.ref == 'refs/heads/master'
+#     uses: ./.github/workflows/deploy-packages.yml
+#     with:
+#       runs-on: windows-latest
+#       publish-base: 'publish'
+#       gh-nuget-source: ${{github.repository_owner}}
+#     secrets: inherit
   deploy-packages-linux:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
@@ -83,23 +83,38 @@ jobs:
       publish-base: 'publish'
       gh-nuget-source: ${{github.repository_owner}}
     secrets: inherit
-  deploy-packages-macos:
-    needs: build-test-macos
-    if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-packages.yml
-    with:
-      runs-on: macos-latest
-      publish-base: 'publish'
-      gh-nuget-source: ${{github.repository_owner}}
-    secrets: inherit
+#   deploy-packages-macos:
+#     needs: build-test-macos
+#     if: github.ref == 'refs/heads/master'
+#     uses: ./.github/workflows/deploy-packages.yml
+#     with:
+#       runs-on: macos-latest
+#       publish-base: 'publish'
+#       gh-nuget-source: ${{github.repository_owner}}
+#     secrets: inherit
     
 # Docker release -- section here
 
-  deploy-docker:
+#   deploy-docker:
+#     needs: build-test-linux
+#     if: github.ref == 'refs/heads/master'
+#     uses: ./.github/workflows/deploy-docker.yml
+#     with:
+#       runs-on: ubuntu-latest
+#     secrets: inherit
+    
+  deploy-docker-new:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        project: ["deploy.cli"]
     uses: ./.github/workflows/deploy-docker.yml
     with:
       runs-on: ubuntu-latest
+      registry: 'ghcr.io'
+      user: ${{github.repository_owner}}
+      project: ${{matrix.project}}
     secrets: inherit
-
+    
+    
