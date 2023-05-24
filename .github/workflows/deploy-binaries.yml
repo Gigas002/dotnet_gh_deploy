@@ -1,7 +1,7 @@
 name: deploy-binaries
 on:
-  workflow_dispatch:
   workflow_call:
+  workflow_dispatch:
     inputs:
       runs-on:
         description: 'The operating system to run the job on'
