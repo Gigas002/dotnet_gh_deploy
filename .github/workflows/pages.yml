@@ -1,42 +1,42 @@
-name: Deploy GitHub Pages
+# name: Deploy GitHub Pages
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-  workflow_dispatch:
+#   workflow_dispatch:
 
-permissions: write-all
+# permissions: write-all
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+# concurrency:
+#   group: "pages"
+#   cancel-in-progress: false
 
-jobs:
+# jobs:
 
-  deploy-pages:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
+#   deploy-pages:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v3
     
-    - name: dotnet-setup
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.x
+#     - name: dotnet-setup
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: 7.x
 
-    - name: dotnet-install-docfx
-      run: dotnet tool update -g docfx
+#     - name: dotnet-install-docfx
+#       run: dotnet tool update -g docfx
       
-    - name: docfx-metadata-build
-      run: |
-        cp README.md _docs/index.md
-        docfx metadata
-        docfx build
+#     - name: docfx-metadata-build
+#       run: |
+#         cp README.md _docs/index.md
+#         docfx metadata
+#         docfx build
          
-    - name: pages-deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        publish_dir: docs
+#     - name: pages-deploy
+#       uses: peaceiris/actions-gh-pages@v3
+#       with:
+#         github_token: ${{secrets.GITHUB_TOKEN}}
+#         publish_dir: docs
 
