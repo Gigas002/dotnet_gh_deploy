@@ -2,6 +2,16 @@
 
 name: 'Read version'
 description: 'Reads version prefix and suffix'
+inputs:
+  build-props-path:
+    description: 'Path to Directory.Build.props file'
+    required: false
+    type: string
+    default: 'Directory.Build.props'
+  continious-tag:
+    description: 'Tag for conrinious docker builds'
+    required: false
+    default: 'latest'
 outputs:
   prefix:
     description: 'Version prefix'
@@ -21,7 +31,7 @@ runs:
   steps:
     - id: version
       run: |
-        $Path = "Directory.Build.props"
+        $path = ${{inputs.build-props-path}}
         Set-Variable VersionPrefixPath -Option ReadOnly -Value "/Project/PropertyGroup/VersionPrefix"
         Set-Variable VersionSuffixPath -Option ReadOnly -Value "/Project/PropertyGroup/VersionSuffix"
         Set-Variable AssemblyVersionPath -Option ReadOnly -Value "/Project/PropertyGroup/AssemblyVersion"
@@ -33,7 +43,7 @@ runs:
         $dockerTag = ""
 
         if ("$versionSuffix") {
-            $dockerTag = "latest"
+            $dockerTag = ${{inputs.continious-tag}}
         }
         else {
             $dockerTag = "v$versionPrefix"
