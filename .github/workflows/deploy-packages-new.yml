@@ -1,0 +1,97 @@
+name: deploy-packages-new
+on:   
+  workflow_dispatch:
+    inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+      packages:
+        description: 'Array of packages to create'
+        required: true
+        type: string
+      publish-base:
+        description: 'Base path to publish artifact'
+        required: false
+        default: 'publish'
+        type: string
+      package-feed:
+        description: 'Where to publish package'
+        required: false
+        type: string
+        default: "https://api.nuget.org/v3/index.json"
+  workflow_call:
+    inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: string
+      packages:
+        description: 'Array of packages to create'
+        required: true
+        type: string
+      publish-base:
+        description: 'Base path to publish artifact'
+        required: false
+        default: 'publish'
+        type: string
+      package-feed:
+        description: 'Where to publish package'
+        required: true
+        type: string
+    secrets:
+      TOKEN:
+        required: true
+ 
+jobs:
+
+  deploy:
+    runs-on: ${{inputs.runs-on}}
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      prerelease: true
+    strategy:
+      matrix:
+        package: ${{fromJson(inputs.packages)}}
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: read-version
+        id: read-version
+        uses: ./.github/actions/read-version
+        
+      - name: dotnet-setup
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.x
+        
+      - name: dotnet-build
+        run: dotnet build "${{matrix.package}}" -c Release
+        
+      - name: dotnet-pack
+        run: |
+          if ("${{steps.read-version.outputs.suffix}}")
+          {
+              Write-Output "Pack prerelease (build): ${{steps.read-version.outputs.build}}"
+              dotnet pack "${{matrix.package}}" -c Release -o "${{inputs.publish-base}}/nupkg" --no-build --version-suffix ci-${{steps.read-version.outputs.build}}
+          }
+          else
+          {
+              Write-Output "Pack release: ${{steps.read-version.outputs.prefix}}"
+              dotnet pack "${{matrix.package}}" -c Release -o "${{inputs.publish-base}}/nupkg" --no-build
+          }
+                    
+      - name: push-nupkg
+        uses: ./.github/actions/push-nupkg
+        with:
+          publish-base: ${{inputs.publish-base}}
+          api-key: ${{secrets.TOKEN}}
+          package-feed: ${{inputs.package-feed}}
+          
+      
