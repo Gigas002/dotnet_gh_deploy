@@ -112,10 +112,13 @@ jobs:
             
         - name: zip-src
           run: |
-            New-Item -Path "${{inputs.publish-base}}" -Type Directory
-            $srcPath = "${{inputs.publish-base}}/src-${{env.tag}}.7z"
-            Compress-Archive -Path .\* -DestinationPath "$srcPath"
-            Write-Output "src-path=$srcPath" >> $env:GITHUB_ENV
+            if ($IsLinux)
+            {
+                New-Item -Path "${{inputs.publish-base}}" -Type Directory
+                $srcPath = "${{inputs.publish-base}}/src-${{env.tag}}.7z"
+                Compress-Archive -Path .\* -DestinationPath "$srcPath"
+                Write-Output "src-path=$srcPath" >> $env:GITHUB_ENV
+            }
 
         - name: dotnet-setup
           uses: actions/setup-dotnet@v3
