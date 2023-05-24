@@ -102,8 +102,24 @@ jobs:
 #     with:
 #       runs-on: ubuntu-latest
 #     secrets: inherit
+
+  deploy-docker-docker-hub:
+    needs: build-test-linux
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        project: ["deploy.cli"]
+    uses: ./.github/workflows/deploy-docker-new.yml
+    with:
+      runs-on: ubuntu-latest
+      registry: 'docker.io'
+      project: ${{matrix.project}}
+      project-dockerfile: 'Dockerfile'
+    secrets:
+      USERNAME: ${{secrets.DOCKER_USERNAME}}
+      TOKEN: ${{secrets.DOCKER_PASSWORD}}
     
-  deploy-docker-new:
+  deploy-docker-github:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     strategy:
