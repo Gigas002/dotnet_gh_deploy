@@ -1,9 +1,10 @@
-name: "CodeQL"
+name: "codeql"
 
 on: [push, pull_request]
 
 concurrency:
   group: "codeql"
+  cancel-in-progress: false
 
 jobs:
   analyze:
@@ -15,16 +16,15 @@ jobs:
       security-events: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-    - name: Initialize CodeQL
+    - name: init-codeql
       uses: github/codeql-action/init@v2
       with:
         languages: csharp
 
-    - name: Autobuild
+    - name: autobuild
       uses: github/codeql-action/autobuild@v2
 
-    - name: Perform CodeQL Analysis
+    - name: codeql-analyze
       uses: github/codeql-action/analyze@v2
