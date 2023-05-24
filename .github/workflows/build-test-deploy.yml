@@ -115,6 +115,9 @@ jobs:
       registry: 'ghcr.io'
       user: ${{github.repository_owner}}
       project: ${{matrix.project}}
-    secrets: inherit
+      project-dockerfile: 'Dockerfile'
+    secrets:
+      USERNAME: ${{github.repository_owner}}
+      TOKEN: ${{secrets.GITHUB_TOKEN}}
     
     
