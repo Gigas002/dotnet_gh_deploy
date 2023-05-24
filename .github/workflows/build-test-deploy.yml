@@ -82,13 +82,12 @@ jobs:
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
-        project: ["deploy.cli"]
+        project: ["deploy.cli---Dockerfile"]
     uses: ./.github/workflows/deploy-docker.yml
     with:
       runs-on: ubuntu-latest
       registry: 'docker.io'
       project: ${{matrix.project}}
-      project-dockerfile: 'Dockerfile'
     secrets:
       USERNAME: ${{secrets.DOCKER_USERNAME}}
       TOKEN: ${{secrets.DOCKER_PASSWORD}}
@@ -104,7 +103,6 @@ jobs:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
       project: ${{matrix.project}}
-      project-dockerfile: 'Dockerfile'
     secrets:
       USERNAME: ${{github.repository_owner}}
       TOKEN: ${{secrets.GITHUB_TOKEN}}
