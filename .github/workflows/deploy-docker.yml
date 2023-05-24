@@ -47,16 +47,25 @@ on:
         required: true
         
 jobs:
-  deploy-docker-image:
+  deploy-docker-image-new:
     runs-on: ${{inputs.runs-on}}
     defaults:
       run:
         shell: pwsh
     env:
       image: ''
+      project: ''
+      dockerfile: ''
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+        
+      - name: Parse project name and path
+        run: |
+          $project = ${{inputs.project}}.Split("---")[0]
+          $dockerfile = ${{inputs.project}}.Split("---")[1]
+          Write-Output "project=$project" >> $env:GITHUB_ENV
+          Write-Output "dockerfile=$dockerfile" >> $env:GITHUB_ENV
         
       - name: read-version
         id: read-version
@@ -64,7 +73,7 @@ jobs:
         
       - name: set-image
         run: |
-          $image = "${{inputs.registry}}/${{secrets.USERNAME}}/${{inputs.project}}"
+          $image = "${{inputs.registry}}/${{secrets.USERNAME}}/${{env.project}}"
           Write-Output "image=$image" >> $env:GITHUB_ENV
 
       - name: docker-login
@@ -85,7 +94,51 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ${{inputs.project-dockerfile}}
+          file: ${{env.dockerfile}}
           push: ${{github.event_name != 'pull_request'}}
           tags: ${{steps.meta.outputs.tags}}
           labels: ${{steps.meta.outputs.labels}}
+
+
+#   deploy-docker-image:
+#     runs-on: ${{inputs.runs-on}}
+#     defaults:
+#       run:
+#         shell: pwsh
+#     env:
+#       image: ''
+#     steps:
+#       - name: Check out the repo
+#         uses: actions/checkout@v3
+        
+#       - name: read-version
+#         id: read-version
+#         uses: ./.github/actions/read-version
+        
+#       - name: set-image
+#         run: |
+#           $image = "${{inputs.registry}}/${{secrets.USERNAME}}/${{inputs.project}}"
+#           Write-Output "image=$image" >> $env:GITHUB_ENV
+
+#       - name: docker-login
+#         uses: docker/login-action@v2
+#         with:
+#           registry: ${{inputs.registry}}
+#           username: ${{secrets.USERNAME}}
+#           password: ${{secrets.TOKEN}}
+          
+#       - name: docker-extract-meta
+#         id: meta
+#         uses: docker/metadata-action@v4
+#         with:
+#           images: ${{env.image}}
+#           tags: type=raw,value=${{steps.read-version.outputs.docker-tag}}
+          
+#       - name: docker-build-push
+#         uses: docker/build-push-action@v4
+#         with:
+#           context: .
+#           file: ${{inputs.project-dockerfile}}
+#           push: ${{github.event_name != 'pull_request'}}
+#           tags: ${{steps.meta.outputs.tags}}
+#           labels: ${{steps.meta.outputs.labels}}
