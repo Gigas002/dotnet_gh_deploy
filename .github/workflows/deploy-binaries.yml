@@ -1,29 +1,6 @@
 name: deploy-binaries
 on:
   workflow_dispatch:
-    inputs:
-      runs-on:
-        description: 'The operating system to run the job on'
-        required: true
-        type: choice
-        options:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
-      projects:
-        description: 'Array of projects to publish'
-        required: true
-        type: string
-      publish-base:
-        description: 'Base path to publish artifact'
-        required: false
-        default: 'publish'
-        type: string
-      continious-tag:
-        description: 'Tag name for continious builds'
-        required: false
-        type: string
-        default: 'continious'
   workflow_call:
     inputs:
       runs-on:
