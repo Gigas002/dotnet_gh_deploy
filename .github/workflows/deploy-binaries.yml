@@ -29,6 +29,11 @@ on:
         required: false
         type: string
         default: '7.x'
+      build-props-path:
+        description: 'Path to Directory.Build.props file'
+        required: false
+        type: string
+        default: 'Directory.Build.props'
   workflow_call:
     inputs:
       runs-on:
@@ -54,6 +59,11 @@ on:
         required: false
         type: string
         default: '7.x'
+      build-props-path:
+        description: 'Path to Directory.Build.props file'
+        required: false
+        type: string
+        default: 'Directory.Build.props'
  
 jobs:
 
@@ -95,6 +105,8 @@ jobs:
         - name: read-version
           id: read-version
           uses: ./.github/actions/read-version
+          with:
+            build-props-path: ${{inputs.build-props-path}}
             
         - name: set-deploy-properties
           run: |
