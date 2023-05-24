@@ -109,7 +109,7 @@ jobs:
     strategy:
       matrix:
         project: ["deploy.cli"]
-    uses: ./.github/workflows/deploy-docker.yml
+    uses: ./.github/workflows/deploy-docker-new.yml
     with:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
