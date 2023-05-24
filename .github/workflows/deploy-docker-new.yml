@@ -1,5 +1,27 @@
 name: deploy-docker-new
 on:
+  workflow_dispatch:
+    inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+      registry:
+        description: 'Registry to push image'
+        required: true
+        type: string
+      project:
+        description: 'Project to push'
+        required: true
+        type: string
+      project-dockerfile:
+        description: 'Projects dockerfile path'
+        required: true
+        type: string
   workflow_call:
     inputs:
       runs-on:
@@ -10,14 +32,6 @@ on:
         description: 'Registry to push image'
         required: true
         type: string
-#       image:
-#         description: 'Full name of image to push'
-#         required: true
-#         type: string
-#       user:
-#         description: 'User name'
-#         required: true
-#         type: string
       project:
         description: 'Project to push'
         required: true
