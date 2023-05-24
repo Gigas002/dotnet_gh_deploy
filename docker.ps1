@@ -48,10 +48,16 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("p")]
-    [string] $buildPropsPath = "Directory.Build.props"
+    [string] $buildPropsPath = "Directory.Build.props",
+
+    # docker continious tag
+    [Parameter ()]
+    [ValidateNotNullOrEmpty ()]
+    [Alias("c")]
+    [string] $continiousTag = "latest"
 )
 
-$versionPrefix, $versionSuffix, $buildVersion, $dockerTag = ./read_version.ps1 -p $buildPropsPath
+$versionPrefix, $versionSuffix, $buildVersion, $dockerTag = ./read_version.ps1 -p $buildPropsPath -c $continiousTag
 
 #region Constants
 

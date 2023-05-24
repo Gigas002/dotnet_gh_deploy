@@ -11,3 +11,6 @@ TestResults/
 *.Artifacts/
 artifacts/
 secrets.txt
+docs/
+*.7z
+*.zip

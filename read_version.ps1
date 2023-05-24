@@ -18,7 +18,13 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("p")]
-    [string] $path = "Directory.Build.props"
+    [string] $path = "Directory.Build.props",
+
+    # docker continious tag
+    [Parameter ()]
+    [ValidateNotNullOrEmpty ()]
+    [Alias("c")]
+    [string] $continiousTag = "latest"
 )
 
 #region Constants
@@ -38,7 +44,7 @@ $buildVersion = $assemblyVersion.Split('.')[-1]
 $dockerTag = ""
 
 if ("$versionSuffix") {
-    $dockerTag = "latest"
+    $dockerTag = "$continiousTag"
 }
 else {
     $dockerTag = "v$versionPrefix"
