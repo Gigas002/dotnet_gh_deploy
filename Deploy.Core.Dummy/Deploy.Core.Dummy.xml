@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Deploy.Core.Dummy</name>
+    </assembly>
+    <members>
+        <member name="T:Deploy.Core.Dummy.Dumb">
+            <summary>
+            Dumb da-dumb
+            </summary>
+        </member>
+        <member name="P:Deploy.Core.Dummy.Dumb.User">
+            <summary>
+            Dumb user
+            </summary>
+        </member>
+        <member name="M:Deploy.Core.Dummy.Dumb.#ctor(Deploy.Core.User)">
+            <summary>
+            Create new dumb user
+            </summary>
+        </member>
+    </members>
+</doc>
