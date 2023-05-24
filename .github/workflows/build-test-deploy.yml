@@ -45,6 +45,8 @@ jobs:
     needs: build-test-windows
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
+    concurrency:
+      group: "deploy-binaries"
     with:
       runs-on: windows-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
@@ -52,10 +54,13 @@ jobs:
       continious-tag: 'continious'
       dotnet-version: '7.x'
     secrets: inherit
+    
   deploy-binaries-linux:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
+    concurrency:
+      group: "deploy-binaries"
     with:
       runs-on: ubuntu-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
@@ -63,10 +68,13 @@ jobs:
       continious-tag: 'continious'
       dotnet-version: '7.x'
     secrets: inherit
+    
   deploy-binaries-macos:
     needs: build-test-macos
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
+    concurrency:
+      group: "deploy-binaries"
     with:
       runs-on: macos-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
@@ -75,12 +83,28 @@ jobs:
       dotnet-version: '7.x'
     secrets: inherit
     
+# deploy src
+
+  deploy-src-linux:
+    needs: build-test-linux
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-src.yml
+    concurrency:
+      group: "deploy-src"
+    with:
+      runs-on: ubuntu-latest
+      publish-base: 'publish'
+      continious-tag: 'continious'
+    secrets: inherit
+    
 # deploy peckages
     
   deploy-packages-nuget-linux:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-packages.yml
+    concurrency:
+      group: "deploy-packages"
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj"]'
@@ -94,6 +118,8 @@ jobs:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-packages.yml
+    concurrency:
+      group: "deploy-packages"
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj"]'
@@ -112,6 +138,8 @@ jobs:
       matrix:
         project: ["deploy.cli---Dockerfile"]
     uses: ./.github/workflows/deploy-docker.yml
+    concurrency:
+      group: "deploy-docker"
     with:
       runs-on: ubuntu-latest
       registry: 'docker.io'
@@ -127,6 +155,8 @@ jobs:
       matrix:
         project: ["deploy.cli---Dockerfile"]
     uses: ./.github/workflows/deploy-docker.yml
+    concurrency:
+      group: "deploy-docker"
     with:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
