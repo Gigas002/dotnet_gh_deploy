@@ -19,6 +19,11 @@ on:
         description: 'Where to publish package'
         required: true
         type: string
+      dotnet-version:
+        description: 'dotnet sdk version'
+        required: false
+        type: string
+        default: '7.x'
     secrets:
       TOKEN:
         required: true
@@ -45,7 +50,7 @@ jobs:
       - name: dotnet-setup
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.x
+          dotnet-version: ${{inputs.dotnet-version}}
         
       - name: dotnet-build
         run: dotnet build "${{matrix.package}}" -c Release
