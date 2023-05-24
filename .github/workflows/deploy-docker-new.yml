@@ -64,7 +64,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{inputs.image}}
+          images: ${{env.image}}
           tags: type=raw,value=${{steps.read-version.outputs.docker-tag}}
           
       - name: docker-build-push
