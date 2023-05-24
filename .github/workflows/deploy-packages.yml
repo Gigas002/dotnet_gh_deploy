@@ -24,6 +24,11 @@ on:
         required: false
         type: string
         default: '7.x'
+      build-props-path:
+        description: 'Path to Directory.Build.props file'
+        required: false
+        type: string
+        default: 'Directory.Build.props'
     secrets:
       TOKEN:
         required: true
@@ -46,7 +51,9 @@ jobs:
       - name: read-version
         id: read-version
         uses: ./.github/actions/read-version
-        
+        with:
+          build-props-path: ${{inputs.build-props-path}}
+            
       - name: dotnet-setup
         uses: actions/setup-dotnet@v3
         with:
