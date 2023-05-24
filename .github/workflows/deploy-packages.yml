@@ -1,4 +1,4 @@
-name: deploy-packages-new
+name: deploy-packages
 on:   
   workflow_dispatch:
     inputs:
