@@ -35,7 +35,8 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [hashtable] $inputs = [ordered]@{
-        "dotnet.cli" = "Dockerfile"
+        "dotnet.cli" = "Dockerfile";
+        "dotnet.benchmarks" = "BenchmarksDockerfile"
     },
 
     # Github repo name
