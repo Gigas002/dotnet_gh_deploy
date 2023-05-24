@@ -1,6 +1,30 @@
 name: deploy-pages
 on:
   workflow_dispatch:
+    inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+      dotnet-version:
+        description: 'dotnet sdk version'
+        required: false
+        type: string
+        default: '7.x'
+      docfx-json-path:
+        description: 'Path to docfx.json file'
+        required: false
+        type: string
+        default: 'docfx.json'
+      publish-dir:
+        description: 'Path for built docs (same as declared in docfx.json!)'
+        required: false
+        type: string
+        default: 'docs'
   workflow_call:
     inputs:
       runs-on:
