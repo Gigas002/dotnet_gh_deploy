@@ -50,7 +50,7 @@ jobs:
       cancel-in-progress: false
     with:
       runs-on: windows-latest
-      projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
+      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
       dotnet-version: '7.x'
@@ -66,7 +66,7 @@ jobs:
       cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
-      projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
+      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
       dotnet-version: '7.x'
@@ -82,7 +82,7 @@ jobs:
       cancel-in-progress: false
     with:
       runs-on: macos-latest
-      projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
+      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
       dotnet-version: '7.x'
