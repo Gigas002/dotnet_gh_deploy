@@ -87,7 +87,7 @@ jobs:
             Compress-Archive -Path .\* -DestinationPath "$srcPath"
             Write-Output "src-path=$srcPath" >> $env:GITHUB_ENV
 
-        - name: deploy-binaries
+        - name: deploy-src
           uses: softprops/action-gh-release@v1
           with:
             tag_name: ${{env.tag}}
