@@ -1,6 +1,8 @@
 using System.Security.Cryptography;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Running;
+
+#pragma warning disable CA5351 // Do Not Use Broken Cryptographic Algorithms
+#pragma warning disable CA5394 // Do not use insecure randomness
 
 namespace Deploy.Benchmarks;
 
