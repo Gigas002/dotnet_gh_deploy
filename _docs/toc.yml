@@ -3,7 +3,11 @@
 - name: Library
   href: api/toc.yml
   homepage: articles/core-index.md
+- name: Benchmarks
+  href: articles/benchmarks-index.md
 - name: Cli
   href: articles/cli-index.md
+- name: Gui
+  href: articles/gui-index.md
 - name: Tests
   href: articles/tests-index.md

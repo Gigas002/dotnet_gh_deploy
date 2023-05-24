@@ -3,7 +3,10 @@
     {
       "src": [
         {
-          "files": ["Deploy.Core/**.csproj"],
+          "files": [
+            "Deploy.Core/**.csproj",
+            "Deploy.Core.Dummy/**.csproj"
+          ],
           "exclude": ["**/bin/**", "**/obj/**"]
         }
       ],

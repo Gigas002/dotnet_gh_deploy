@@ -16,15 +16,23 @@ You'll need to select a branch `gh-pages` for the first deployment, see: https:/
 
 ## Releases
 
-![GitHub all releases](https://img.shields.io/github/downloads/senketsu03/dotnet_gh_deploy/total)
+**Downloaded**
 
-![Nuget](https://img.shields.io/nuget/dt/Deploy.Core)
+On Github: [![GitHub all releases](https://img.shields.io/github/downloads/senketsu03/dotnet_gh_deploy/total)](https://github.com/senketsu03/dotnet_gh_deploy/releases)
+
+Deploy.Core: [![Nuget](https://img.shields.io/nuget/dt/Deploy.Core)](https://www.nuget.org/packages/Deploy.Core/)
+
+Deploy.Core.Dummy: [![Nuget](https://img.shields.io/nuget/dt/Deploy.Core.Dummy)](https://www.nuget.org/packages/Deploy.Core.Dummy/)
+
+**Grab binaries**
 
 GitHub Releases: [![Release](https://img.shields.io/github/release/senketsu03/dotnet_gh_deploy.svg)](https://github.com/senketsu03/dotnet_gh_deploy/releases/latest)
 
 NuGet: [![NuGet](https://img.shields.io/nuget/v/Deploy.Core.svg)](https://www.nuget.org/packages/Deploy.Core/)
 
-Docker Hub: ![Docker Image Version (latest by date)](https://img.shields.io/docker/v/trolltrollski/deploy.cli)
+Deploy.Cli on Docker Hub: [![Docker Image (latest/tagged)](https://img.shields.io/docker/v/trolltrollski/deploy.cli)](https://hub.docker.com/repository/docker/trolltrollski/deploy.cli)
+
+Deploy.Benchmarks on Docker Hub: [![Docker Image (latest/tagged)](https://img.shields.io/docker/v/trolltrollski/deploy.benchmarks)](https://hub.docker.com/repository/docker/trolltrollski/deploy.benchmarks)
 
 ## Vulnerabilities
 
@@ -40,4 +48,4 @@ Icons: https://www.flaticon.com/packs/far-west
 
 ## License
 
-![GitHub](https://img.shields.io/github/license/senketsu03/dotnet_gh_deploy)
+[![GitHub](https://img.shields.io/github/license/senketsu03/dotnet_gh_deploy)](https://github.com/senketsu03/dotnet_gh_deploy/blob/master/LICENSE.md)
