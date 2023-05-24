@@ -10,8 +10,20 @@ on:
         description: 'Registry to push image'
         required: true
         type: string
-      image:
-        description: 'Full name of image to push'
+#       image:
+#         description: 'Full name of image to push'
+#         required: true
+#         type: string
+#       user:
+#         description: 'User name'
+#         required: true
+#         type: string
+      project:
+        description: 'Project to push'
+        required: true
+        type: string
+      project-dockerfile:
+        description: 'Projects dockerfile path'
         required: true
         type: string
     secrets:
@@ -23,6 +35,11 @@ on:
 jobs:
   deploy-docker-image:
     runs-on: ${{inputs.runs-on}}
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      image: ''
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -30,6 +47,11 @@ jobs:
       - name: read-version
         id: read-version
         uses: ./.github/actions/read-version
+        
+      - name: set-image
+        run: |
+          $image = "${{inputs.registry}}/${{secrets.USERNAME}}/${{inputs.project}}"
+          Write-Output "image=$image" >> $env:GITHUB_ENV
 
       - name: docker-login
         uses: docker/login-action@v2
@@ -49,7 +71,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./Dockerfile
+          file: ${{inputs.project-dockerfile}}
           push: ${{github.event_name != 'pull_request'}}
           tags: ${{steps.meta.outputs.tags}}
           labels: ${{steps.meta.outputs.labels}}
