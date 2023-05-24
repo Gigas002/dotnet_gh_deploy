@@ -37,61 +37,39 @@ jobs:
     secrets: inherit
       
 # deploy binaries
-      
-#   deploy-binaries-windows:
-#     needs: build-test-windows
-#     if: github.ref == 'refs/heads/master'
-#     uses: ./.github/workflows/deploy-binaries.yml
-#     with:
-#       runs-on: windows-latest
-#       publish-base: 'publish'
-#     secrets: inherit
-#   deploy-binaries-linux:
-#     needs: build-test-linux
-#     if: github.ref == 'refs/heads/master'
-#     uses: ./.github/workflows/deploy-binaries.yml
-#     with:
-#       runs-on: ubuntu-latest
-#       publish-base: 'publish'
-#     secrets: inherit
-#   deploy-binaries-macos:
-#     needs: build-test-macos
-#     if: github.ref == 'refs/heads/master'
-#     uses: ./.github/workflows/deploy-binaries.yml
-#     with:
-#       runs-on: macos-latest
-#       publish-base: 'publish'
-#     secrets: inherit
 
   deploy-binaries-windows:
     needs: build-test-windows
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-binaries-new.yml
+    uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: windows-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
+      dotnet-version: '7.x'
     secrets: inherit
   deploy-binaries-linux:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-binaries-new.yml
+    uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: ubuntu-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
+      dotnet-version: '7.x'
     secrets: inherit
   deploy-binaries-macos:
     needs: build-test-macos
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-binaries-new.yml
+    uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: macos-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
+      dotnet-version: '7.x'
     secrets: inherit
     
 # deploy peckages
@@ -105,6 +83,7 @@ jobs:
       packages: '["Deploy.Core/Deploy.Core.csproj"]'
       publish-base: 'publish'
       package-feed: "https://api.nuget.org/v3/index.json"
+      dotnet-version: '7.x'
     secrets: 
       TOKEN: ${{secrets.NUGET_API_KEY}}
       
@@ -117,6 +96,7 @@ jobs:
       packages: '["Deploy.Core/Deploy.Core.csproj"]'
       publish-base: 'publish'
       package-feed: "https://nuget.pkg.github.com/${{github.repository_owner}}/index.json"
+      dotnet-version: '7.x'
     secrets: 
       TOKEN: ${{secrets.GITHUB_TOKEN}}
     
