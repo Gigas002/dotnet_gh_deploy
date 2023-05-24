@@ -1,4 +1,4 @@
-name: deploy-docker-new
+name: deploy-docker
 on:
   workflow_dispatch:
     inputs:
