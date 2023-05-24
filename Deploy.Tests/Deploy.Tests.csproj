@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Deploy.Core\Deploy.Core.csproj" />
+    <ProjectReference Include="..\Deploy.Core.Dummy\Deploy.Core.Dummy.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,3 @@
-using Deploy.Core;
-
 namespace Deploy.Core.Dummy;
 
 /// <summary>
@@ -7,12 +5,15 @@ namespace Deploy.Core.Dummy;
 /// </summary>
 public class Dumb
 {
-    
     /// <summary>
     /// Dumb user
     /// </summary>
-    User User { get; set; }
+    public User User { get; set; }
 
+    /// <summary>
+    /// Create dumb
+    /// </summary>
+    public Dumb() => User = new User();
 
     /// <summary>
     /// Create new dumb user

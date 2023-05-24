@@ -14,6 +14,11 @@
             Dumb user
             </summary>
         </member>
+        <member name="M:Deploy.Core.Dummy.Dumb.#ctor">
+            <summary>
+            Create dumb
+            </summary>
+        </member>
         <member name="M:Deploy.Core.Dummy.Dumb.#ctor(Deploy.Core.User)">
             <summary>
             Create new dumb user
