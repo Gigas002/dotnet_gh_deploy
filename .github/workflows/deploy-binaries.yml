@@ -1,7 +1,35 @@
 name: deploy-binaries
 on:
-  workflow_call:
   workflow_dispatch:
+   inputs:
+      runs-on:
+        description: 'The operating system to run the job on'
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+      projects:
+        description: 'Array of projects to publish'
+        required: true
+        type: string
+      publish-base:
+        description: 'Base path to publish artifact'
+        required: false
+        type: string
+        default: 'publish'
+      continious-tag:
+        description: 'Tag name for continious builds'
+        required: false
+        type: string
+        default: 'continious'
+      dotnet-version:
+        description: 'dotnet sdk version'
+        required: false
+        type: string
+        default: '7.x'
+  workflow_call:
     inputs:
       runs-on:
         description: 'The operating system to run the job on'
@@ -41,6 +69,7 @@ jobs:
       project-name: ''
       publish-path: ''
       artifact-path: ''
+      src-path: ''
     strategy:
       matrix:
         project: ${{fromJson(inputs.projects)}}
@@ -59,7 +88,7 @@ jobs:
             
             $projectName = Split-Path -Path "${{matrix.project}}" -Leaf -Resolve | Split-Path -LeafBase
             $publishPath = "${{inputs.publish-base}}/$projectName/$rid"
-            $artifactPath = "${{inputs.publish-base}}/${projectName}_$rid.zip"
+            $artifactPath = "${{inputs.publish-base}}/${projectName}_$rid.7z"
             Write-Output "project-name=$projectName" >> $env:GITHUB_ENV
             Write-Output "publish-path=$publishPath" >> $env:GITHUB_ENV
             Write-Output "artifact-path=$artifactPath" >> $env:GITHUB_ENV
@@ -80,6 +109,12 @@ jobs:
                 Write-Output "tag=v${{steps.read-version.outputs.prefix}}" >> $env:GITHUB_ENV
                 Write-Output "prerelease=false" >> $env:GITHUB_ENV
             }
+            
+        - name: zip-src
+          run: |
+            $srcPath = "${{inputs.publish-base}}/src-${{env.tag}}.7z"
+            Compress-Archive -Path .\* -DestinationPath "$srcPath"
+            Write-Output "src-path=$srcPath" >> $env:GITHUB_ENV
 
         - name: dotnet-setup
           uses: actions/setup-dotnet@v3
@@ -102,7 +137,9 @@ jobs:
           with:
             tag_name: ${{env.tag}}
             generate_release_notes: true
-            files: ${{env.artifact-path}}
+            files: |
+              ${{env.artifact-path}}
+              ${{env.src-path}}
             token: ${{secrets.GITHUB_TOKEN}}
             prerelease: ${{env.prerelease}}
         
