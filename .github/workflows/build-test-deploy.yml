@@ -4,8 +4,6 @@ on: [push, pull_request]
 
 jobs:
 
-# building and testing tasks
-
 # no point in matrix without deploy tasks
 # see discussion: https://github.com/orgs/community/discussions/42335
 
@@ -20,20 +18,25 @@ jobs:
 # passing env to jobs
 # see: https://github.com/orgs/community/discussions/26671
 
+# building and testing tasks
+
   build-test-windows:
     uses: ./.github/workflows/build-test.yml
     with:
       runs-on: windows-latest
+      dotnet-version: '7.x'
     secrets: inherit
   build-test-linux:
     uses: ./.github/workflows/build-test.yml
     with:
       runs-on: ubuntu-latest
+      dotnet-version: '7.x'
     secrets: inherit
   build-test-macos:
     uses: ./.github/workflows/build-test.yml
     with:
       runs-on: macos-latest
+      dotnet-version: '7.x'
     secrets: inherit
       
 # deploy binaries
