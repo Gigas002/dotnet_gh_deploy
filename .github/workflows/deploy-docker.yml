@@ -1,23 +1,5 @@
 name: deploy-docker
 on:
-  workflow_dispatch:
-    inputs:
-      runs-on:
-        description: 'The operating system to run the job on'
-        required: true
-        type: choice
-        options:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
-      registry:
-        description: 'Registry to push image'
-        required: true
-        type: string
-      project:
-        description: 'String in ProjectName---DockerfilePath format'
-        required: true
-        type: string
   workflow_call:
     inputs:
       runs-on:
