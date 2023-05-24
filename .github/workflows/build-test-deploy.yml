@@ -89,6 +89,22 @@ jobs:
       build-props-path: 'Directory.Build.props'
     secrets: inherit
     
+# deploy pages
+
+  deploy-pages-linux:
+    needs: build-test-linux
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-pages.yml
+    concurrency:
+      group: "deploy-pages"
+      cancel-in-progress: false
+    with:
+      runs-on: ubuntu-latest
+      publish-base: 'publish'
+      continious-tag: 'continious'
+      build-props-path: 'Directory.Build.props'
+    secrets: inherit
+    
 # deploy src
 
   deploy-src-linux:
@@ -100,9 +116,9 @@ jobs:
       cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
-      publish-base: 'publish'
-      continious-tag: 'continious'
-      build-props-path: 'Directory.Build.props'
+      dotnet-version: '7.x'
+      docfx-json-path: 'docfx.json'
+      publish-dir: 'docs'
     secrets: inherit
     
 # deploy peckages
