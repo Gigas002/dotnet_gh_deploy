@@ -138,6 +138,37 @@ references:
   isSpec: "True"
   fullName: Deploy.Core.Context.Users
   nameWithType: Context.Users
+- uid: Deploy.Core.Dummy
+  name: Deploy.Core.Dummy
+  href: api/Deploy.Core.Dummy.html
+  commentId: N:Deploy.Core.Dummy
+  fullName: Deploy.Core.Dummy
+  nameWithType: Deploy.Core.Dummy
+- uid: Deploy.Core.Dummy.Dumb
+  name: Dumb
+  href: api/Deploy.Core.Dummy.Dumb.html
+  commentId: T:Deploy.Core.Dummy.Dumb
+  fullName: Deploy.Core.Dummy.Dumb
+  nameWithType: Dumb
+- uid: Deploy.Core.Dummy.Dumb.#ctor(Deploy.Core.User)
+  name: Dumb(User)
+  href: api/Deploy.Core.Dummy.Dumb.html#Deploy_Core_Dummy_Dumb__ctor_Deploy_Core_User_
+  commentId: M:Deploy.Core.Dummy.Dumb.#ctor(Deploy.Core.User)
+  name.vb: New(User)
+  fullName: Deploy.Core.Dummy.Dumb.Dumb(Deploy.Core.User)
+  fullName.vb: Deploy.Core.Dummy.Dumb.New(Deploy.Core.User)
+  nameWithType: Dumb.Dumb(User)
+  nameWithType.vb: Dumb.New(User)
+- uid: Deploy.Core.Dummy.Dumb.#ctor*
+  name: Dumb
+  href: api/Deploy.Core.Dummy.Dumb.html#Deploy_Core_Dummy_Dumb__ctor_
+  commentId: Overload:Deploy.Core.Dummy.Dumb.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Deploy.Core.Dummy.Dumb.Dumb
+  fullName.vb: Deploy.Core.Dummy.Dumb.New
+  nameWithType: Dumb.Dumb
+  nameWithType.vb: Dumb.New
 - uid: Deploy.Core.User
   name: User
   href: api/Deploy.Core.User.html
