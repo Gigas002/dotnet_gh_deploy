@@ -22,7 +22,9 @@ param (
     # Paths to projects to publish
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
-    [string[]] $inputs = ("Deploy.Core/Deploy.Core.csproj"),  
+    [string[]] $inputs = ("Deploy.Core/Deploy.Core.csproj",
+                          "Deploy.Core.Dummy/Deploy.Core.Dummy.csproj"
+    ),  
 
     # Output (dotnet pack) path
     [Parameter ()]
