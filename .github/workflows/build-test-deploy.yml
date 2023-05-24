@@ -47,6 +47,7 @@ jobs:
     uses: ./.github/workflows/deploy-binaries.yml
     concurrency:
       group: "deploy-binaries-windows"
+      cancel-in-progress: false
     with:
       runs-on: windows-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
@@ -62,6 +63,7 @@ jobs:
     uses: ./.github/workflows/deploy-binaries.yml
     concurrency:
       group: "deploy-binaries-linux"
+      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
@@ -77,6 +79,7 @@ jobs:
     uses: ./.github/workflows/deploy-binaries.yml
     concurrency:
       group: "deploy-binaries-macos"
+      cancel-in-progress: false
     with:
       runs-on: macos-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj"]'
@@ -94,6 +97,7 @@ jobs:
     uses: ./.github/workflows/deploy-src.yml
     concurrency:
       group: "deploy-src-linux"
+      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       publish-base: 'publish'
@@ -109,6 +113,7 @@ jobs:
     uses: ./.github/workflows/deploy-packages.yml
     concurrency:
       group: "deploy-packages-nuget-linux"
+      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj"]'
@@ -125,6 +130,7 @@ jobs:
     uses: ./.github/workflows/deploy-packages.yml
     concurrency:
       group: "deploy-packages-github-linux"
+      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj"]'
@@ -146,6 +152,7 @@ jobs:
     uses: ./.github/workflows/deploy-docker.yml
     concurrency:
       group: "deploy-docker-docker-hub-linux"
+      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       registry: 'docker.io'
@@ -165,6 +172,7 @@ jobs:
     uses: ./.github/workflows/deploy-docker.yml
     concurrency:
       group: "deploy-docker-github-linux"
+      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
