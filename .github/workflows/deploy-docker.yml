@@ -34,7 +34,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
         
-      - name: Parse project name and path
+      - name: set-project-name-dockerfile
         run: |
           $project = "${{inputs.project}}".Split("---")[0]
           $dockerfile = "${{inputs.project}}".Split("---")[1]
