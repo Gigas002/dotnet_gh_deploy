@@ -11,6 +11,7 @@ inputs:
   continious-tag:
     description: 'Tag for conrinious docker builds'
     required: false
+    type: string
     default: 'latest'
 outputs:
   prefix:
