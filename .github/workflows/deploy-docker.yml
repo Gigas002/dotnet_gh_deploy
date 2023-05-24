@@ -62,8 +62,8 @@ jobs:
         
       - name: Parse project name and path
         run: |
-          $project = ${{inputs.project}}.Split("---")[0]
-          $dockerfile = ${{inputs.project}}.Split("---")[1]
+          $project = "${{inputs.project}}".Split("---")[0]
+          $dockerfile = "${{inputs.project}}".Split("---")[1]
           Write-Output "project=$project" >> $env:GITHUB_ENV
           Write-Output "dockerfile=$dockerfile" >> $env:GITHUB_ENV
         
