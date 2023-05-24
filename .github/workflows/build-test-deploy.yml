@@ -132,7 +132,7 @@ jobs:
       cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
-      packages: '["Deploy.Core/Deploy.Core.csproj"]'
+      packages: '["Deploy.Core/Deploy.Core.csproj", "Deploy.Core.Dummy/Deploy.Core.Dummy.csproj"]'
       publish-base: 'publish'
       package-feed: "https://api.nuget.org/v3/index.json"
       dotnet-version: '7.x'
@@ -149,7 +149,7 @@ jobs:
       cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
-      packages: '["Deploy.Core/Deploy.Core.csproj"]'
+      packages: '["Deploy.Core/Deploy.Core.csproj", "Deploy.Core.Dummy/Deploy.Core.Dummy.csproj"]'
       publish-base: 'publish'
       package-feed: "https://nuget.pkg.github.com/${{github.repository_owner}}/index.json"
       dotnet-version: '7.x'
