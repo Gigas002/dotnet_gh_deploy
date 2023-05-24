@@ -1,29 +1,5 @@
 name: deploy-packages
 on:   
-  workflow_dispatch:
-    inputs:
-      runs-on:
-        description: 'The operating system to run the job on'
-        required: true
-        type: choice
-        options:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
-      packages:
-        description: 'Array of packages to create'
-        required: true
-        type: string
-      publish-base:
-        description: 'Base path to publish artifact'
-        required: false
-        default: 'publish'
-        type: string
-      package-feed:
-        description: 'Where to publish package'
-        required: false
-        type: string
-        default: "https://api.nuget.org/v3/index.json"
   workflow_call:
     inputs:
       runs-on:
