@@ -65,15 +65,39 @@ jobs:
     
 # deploy peckages
 
-  deploy-packages-linux:
+#   deploy-packages-linux:
+#     needs: build-test-linux
+#     if: github.ref == 'refs/heads/master'
+#     uses: ./.github/workflows/deploy-packages.yml
+#     with:
+#       runs-on: ubuntu-latest
+#       publish-base: 'publish'
+#       gh-nuget-source: ${{github.repository_owner}}
+#     secrets: inherit
+    
+  deploy-packages-nuget-linux:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
-    uses: ./.github/workflows/deploy-packages.yml
+    uses: ./.github/workflows/deploy-packages-new.yml
     with:
       runs-on: ubuntu-latest
+      packages: '["Deploy.Core/Deploy.Core.csproj"]'
       publish-base: 'publish'
-      gh-nuget-source: ${{github.repository_owner}}
-    secrets: inherit
+      package-feed: "https://api.nuget.org/v3/index.json"
+    secrets: 
+      TOKEN: ${{secrets.NUGET_API_KEY}}
+      
+  deploy-packages-github-linux:
+    needs: build-test-linux
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy-packages-new.yml
+    with:
+      runs-on: ubuntu-latest
+      packages: '["Deploy.Core/Deploy.Core.csproj"]'
+      publish-base: 'publish'
+      package-feed: "https://nuget.pkg.github.com/${{github.repository_owner}}/index.json"
+    secrets: 
+      TOKEN: ${{secrets.GITHUB_TOKEN}}
     
 # deploy docker
 
