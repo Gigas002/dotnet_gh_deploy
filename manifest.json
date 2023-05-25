@@ -125,6 +125,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "_docs/articles/scripts-index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/scripts-index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "_docs/articles/tests-index.md",
       "output": {
         ".html": {
