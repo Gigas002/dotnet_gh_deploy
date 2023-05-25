@@ -27,6 +27,9 @@ param (
 
 # TODO: args
 
+# TODO: pack src before building anything
+./src.ps1
+
 # build and test + upload report if needed
 ./test.ps1 $codecovToken
 
