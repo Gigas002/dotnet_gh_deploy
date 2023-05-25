@@ -223,15 +223,15 @@ jobs:
 
 
   snyk-check-docker-linux:
-#     needs: build-test-linux
+#     needs: deploy-docker-docker-hub-linux
 #     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
-    uses: ./.github/workflows/deploy-docker-snyk.yml
-#     concurrency:
-#       group: "deploy-docker-docker-hub-linux"
-#       cancel-in-progress: false
+    uses: ./.github/workflows/snyk-check-docker.yml
+    concurrency:
+      group: "snyk-check-docker"
+      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       registry: 'docker.io'
