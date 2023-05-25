@@ -95,7 +95,7 @@ jobs:
         
       - name: set-image
         run: |
-          $image = "${{inputs.registry}}/${{secrets.USERNAME}}/${{env.project}}"
+          $image = "${{inputs.registry}}/${{inputs.username}}/${{env.project}}"
           Write-Output "image=$image" >> $env:GITHUB_ENV
 
       - name: docker-login
