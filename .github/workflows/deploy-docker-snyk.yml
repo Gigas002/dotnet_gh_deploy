@@ -120,6 +120,9 @@ jobs:
           push: ${{github.event_name != 'pull_request'}}
           tags: ${{steps.meta.outputs.tags}}
           labels: ${{steps.meta.outputs.labels}}
+      
+      - name: snyk-setup
+        uses: snyk/actions/setup@0.4.0
           
       - name: snyk-auth
         run: snyk auth ${{secrets.SNYK_TOKEN}}
