@@ -176,8 +176,8 @@ jobs:
       build-props-path: 'Directory.Build.props'
       continious-tag: 'latest'
     secrets:
-      USERNAME: ${{secrets.DOCKER_USERNAME}}
-      TOKEN: ${{secrets.DOCKER_PASSWORD}}
+      USERNAME: 'trolltrollski'
+      TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
     
   deploy-docker-github-linux:
     needs: build-test-linux
