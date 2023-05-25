@@ -74,6 +74,23 @@
         <article data-uid="">
 <h1 id="scripts-usage">Scripts usage</h1>
 
+<h2 id="requirements">Requirements</h2>
+<p>Depends on what you want to publish</p>
+<ul>
+<li>[mandatory] <a href="https://dotnet.microsoft.com/en-us/download/dotnet">dotnet sdk</a></li>
+<li>[optional] <a href="https://github.com/dotnet/docfx">docfx</a> or run <code>dotnet tool update -g docfx</code></li>
+<li>[optional] <a href="https://github.com/codecov/uploader/releases">codecov</a></li>
+<li>[optional] <a href="https://www.docker.com/products/docker-desktop/">docker</a></li>
+<li>[optional] <a href="https://github.com/snyk/cli/releases">snyk</a></li>
+</ul>
+<p>And accounts on following platforms:</p>
+<ul>
+<li><a href="https://app.codecov.io/gh">codecov</a></li>
+<li><a href="https://www.nuget.org/">nuget</a></li>
+<li><a href="https://github.com/">github</a></li>
+<li><a href="https://hub.docker.com/">docker hub</a></li>
+<li><a href="https://app.snyk.io/">snyk</a></li>
+</ul>
 <h2 id="scriptargs">Script/args</h2>
 <p>test.ps1:</p>
 <ul>
@@ -120,6 +137,11 @@
 <li>[optional] -b/-buildPropsPath/-build-props-path</li>
 <li>[optional] -dockerContiniousTag/-docker-continious-tag</li>
 </ul>
+<p>snyk.ps1:</p>
+<ul>
+<li>[secury,mandatory] -snykToken/-snyk-token</li>
+<li>[optional] -sarifPath/-sarif-path</li>
+</ul>
 <h2 id="build_test_deployps1">build_test_deploy.ps1</h2>
 <p>Includes all the above args (excluding <code>inputs</code>), additionaly listed below:</p>
 <ul>
@@ -138,6 +160,8 @@
 <li>-n/-nugetToken/-nuget-token</li>
 <li>-p/-publishPath/-publish-path</li>
 <li>-r/-runsettingsXml/-runsettings-xml</li>
+<li>-snykToken/-snyk-token</li>
+<li>-sarifPath/-sarif-path</li>
 </ul>
 <p>build_test_deploy.ps1 exclusive args:</p>
 <ul>
