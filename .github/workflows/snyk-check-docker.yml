@@ -44,9 +44,9 @@ on:
 jobs:
   deploy:
     runs-on: ${{inputs.runs-on}}
-#     defaults:
-#       run:
-#         shell: pwsh
+    defaults:
+      run:
+        shell: pwsh
     env:
       image: ''
       project: ''
@@ -60,13 +60,11 @@ jobs:
           $dockerfile = "${{inputs.project}}".Split("---")[1]
           Write-Output "project=$project" >> $env:GITHUB_ENV
           Write-Output "dockerfile=$dockerfile" >> $env:GITHUB_ENV
-        shell: pwsh
         
       - name: set-image
         run: |
           $image = "${{inputs.registry}}/${{inputs.username}}/${{env.project}}"
           Write-Output "image=$image" >> $env:GITHUB_ENV
-        shell: pwsh
       
       - name: snyk-setup
         uses: snyk/actions/setup@0.4.0
