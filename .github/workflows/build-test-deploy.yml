@@ -222,23 +222,16 @@ jobs:
 
 
 
-#   snyk-check-docker-linux:
+  snyk-check-docker-linux:
 #     needs: build-test-linux
 #     if: github.ref == 'refs/heads/master'
-#     strategy:
-#       matrix:
-#         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
-#     uses: ./.github/workflows/deploy-docker-snyk.yml
+    uses: ./.github/workflows/deploy-docker-snyk.yml
 #     concurrency:
 #       group: "deploy-docker-docker-hub-linux"
 #       cancel-in-progress: false
-#     with:
-#       runs-on: ubuntu-latest
-#       registry: 'docker.io'
-#       project: ${{matrix.project}}
-#       build-props-path: 'Directory.Build.props'
-#       continious-tag: 'latest'
-#       username: 'trolltrollski'
-#     secrets:
-#       TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
-#       SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+    with:
+      runs-on: ubuntu-latest
+      registry: 'docker.io'
+      project: ${{matrix.project}}
+      username: 'trolltrollski'
+    secrets: inherit
