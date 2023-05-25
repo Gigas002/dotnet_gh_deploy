@@ -124,19 +124,17 @@ jobs:
       - name: snyk-setup
         uses: snyk/actions/setup@0.4.0
           
-      - name: snyk-auth
-        run: snyk auth ${{secrets.SNYK_TOKEN}}
-          
       - name: snyk-image-test
         continue-on-error: true
         uses: snyk/actions/docker@0.4.0
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
         with:
           image: ${{env.image}}
           args: --file=${{env.dockerfile}}
+          sarif: 'snyk.sarif'
           
       - name: upload-security-report
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk-code.sarif
+          sarif_file: 'snyk.sarif'
