@@ -77,7 +77,8 @@ jobs:
         with:
           image: ${{env.image}}
           args: --file=${{env.dockerfile}}
-          sarif: 'snyk.sarif'
+#           sarif: 'snyk.sarif'
+          sarif: true
           
       - name: upload-security-report
         uses: github/codeql-action/upload-sarif@v2
