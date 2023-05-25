@@ -13,28 +13,31 @@
     https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md
 #>
 
+[CmdletBinding(PositionalBinding = $false)]
 param (
-     # Codecov token
-    [Parameter (Mandatory = $true)]
+    # Codecov token
+    [Parameter ()]
+    [Alias("codecov-token")]
     [SecureString] $codecovToken = (Read-Host "Enter your codecov token" -AsSecureString),
 
     # runsettings.xml path
     [Parameter ()]
-    [ValidateNotNullOrEmpty ()]
+    [Alias("r", "runsettings-xml")]
     [string] $runsettingsXml = ""
 )
 
 Write-Host "Started test/codecov process..." -ForegroundColor Yellow
 
-# $format = 'opencover'
-# dotnet test --collect:"XPlat Code Coverage;Format=$format" # --results-directory .
-dotnet test /tl --collect:"XPlat Code Coverage" --settings $runsettingsXml
+if ($runsettingsXml) {
+    dotnet test /tl --collect:"XPlat Code Coverage" --settings $runsettingsXml
+}
+else {
+    dotnet test /tl --collect:"XPlat Code Coverage"
+}
 
-# TODO: secure string is null
-# $token = ConvertFrom-SecureString $codecovToken -AsPlainText
-if ($token)
-{
+if ($codecovToken -and $codecovToken.Length -gt 0) {
     # upload test results
+    $token = ConvertFrom-SecureString $codecovToken -AsPlainText
     codecov -t $token
 }
 

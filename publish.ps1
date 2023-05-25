@@ -3,7 +3,7 @@
     Script for publishing applications. Requires .sln and Directory.Build.props
 
 .EXAMPLE
-    ./script.ps1 -o "publish" -i "proj1/proj1.csproj","proj2/proj2.csproj"
+    ./script.ps1 -p "publish" -i "proj1/proj1.csproj","proj2/proj2.csproj"
 
 .LINK
     https://github.com/senketsu03/dotnet_gh_deploy
@@ -14,7 +14,8 @@ param (
     # Output (publish) path
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
-    [string] $output = "publish",
+    [Alias("p", "publish-path")]
+    [string] $publishPath = "publish",
 
     # Paths to projects to publish
     [Parameter ()]
@@ -26,35 +27,35 @@ param (
 
 #region Functions
 
-function DotnetPublish([string] $project, [string] $publishPath, [string] $rid) {
-    Write-Host "Publishing $project into $publishPath..." -ForegroundColor Yellow
+function DotnetPublish([string] $project, [string] $pub, [string] $rid) {
+    Write-Host "Publishing $project into $pub..." -ForegroundColor Yellow
 
-    dotnet publish /tl "$project" -c Release -r $rid -o "$publishPath" --sc false --verbosity quiet
+    dotnet publish /tl "$project" -c Release -r $rid -o "$pub" --sc false --verbosity quiet
 
     Write-Host "Publishing $project finished" -ForegroundColor Green
 }
 
-function CopyDocs([string] $publishPath) {
-    Write-Host "Copying docs into $publishPath..." -ForegroundColor Yellow
+function CopyDocs([string] $pub) {
+    Write-Host "Copying docs into $pub..." -ForegroundColor Yellow
 
-    Copy-Item "*.md" "$publishPath/"
-    Remove-Item "$publishPath/*.pdb"
+    Copy-Item "*.md" "$pub/"
+    Remove-Item "$pub/*.pdb"
 
     Write-Host "Finished copying docs" -ForegroundColor Green
 }
 
-function ZipArtifacts([string] $project, [string] $publishPath, [string] $rid) {
-    Write-Host "Zip artifacts for $publishPath..." -ForegroundColor Yellow
+function ZipArtifacts([string] $project, [string] $pub, [string] $rid) {
+    Write-Host "Zip artifacts for $pub..." -ForegroundColor Yellow
 
-    Compress-Archive -Path "$publishPath/*" -Destination "$output/${project}_${rid}.zip"
+    Compress-Archive -Path "$pub/*" -Destination "$publishPath/${project}_${rid}.zip"
     
     Write-Host "Finished zip artifacts" -ForegroundColor Green
 }
 
 #endregion
 
-Write-Host "Removing previous publish directory: $output" -ForegroundColor Yellow
-Remove-Item -Path $output -Recurse -Force -ErrorAction SilentlyContinue
+Write-Host "Removing previous publish directory: $publishPath" -ForegroundColor Yellow
+Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
 
 switch ($true) {
     $IsWindows { $rid = "win-x64"; break }
@@ -66,10 +67,10 @@ Write-Host "Publishing native binaries for: $rid" -ForegroundColor Yellow
 
 foreach ($project in $inputs) {
     $projectName = Split-Path -Path "$project" -Leaf -Resolve | Split-Path -LeafBase
-    $publishPath = "$output/$projectName/$rid"
-    DotnetPublish $project $publishPath $rid
-    CopyDocs $publishPath
-    ZipArtifacts $projectName $publishPath $rid
+    $pub = "$publishPath/$projectName/$rid"
+    DotnetPublish $project $pub $rid
+    CopyDocs $pub
+    ZipArtifacts $projectName $pub $rid
 }
 
 Write-Host "Publish finished" -ForegroundColor Green

@@ -6,17 +6,19 @@
     Change docfx.json for configuration
 
 .EXAMPLE
-    ./script.ps1 -d "docfx.json"
+    ./script.ps1 -docfx-json "docfx.json"
 
 .LINK
     https://github.com/senketsu03/dotnet_gh_deploy
     https://dotnet.github.io/docfx/docs/basic-concepts.html
 #>
 
+[CmdletBinding(PositionalBinding = $false)]
 param (
     # docfx.json path
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
+    [Alias("docfx-json")]
     [string] $docfxJson = "docfx.json"
 )
 

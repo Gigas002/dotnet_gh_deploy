@@ -3,7 +3,7 @@
     Script to read project version from Directory.Build.props file
 
 .EXAMPLE
-    ./script.ps1 -p "Directory.Build.props"
+    ./script.ps1 -b "Directory.Build.props" -docker-continious-tag "latest"
 
 .OUTPUTS
     tuple: versionPrefix, versionSuffix, buildVersion, dockerTag
@@ -17,14 +17,14 @@ param (
     # Directory.Build.props path
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
-    [Alias("p")]
-    [string] $path = "Directory.Build.props",
+    [Alias("b", "build-props-path")]
+    [string] $buildPropsPath = "Directory.Build.props",
 
     # docker continious tag
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
-    [Alias("c")]
-    [string] $continiousTag = "latest"
+    [Alias("docker-continious-tag")]
+    [string] $dockerContiniousTag = "latest"
 )
 
 #region Constants
@@ -37,14 +37,14 @@ Set-Variable AssemblyVersionPath -Option ReadOnly -Value "/Project/PropertyGroup
 
 #region Read version
 
-$versionPrefix = (Select-Xml -Path $path -XPath $VersionPrefixPath).Node.InnerText
-$versionSuffix = (Select-Xml -Path $path -XPath $VersionSuffixPath).Node.InnerText
-$assemblyVersion = (Select-Xml -Path $path -XPath $AssemblyVersionPath).Node.InnerText
+$versionPrefix = (Select-Xml -Path $buildPropsPath -XPath $VersionPrefixPath).Node.InnerText
+$versionSuffix = (Select-Xml -Path $buildPropsPath -XPath $VersionSuffixPath).Node.InnerText
+$assemblyVersion = (Select-Xml -Path $buildPropsPath -XPath $AssemblyVersionPath).Node.InnerText
 $buildVersion = $assemblyVersion.Split('.')[-1]
 $dockerTag = ""
 
 if ("$versionSuffix") {
-    $dockerTag = "$continiousTag"
+    $dockerTag = "$dockerContiniousTag"
 }
 else {
     $dockerTag = "v$versionPrefix"
