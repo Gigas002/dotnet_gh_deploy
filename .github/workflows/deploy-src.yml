@@ -79,12 +79,14 @@ jobs:
                 Write-Output "tag=v${{steps.read-version.outputs.prefix}}" >> $env:GITHUB_ENV
                 Write-Output "prerelease=false" >> $env:GITHUB_ENV
             }
-            
+ 
+# Alternative by using powershell only
+# Compress-Archive -Path .\* -DestinationPath "$srcPath"
         - name: zip-src
           run: |
             New-Item -Path "${{inputs.publish-base}}" -Type Directory
             $srcPath = "${{inputs.publish-base}}/src-${{env.tag}}.zip"
-            Compress-Archive -Path .\* -DestinationPath "$srcPath"
+            git archive HEAD -o "$srcPath" --worktree-attributes -v
             Write-Output "src-path=$srcPath" >> $env:GITHUB_ENV
 
         - name: deploy-src
