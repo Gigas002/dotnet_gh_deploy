@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Scripts usage/args </title>
+      <title>Scripts usage </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Scripts usage/args ">
+      <meta name="title" content="Scripts usage ">
       
       <link rel="icon" href="../images/Icon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -72,9 +72,9 @@
         </div>
 
         <article data-uid="">
-<h1 id="scripts-usageargs">Scripts usage/args</h1>
+<h1 id="scripts-usage">Scripts usage</h1>
 
-<h2 id="scripttag">Script/tag</h2>
+<h2 id="scriptargs">Script/args</h2>
 <p>test.ps1:</p>
 <ul>
 <li>[secure,optional] -codecovToken/-codecov-token</li>
@@ -96,7 +96,7 @@
 <li>[optional] -p/-publishPath/-publish-path</li>
 <li>[optional] -i/-inputs</li>
 </ul>
-<p>nuget.ps1 -&gt; read_version.ps1:</p>
+<p>nupkg.ps1 -&gt; read_version.ps1:</p>
 <ul>
 <li>[secure,optional] -n/-nugetToken/-nuget-token</li>
 <li>[secure,optional] -githubToken/-github-token</li>
@@ -120,22 +120,31 @@
 <li>[optional] -b/-buildPropsPath/-build-props-path</li>
 <li>[optional] -dockerContiniousTag/-docker-continious-tag</li>
 </ul>
-<h2 id="all-tags-listed">All tags listed</h2>
-<p>-b/-buildPropsPath/-build-props-path</p>
-<p>-codecovToken/-codecov-token
--continiousTag/-continious-tag</p>
-<p>-dockerContiniousTag/-docker-continious-tag
--docfxJson/-docfx-json
--dockerHubToken/-docker-hub-token
--dockerHubUsername/-docker-hub-username</p>
-<p>-githubToken/-github-token
--githubFeedName/-github-feed-name
--githubUsername/-github-username
--githubRepoName/-github-repo-name</p>
-<p>-i/-inputs</p>
-<p>-n/-nugetToken/-nuget-token</p>
-<p>-p/-publishPath/-publish-path</p>
-<p>-r/-runsettingsXml/-runsettings-xml</p>
+<h2 id="build_test_deployps1">build_test_deploy.ps1</h2>
+<p>Includes all the above args (excluding <code>inputs</code>), additionaly listed below:</p>
+<ul>
+<li>-b/-buildPropsPath/-build-props-path</li>
+<li>-codecovToken/-codecov-token</li>
+<li>-continiousTag/-continious-tag</li>
+<li>-dockerContiniousTag/-docker-continious-tag</li>
+<li>-docfxJson/-docfx-json</li>
+<li>-dockerHubToken/-docker-hub-token</li>
+<li>-dockerHubUsername/-docker-hub-username</li>
+<li>-githubToken/-github-token</li>
+<li>-githubUsername/-github-username</li>
+<li>-githubFeedName/-github-feed-name</li>
+<li>-githubRepoName/-github-repo-name</li>
+<li><del>-i/-inputs</del></li>
+<li>-n/-nugetToken/-nuget-token</li>
+<li>-p/-publishPath/-publish-path</li>
+<li>-r/-runsettingsXml/-runsettings-xml</li>
+</ul>
+<p>build_test_deploy.ps1 exclusive args:</p>
+<ul>
+<li>-inputsPublish/-inputs-publish</li>
+<li>-inputsNupkg/-inputs-nupgkg</li>
+<li>-inputsDocker/-inputs-docker</li>
+</ul>
 </article>
 
         <div class="contribution d-print-none">
