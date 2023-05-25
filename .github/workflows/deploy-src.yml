@@ -83,7 +83,7 @@ jobs:
         - name: zip-src
           run: |
             New-Item -Path "${{inputs.publish-base}}" -Type Directory
-            $srcPath = "${{inputs.publish-base}}/src-${{env.tag}}.7z"
+            $srcPath = "${{inputs.publish-base}}/src-${{env.tag}}.zip"
             Compress-Archive -Path .\* -DestinationPath "$srcPath"
             Write-Output "src-path=$srcPath" >> $env:GITHUB_ENV
 
