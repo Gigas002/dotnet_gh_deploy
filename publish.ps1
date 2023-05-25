@@ -47,15 +47,14 @@ function CopyDocs([string] $pub) {
 function ZipArtifacts([string] $project, [string] $pub, [string] $rid) {
     Write-Host "Zip artifacts for $pub..." -ForegroundColor Yellow
 
-    Compress-Archive -Path "$pub/*" -Destination "$publishPath/${project}_${rid}.zip"
+    $artifactPath = "$publishPath/${project}_${rid}.zip"
+    Remove-Item -Path $artifactPath -Force -ErrorAction SilentlyContinue
+    Compress-Archive -Path "$pub/*" -Destination "$artifactPath"
     
     Write-Host "Finished zip artifacts" -ForegroundColor Green
 }
 
 #endregion
-
-Write-Host "Removing previous publish directory: $publishPath" -ForegroundColor Yellow
-Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
 
 switch ($true) {
     $IsWindows { $rid = "win-x64"; break }
@@ -73,4 +72,4 @@ foreach ($project in $inputs) {
     ZipArtifacts $projectName $pub $rid
 }
 
-Write-Host "Publish finished" -ForegroundColor Green
+Write-Host "Publish binaries finished" -ForegroundColor Green

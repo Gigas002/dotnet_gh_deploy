@@ -1,6 +1,6 @@
-# Scripts usage/args
+# Scripts usage
 
-## Script/tag
+## Script/args
 
 test.ps1: 
 
@@ -23,7 +23,7 @@ publish.ps1:
 - [optional] -p/-publishPath/-publish-path
 - [optional] -i/-inputs
 
-nuget.ps1 -> read_version.ps1:
+nupkg.ps1 -> read_version.ps1:
 
 - [secure,optional] -n/-nugetToken/-nuget-token
 - [secure,optional] -githubToken/-github-token
@@ -47,27 +47,28 @@ docker.ps1 -> read_version.ps1:
 - [optional] -b/-buildPropsPath/-build-props-path
 - [optional] -dockerContiniousTag/-docker-continious-tag
 
-## All tags listed
+## build_test_deploy.ps1
 
--b/-buildPropsPath/-build-props-path
+Includes all the above args (excluding `inputs`), additionaly listed below:
 
--codecovToken/-codecov-token
--continiousTag/-continious-tag
+- -b/-buildPropsPath/-build-props-path
+- -codecovToken/-codecov-token
+- -continiousTag/-continious-tag
+- -dockerContiniousTag/-docker-continious-tag
+- -docfxJson/-docfx-json
+- -dockerHubToken/-docker-hub-token
+- -dockerHubUsername/-docker-hub-username
+- -githubToken/-github-token
+- -githubUsername/-github-username
+- -githubFeedName/-github-feed-name
+- -githubRepoName/-github-repo-name
+- ~~-i/-inputs~~
+- -n/-nugetToken/-nuget-token
+- -p/-publishPath/-publish-path
+- -r/-runsettingsXml/-runsettings-xml
 
--dockerContiniousTag/-docker-continious-tag
--docfxJson/-docfx-json
--dockerHubToken/-docker-hub-token
--dockerHubUsername/-docker-hub-username
+build_test_deploy.ps1 exclusive args:
 
--githubToken/-github-token
--githubFeedName/-github-feed-name
--githubUsername/-github-username
--githubRepoName/-github-repo-name
-
--i/-inputs
-
--n/-nugetToken/-nuget-token
-
--p/-publishPath/-publish-path
-
--r/-runsettingsXml/-runsettings-xml
+- -inputsPublish/-inputs-publish
+- -inputsNupkg/-inputs-nupgkg
+- -inputsDocker/-inputs-docker

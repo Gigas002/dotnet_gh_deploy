@@ -21,7 +21,7 @@ param (
     [Alias("github-token")]
     [SecureString] $githubToken = (Read-Host "Enter your github token" -AsSecureString),
 
-    # Paths to projects to publish
+    # Paths to packages to publish
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [string[]] $inputs = (
