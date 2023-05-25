@@ -211,30 +211,39 @@ jobs:
       dotnet-version: '7.x'
     secrets: inherit
 
+# docker images checks
+# fails to find snyk.sarif
 
-
-
-
-
-
-
-
-
-
-
-  snyk-check-docker-linux:
+#   snyk-check-docker-docker-hub-linux:
 #     needs: deploy-docker-docker-hub-linux
 #     if: github.ref == 'refs/heads/master'
-    strategy:
-      matrix:
-        project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
-    uses: ./.github/workflows/snyk-check-docker.yml
-    concurrency:
-      group: "snyk-check-docker"
-      cancel-in-progress: false
-    with:
-      runs-on: ubuntu-latest
-      registry: 'docker.io'
-      project: ${{matrix.project}}
-      username: 'trolltrollski'
-    secrets: inherit
+#     strategy:
+#       matrix:
+#         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
+#     uses: ./.github/workflows/snyk-check-docker.yml
+#     concurrency:
+#       group: "snyk-check-docker"
+#       cancel-in-progress: false
+#     with:
+#       runs-on: ubuntu-latest
+#       registry: 'docker.io'
+#       project: ${{matrix.project}}
+#       username: 'trolltrollski'
+#     secrets: inherit
+
+#   snyk-check-docker-github-linux:
+#     needs: deploy-docker-github-linux
+#     if: github.ref == 'refs/heads/master'
+#     strategy:
+#       matrix:
+#         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
+#     uses: ./.github/workflows/snyk-check-docker.yml
+#     concurrency:
+#       group: "snyk-check-docker"
+#       cancel-in-progress: false
+#     with:
+#       runs-on: ubuntu-latest
+#       registry: 'ghcr.io'
+#       project: ${{matrix.project}}
+#       username: ${{github.repository_owner}}
+#     secrets: inherit
