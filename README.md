@@ -10,9 +10,13 @@
 
 Training to use GitHub CI only to deploy dotnet stuff
 
-## Notes
+## Configuration
+
+Grant actions more permissions. See Repo settings->Actions->General page
 
 You'll need to select a branch `gh-pages` for the first deployment, see: https://github.com/marketplace/actions/github-pages-action#%EF%B8%8F-first-deployment-with-github_token
+
+Manual setting of these secrets required: `CODECOV_TOKEN`, `DOCKER_HUB_TOKEN`, `NUGET_API_KEY`, `SNYK_TOKEN`
 
 ## Releases
 

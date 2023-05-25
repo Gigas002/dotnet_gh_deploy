@@ -114,7 +114,17 @@ param (
     [hashtable] $inputsDocker = [ordered]@{
         "dotnet.cli"        = "Cli.Dockerfile";
         "dotnet.benchmarks" = "Benchmarks.Dockerfile"
-    }
+    },
+
+    # snyk token
+    [Parameter ()]
+    [Alias("snyk-token")]
+    [SecureString] $snykToken = (Read-Host "Enter your snyk token" -AsSecureString),
+    
+    # sarif path
+    [Parameter ()]
+    [Alias("sarif-path")]
+    [string] $sarifPath = "snyk-code.sarif"
 )
 
 Write-Host "Removing previous publish directory: $publishPath" -ForegroundColor Yellow
@@ -137,5 +147,10 @@ Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
 
 # publish docker
 ./docker.ps1 -docker-hub-token $dockerHubToken -github-token $githubToken -docker-hub-username $dockerHubUsername -github-username $githubUsername -i $inputsDocker -github-repo-name $githubRepoName -b $buildPropsPath -docker-continious-tag $dockerContiniousTag
+
+# run secirity analyzis if needed
+if ($snykToken -and $snykToken.Length -gt 0) {
+    ./snyk.ps1 -snyk-token $snykToken -sarif-path $sarifPath
+}
 
 Write-Host "Deploy complete" -ForegroundColor Green

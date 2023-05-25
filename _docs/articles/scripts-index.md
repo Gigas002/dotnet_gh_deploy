@@ -1,5 +1,23 @@
 # Scripts usage
 
+## Requirements
+
+Depends on what you want to publish
+
+- [mandatory] [dotnet sdk](https://dotnet.microsoft.com/en-us/download/dotnet)
+- [optional] [docfx](https://github.com/dotnet/docfx) or run `dotnet tool update -g docfx`
+- [optional] [codecov](https://github.com/codecov/uploader/releases)
+- [optional] [docker](https://www.docker.com/products/docker-desktop/)
+- [optional] [snyk](https://github.com/snyk/cli/releases)
+
+And accounts on following platforms:
+
+- [codecov](https://app.codecov.io/gh)
+- [nuget](https://www.nuget.org/)
+- [github](https://github.com/)
+- [docker hub](https://hub.docker.com/)
+- [snyk](https://app.snyk.io/)
+
 ## Script/args
 
 test.ps1: 
@@ -47,6 +65,11 @@ docker.ps1 -> read_version.ps1:
 - [optional] -b/-buildPropsPath/-build-props-path
 - [optional] -dockerContiniousTag/-docker-continious-tag
 
+snyk.ps1:
+
+- [secury,mandatory] -snykToken/-snyk-token
+- [optional] -sarifPath/-sarif-path
+
 ## build_test_deploy.ps1
 
 Includes all the above args (excluding `inputs`), additionaly listed below:
@@ -66,6 +89,8 @@ Includes all the above args (excluding `inputs`), additionaly listed below:
 - -n/-nugetToken/-nuget-token
 - -p/-publishPath/-publish-path
 - -r/-runsettingsXml/-runsettings-xml
+- -snykToken/-snyk-token
+- -sarifPath/-sarif-path
 
 build_test_deploy.ps1 exclusive args:
 
