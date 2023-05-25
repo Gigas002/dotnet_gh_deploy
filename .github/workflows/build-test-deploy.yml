@@ -199,4 +199,15 @@ jobs:
       USERNAME: ${{github.repository_owner}}
       TOKEN: ${{secrets.GITHUB_TOKEN}}
     
-    
+# snyk security report
+
+  snyk-security-report-linux:
+    uses: ./.github/workflows/snyk.yml
+    concurrency:
+      group: "snyk"
+      cancel-in-progress: false
+    with:
+      runs-on: ubuntu-latest
+      dotnet-version: '7.x'
+    secrets: inherit
+
