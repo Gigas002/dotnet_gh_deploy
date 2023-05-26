@@ -178,14 +178,14 @@ jobs:
     
 # snyk security report
 
-  snyk-security-report-linux:
-    uses: ./.github/workflows/snyk.yml
+  snyk-check-code-linux:
+    uses: ./.github/workflows/snyk-check-code.yml
     with:
       runs-on: ubuntu-latest
       dotnet-version: '7.x'
     secrets: inherit
 
-# docker images checks
+# snyk docker images checks
 
   snyk-check-docker-docker-hub-linux:
     needs: deploy-docker-docker-hub-linux
