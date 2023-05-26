@@ -150,7 +150,7 @@ Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
 
 # run secirity analyzis if needed
 if ($snykToken -and $snykToken.Length -gt 0) {
-    ./snyk.ps1 -snyk-token $snykToken -sarif-path $sarifPath
+    ./snyk.ps1 -snyk-token $snykToken -docker-hub-token $dockerHubToken -github-token $githubToken -docker-hub-username $dockerHubUsername -github-username $githubUsername -inputs-docker $inputsDocker -github-repo-name $githubRepoName -b $buildPropsPath -docker-continious-tag $dockerContiniousTag
 }
 
 Write-Host "Deploy complete" -ForegroundColor Green

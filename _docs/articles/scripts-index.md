@@ -65,10 +65,15 @@ docker.ps1 -> read_version.ps1:
 - [optional] -b/-buildPropsPath/-build-props-path
 - [optional] -dockerContiniousTag/-docker-continious-tag
 
-snyk.ps1:
+snyk.ps1 -> read_version.ps1:
 
 - [secury,mandatory] -snykToken/-snyk-token
-- [optional] -sarifPath/-sarif-path
+- [optional] -inputsDocker/-inputs-docker
+- [optional] -b/-buildPropsPath/-build-props-path
+- [optional] -dockerContiniousTag/-docker-continious-tag
+- [optional] -githubRepoName/-github-repo-name
+- [optional] -dockerHubUsername/-docker-hub-username
+- [optional] -githubUsername/-github-username
 
 ## build_test_deploy.ps1
 
@@ -90,7 +95,6 @@ Includes all the above args (excluding `inputs`), additionaly listed below:
 - -p/-publishPath/-publish-path
 - -r/-runsettingsXml/-runsettings-xml
 - -snykToken/-snyk-token
-- -sarifPath/-sarif-path
 
 build_test_deploy.ps1 exclusive args:
 

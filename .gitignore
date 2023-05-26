@@ -14,3 +14,4 @@ secrets.txt
 docs/
 *.7z
 *.zip
+*.sarif
