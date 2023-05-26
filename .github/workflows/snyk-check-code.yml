@@ -1,4 +1,4 @@
-name: snyk
+name: snyk-check-code
 on:
   workflow_dispatch:
     inputs:
