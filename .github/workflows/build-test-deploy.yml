@@ -2,6 +2,10 @@ name: build-test-deploy
 
 on: [push, pull_request]
 
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: false
+
 jobs:
 
 # no point in matrix without deploy tasks
@@ -45,9 +49,6 @@ jobs:
     needs: build-test-windows
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
-    concurrency:
-      group: "deploy-binaries-windows"
-      cancel-in-progress: false
     with:
       runs-on: windows-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
@@ -61,9 +62,6 @@ jobs:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
-    concurrency:
-      group: "deploy-binaries-linux"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
@@ -77,9 +75,6 @@ jobs:
     needs: build-test-macos
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
-    concurrency:
-      group: "deploy-binaries-macos"
-      cancel-in-progress: false
     with:
       runs-on: macos-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
@@ -95,9 +90,6 @@ jobs:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-pages.yml
-    concurrency:
-      group: "deploy-pages"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       dotnet-version: '7.x'
@@ -111,9 +103,6 @@ jobs:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-src.yml
-    concurrency:
-      group: "deploy-src-linux"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       publish-base: 'publish'
@@ -127,9 +116,6 @@ jobs:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-packages.yml
-    concurrency:
-      group: "deploy-packages-nuget-linux"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj", "Deploy.Core.Dummy/Deploy.Core.Dummy.csproj"]'
@@ -144,9 +130,6 @@ jobs:
     needs: build-test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-packages.yml
-    concurrency:
-      group: "deploy-packages-github-linux"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj", "Deploy.Core.Dummy/Deploy.Core.Dummy.csproj"]'
@@ -166,9 +149,6 @@ jobs:
       matrix:
         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
     uses: ./.github/workflows/deploy-docker.yml
-    concurrency:
-      group: "deploy-docker-docker-hub-linux"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       registry: 'docker.io'
@@ -186,9 +166,6 @@ jobs:
       matrix:
         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
     uses: ./.github/workflows/deploy-docker.yml
-    concurrency:
-      group: "deploy-docker-github-linux"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
@@ -203,9 +180,6 @@ jobs:
 
   snyk-security-report-linux:
     uses: ./.github/workflows/snyk.yml
-    concurrency:
-      group: "snyk-security-report"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       dotnet-version: '7.x'
@@ -220,9 +194,6 @@ jobs:
       matrix:
         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
     uses: ./.github/workflows/snyk-check-docker.yml
-    concurrency:
-      group: "snyk-check-docker-docker-hub"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       registry: 'docker.io'
@@ -237,9 +208,6 @@ jobs:
       matrix:
         project: ["deploy.cli---Cli.Dockerfile", "deploy.benchmarks---Benchmarks.Dockerfile"]
     uses: ./.github/workflows/snyk-check-docker.yml
-    concurrency:
-      group: "snyk-check-docker-github"
-      cancel-in-progress: false
     with:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
