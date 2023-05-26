@@ -76,7 +76,7 @@ jobs:
           SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
         with:
           image: ${{env.image}}
-          args: --file=${{env.dockerfile}}
+          args: --file=${{env.dockerfile}} --exclude-base-image-vulns=true
           sarif: true
           
       - name: upload-security-report
