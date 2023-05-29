@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <PackageId>Deploy.Core.Dummy</PackageId>
-    <Product>Deploy.Core.Dummy</Product>
     <DocumentationFile>Deploy.Core.Dummy.xml</DocumentationFile>
   </PropertyGroup>
 

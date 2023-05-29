@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <PackageId>Deploy.Core</PackageId>
-    <Product>Deploy.Core</Product>
     <DocumentationFile>Deploy.Core.xml</DocumentationFile>
   </PropertyGroup>
 
