@@ -369,7 +369,10 @@
   <a class="header-action link-secondary" title="View source" href="https://github.com/senketsu03/dotnet_gh_deploy/blob/master/Deploy.Core/Context.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Override this method to configure the database (and other options) to be used for this context.
+This method is called for each instance of the context that is created.
+The base implementation does nothing.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -379,7 +382,9 @@
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>optionsBuilder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder">DbContextOptionsBuilder</a></dt>
-    <dd></dd>
+    <dd><p>A builder used to create or modify options for this context. Databases (and other extensions)
+typically define extension methods on this object that allow you to configure the context.</p>
+</dd>
   </dl>
 
 
@@ -389,6 +394,18 @@
 
 
 
+  <h4 class="section" id="Deploy_Core_Context_OnConfiguring_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>
+                    In situations where an instance of <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions">DbContextOptions</a> may or may not have been passed
+                    to the constructor, you can use <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder.isconfigured">IsConfigured</a> to determine if
+                    the options have already been set, and skip some or all of the logic in
+                    <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.onconfiguring">OnConfiguring(DbContextOptionsBuilder)</a>.
+                </p>
+<p>
+                    See <a href="https://aka.ms/efcore-docs-dbcontext">DbContext lifetime, configuration, and initialization</a>
+                    for more information and examples.
+                </p>
+</div>
 
 
 
