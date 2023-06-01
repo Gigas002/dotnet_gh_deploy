@@ -1,6 +1,10 @@
 name: "codeql"
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
 
 concurrency:
   group: "codeql"
@@ -10,7 +14,6 @@ jobs:
   analyze:
     name: analyze
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
 
     steps:
     - uses: actions/checkout@v3
