@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Deploy.Server</name>
+    </assembly>
+    <members>
+        <member name="T:Deploy.Server.Controllers.UserController">
+            <summary>
+            User controller
+            </summary>
+        </member>
+        <member name="M:Deploy.Server.Controllers.UserController.GetUserAsync(System.Int32)">
+            <summary>
+            Get user from database by id
+            </summary>
+            <param name="id">User's id</param>
+            <returns>User or response state</returns>
+        </member>
+        <member name="M:Deploy.Server.Controllers.UserController.PostUserAsync(Deploy.Core.User)">
+             <summary>
+             Add user to database
+             </summary>
+             <param name="user">User to add</param>
+             <returns>A newly created User</returns>
+             <remarks>
+             Sample request:
+            
+                 POST /create
+                 {
+                    "Name": "Mikhail",
+                    "Age": 69
+                 }
+            
+             </remarks>
+             <response code="200">Returns the newly created item</response>
+        </member>
+        <member name="M:Deploy.Server.Controllers.UserController.IgnoredMethod">
+            <summary>
+            Ignore this
+            </summary>
+        </member>
+    </members>
+</doc>

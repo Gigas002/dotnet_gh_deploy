@@ -40,6 +40,9 @@
     <!-- <PackageLicenseFile>LICENSE.md</PackageLicenseFile> -->
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- TODO: this is ignored -->
+    <!-- <GenerateDocumentationFile>true</GenerateDocumentationFile> -->
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

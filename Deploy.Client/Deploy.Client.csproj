@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Deploy.Core\Deploy.Core.csproj" />
+  </ItemGroup>
+
+  <!-- TODO: test if required on Linux -->
+  <!-- <ItemGroup>
+    <PackageReference Include="Microsoft.Native.Quic.MsQuic.OpenSSL" Version="2.2.0" />
+  </ItemGroup> -->
+  
+</Project>
