@@ -52,8 +52,10 @@ public class UserController : ControllerBase
     ///
     /// </remarks>
     /// <response code="201">Returns the newly created item</response>
+    /// <response code="404">User is null</response>
     [HttpPost("create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [Produces(MediaTypeNames.Application.Json)]  
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PostUserAsync(User user)
@@ -61,6 +63,8 @@ public class UserController : ControllerBase
         Console.WriteLine("Enter into /create");
 
         await Program.AddUserAsync(user).ConfigureAwait(false);
+
+        if (user == null) return NotFound();
 
         return CreatedAtAction(nameof(GetUserAsync), new { id = user.Id }, user);
     }
