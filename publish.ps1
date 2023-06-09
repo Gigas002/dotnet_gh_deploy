@@ -22,7 +22,9 @@ param (
     [ValidateNotNullOrEmpty ()]
     [string[]] $inputs = ("Deploy.Cli/Deploy.Cli.csproj",
                           "Deploy.Benchmarks/Deploy.Benchmarks.csproj",
-                          "Deploy.Gui/Deploy.Gui.csproj")
+                          "Deploy.Gui/Deploy.Gui.csproj",
+                          "Deploy.Server/Deploy.Server.csproj",
+                          "Deploy.Client/Deploy.Client.csproj")
 )
 
 #region Functions

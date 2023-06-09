@@ -95,8 +95,10 @@ param (
     [ValidateNotNullOrEmpty ()]
     [Alias("inputs-publish")]
     [string[]] $inputsPublish = ("Deploy.Cli/Deploy.Cli.csproj",
-        "Deploy.Benchmarks/Deploy.Benchmarks.csproj",
-        "Deploy.Gui/Deploy.Gui.csproj"),
+                                 "Deploy.Benchmarks/Deploy.Benchmarks.csproj",
+                                 "Deploy.Gui/Deploy.Gui.csproj",
+                                 "Deploy.Server/Deploy.Server.csproj",
+                                 "Deploy.Client/Deploy.Client.csproj"),
 
     # Paths to packages to publish
     [Parameter ()]
