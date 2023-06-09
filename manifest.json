@@ -104,6 +104,19 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "_docs/articles/client-index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/client-index.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "_docs/articles/core-index.md",
       "output": {
@@ -129,6 +142,16 @@
       "output": {
         ".html": {
           "relative_path": "articles/scripts-index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "_docs/articles/server-index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/server-index.html"
         }
       },
       "version": ""
