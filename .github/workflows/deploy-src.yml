@@ -93,7 +93,7 @@ jobs:
           uses: softprops/action-gh-release@v1
           with:
             tag_name: ${{env.tag}}
-            generate_release_notes: ${{env.prerelease == false}}
+            generate_release_notes: ${{env.prerelease == 'false'}}
             files: ${{env.src-path}}
             token: ${{secrets.GITHUB_TOKEN}}
             prerelease: ${{env.prerelease}}
