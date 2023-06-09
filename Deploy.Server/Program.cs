@@ -27,7 +27,10 @@ public static class Program
         builder.Services.AddDbContext<Context>();
 
         // for controllers-based approach
-        builder.Services.AddControllers();
+        builder.Services.AddControllers(options =>
+        {
+            options.SuppressAsyncSuffixInActionNames = false;
+        });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();

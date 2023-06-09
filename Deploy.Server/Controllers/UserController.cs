@@ -12,6 +12,7 @@ namespace Deploy.Server.Controllers;
 [Route("/")]
 public class UserController : ControllerBase
 {
+    // GET: 5
     /// <summary>
     /// Get user from database by id
     /// </summary>
@@ -33,6 +34,7 @@ public class UserController : ControllerBase
             return Ok(user);
     }
 
+    // POST: create
     /// <summary>
     /// Add user to database
     /// </summary>
@@ -48,9 +50,9 @@ public class UserController : ControllerBase
     ///     }
     ///
     /// </remarks>
-    /// <response code="200">Returns the newly created item</response>
+    /// <response code="201">Returns the newly created item</response>
     [HttpPost("create")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [Produces("application/json")]  
     [Consumes("application/json")]  
     public async Task<ActionResult<User>> PostUserAsync(User user)
@@ -59,7 +61,7 @@ public class UserController : ControllerBase
 
         await Program.AddUserAsync(user).ConfigureAwait(false);
 
-        return Ok(user);
+        return CreatedAtAction(nameof(GetUserAsync), new { id = user.Id }, user);
     }
 
     /// <summary>
