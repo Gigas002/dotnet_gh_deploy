@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Deploy.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ public class UserController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [Produces("application/json")]  
+    [Produces(MediaTypeNames.Application.Json)]  
     public async Task<ActionResult<User>> GetUserAsync(int id)
     {
         Console.WriteLine($"Enter into /{id}");
@@ -53,8 +54,8 @@ public class UserController : ControllerBase
     /// <response code="201">Returns the newly created item</response>
     [HttpPost("create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [Produces("application/json")]  
-    [Consumes("application/json")]  
+    [Produces(MediaTypeNames.Application.Json)]  
+    [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PostUserAsync(User user)
     {
         Console.WriteLine("Enter into /create");
