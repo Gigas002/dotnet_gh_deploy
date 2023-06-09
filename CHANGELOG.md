@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add `HTTP/1.1, 2, 3` server with generatable swagger/redoc API page
+- Add `HTTP/3` client
+- Bump dependencies
+
 ## Release 0.3.1
 
 - Fix concurrency groups

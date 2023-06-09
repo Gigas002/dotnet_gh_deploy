@@ -13,3 +13,7 @@
   href: articles/tests-index.md
 - name: Scripts
   href: articles/scripts-index.md
+- name: Server
+  href: articles/server-index.md
+- name: Client
+  href: articles/client-index.md
