@@ -23,29 +23,29 @@ public static class Program
 
         httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
 
-        using var response = await httpClient.GetAsync(new Uri(serverAddress)).ConfigureAwait(false);;
+        using var response = await httpClient.GetAsync(new Uri(serverAddress)).ConfigureAwait(false);
 
-        var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);;
+        var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         Console.WriteLine(responseText);
 
         using var getUserResponse = await httpClient.GetAsync(new Uri($"{serverAddress}/{userId}"))
-                                                    .ConfigureAwait(false);;
+                                                    .ConfigureAwait(false);
 
         if (getUserResponse.StatusCode == HttpStatusCode.NotFound)
         {
-            responseText = await getUserResponse.Content.ReadAsStringAsync().ConfigureAwait(false);;
+            responseText = await getUserResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
             Console.WriteLine(responseText);
         }
         else
         {
-            var user = await getUserResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);;
+            var user = await getUserResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
             Console.WriteLine($"Id: {user?.Id} Name: {user?.Name} Age: {user?.Age}");
         }
 
         var vladimir = new User { Name = "Vladimir", Age = 99 };
 
-        using var createResponse = await httpClient.PostAsJsonAsync($"{serverAddress}/create", vladimir).ConfigureAwait(false);;
+        using var createResponse = await httpClient.PostAsJsonAsync($"{serverAddress}/create", vladimir).ConfigureAwait(false);
         var vladimirWithId = await createResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
         Console.WriteLine($"Id: {vladimirWithId?.Id} Name: {vladimirWithId?.Name} Age: {vladimirWithId?.Age}");

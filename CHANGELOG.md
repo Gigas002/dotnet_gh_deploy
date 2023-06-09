@@ -4,7 +4,8 @@
 
 - Add `HTTP/1.1, 2, 3` server with generatable swagger/redoc API page
 - Add `HTTP/3` client
-- Bump dependencies
+- Bump minor dependencies
+- Bump `Avalonia` to `rc1.1`
 
 ## Release 0.3.1
 

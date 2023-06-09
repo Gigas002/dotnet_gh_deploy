@@ -16,3 +16,5 @@ docs/
 *.zip
 *.sarif
 .vscode/
+*-shm
+*-wal
