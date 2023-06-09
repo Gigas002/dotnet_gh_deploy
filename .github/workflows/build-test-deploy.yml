@@ -51,7 +51,7 @@ jobs:
     uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: windows-latest
-      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
+      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj", "Deploy.Server/Deploy.Server.csproj", "Deploy.Client/Deploy.Client.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
       dotnet-version: '7.x'
@@ -64,7 +64,7 @@ jobs:
     uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: ubuntu-latest
-      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
+      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj", "Deploy.Server/Deploy.Server.csproj", "Deploy.Client/Deploy.Client.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
       dotnet-version: '7.x'
@@ -77,7 +77,7 @@ jobs:
     uses: ./.github/workflows/deploy-binaries.yml
     with:
       runs-on: macos-latest
-      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj"]'
+      projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj", "Deploy.Server/Deploy.Server.csproj", "Deploy.Client/Deploy.Client.csproj"]'
       publish-base: 'publish'
       continious-tag: 'continious'
       dotnet-version: '7.x'
