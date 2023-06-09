@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## Release 0.4.0
 
 - Add `HTTP/1.1, 2, 3` server with generatable swagger/redoc API page
 - Add `HTTP/3` client
