@@ -94,25 +94,25 @@ public static class Program
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    public static async Task<User?> GetUserAsync(int id)
+    public static User? GetUser(Context db, int id)
     {
-        await using var db = new Context();
+        if (db == null) throw new ArgumentNullException(nameof(db));
 
         return db.Users.FirstOrDefault(u => u.Id == id);
     }
 
-    public static async Task AddUserAsync(User user)
+    public static async Task AddUserAsync(Context db, User user)
     {
-        await using var db = new Context();
+        if (db == null) throw new ArgumentNullException(nameof(db));
 
         await db.Users.AddAsync(user).ConfigureAwait(false);
 
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    public static async Task UpdateUserAsync(int id, User user)
+    public static async Task UpdateUserAsync(Context db, int id, User user)
     {
-        await using var db = new Context();
+        if (db == null) throw new ArgumentNullException(nameof(db));
 
         var userToUpdate = db.Users.FirstOrDefault(u => u.Id == id);
 

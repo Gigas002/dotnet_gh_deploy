@@ -9,7 +9,12 @@
             User controller
             </summary>
         </member>
-        <member name="M:Deploy.Server.Controllers.UserController.GetUserAsync(System.Int32)">
+        <member name="M:Deploy.Server.Controllers.UserController.#ctor(Deploy.Core.Context)">
+            <summary>
+            Database context
+            </summary>
+        </member>
+        <member name="M:Deploy.Server.Controllers.UserController.GetUser(System.Int32)">
             <summary>
             Get user from database by id
             </summary>

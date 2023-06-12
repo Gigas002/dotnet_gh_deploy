@@ -6,6 +6,7 @@ using SystemTextJsonPatch;
 namespace Deploy.Server.Controllers;
 
 #pragma warning disable CA1303
+#pragma warning disable CA1721
 
 /// <summary>
 /// User controller
@@ -15,6 +16,16 @@ namespace Deploy.Server.Controllers;
 [Route("/")]
 public class UserController : ControllerBase
 {
+   private readonly Context _context;
+
+    /// <summary>
+    /// Database context
+    /// </summary>
+    public UserController(Context context)
+    {
+        _context = context;
+    }
+
     // GET: 5
     /// <summary>
     /// Get user from database by id
@@ -23,11 +34,11 @@ public class UserController : ControllerBase
     /// <returns>User or response state</returns>
     [HttpGet("{id}")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult<User>> GetUserAsync(int id)
+    public ActionResult<User> GetUser(int id)
     {
         Console.WriteLine($"Enter into /{id}");
 
-        var user = await Program.GetUserAsync(id).ConfigureAwait(false);
+        var user = Program.GetUser(_context, id);
 
         if (user is null)
             return NotFound(new { Message = $"Object with id={id} doesn't exist" });
@@ -60,11 +71,11 @@ public class UserController : ControllerBase
     {
         Console.WriteLine("Enter into /create");
 
-        await Program.AddUserAsync(user).ConfigureAwait(false);
+        await Program.AddUserAsync(_context, user).ConfigureAwait(false);
 
         if (user == null) return BadRequest();
 
-        return CreatedAtAction(nameof(GetUserAsync), new { id = user.Id }, user);
+        return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
     }
 
     /// <summary>
@@ -109,15 +120,15 @@ public class UserController : ControllerBase
     {
         Console.WriteLine($"Enter into /patch/{id}");
 
-        var user = await Program.GetUserAsync(id).ConfigureAwait(false);
+        var user = Program.GetUser(_context, id);
 
         if (patch is null) return BadRequest();
 
         patch.ApplyTo(user!);
 
-        await Program.UpdateUserAsync(id, user!).ConfigureAwait(false);
+        await Program.UpdateUserAsync(_context, id, user!).ConfigureAwait(false);
 
-        return CreatedAtAction(nameof(GetUserAsync), new { id = user!.Id }, user);
+        return CreatedAtAction(nameof(GetUser), new { id = user!.Id }, user);
     }
 }
 
