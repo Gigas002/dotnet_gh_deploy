@@ -109,6 +109,26 @@ public static class Program
 
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
+
+    public static async Task UpdateUserAsync(int id, User user)
+    {
+        await using var db = new Context();
+
+        var userToUpdate = db.Users.FirstOrDefault(u => u.Id == id);
+
+        if (user == null) throw new ArgumentNullException(nameof(user));
+
+        UpdateUser(ref userToUpdate!, user);
+
+        await db.SaveChangesAsync().ConfigureAwait(false);
+    }
+
+    private static void UpdateUser(ref User userToUpdate, User update)
+    {
+        userToUpdate.Name = update.Name;
+        userToUpdate.Age = update.Age;
+        userToUpdate.Company = update.Company;
+    }
 }
 
 #pragma warning restore CS1591

@@ -40,5 +40,33 @@
             Ignore this
             </summary>
         </member>
+        <member name="M:Deploy.Server.Controllers.UserController.PatchUserAsync(System.Int32,SystemTextJsonPatch.JsonPatchDocument{Deploy.Core.User})">
+             <summary>
+             Patch user
+             </summary>
+             <param name="id">Id of user to patch</param>
+             <param name="patch">Patch to apply</param>
+             <returns>A newly created User</returns>
+             <remarks>
+             Sample request:
+            
+                 PATCH /patch/1
+                 [
+                     {
+                         "op": "replace",
+                         "path": "/name",
+                         "value": "Greck"
+                     },
+                     {
+                         "op": "replace",
+                         "path": "/age",
+                         "value": 51
+                     }
+                 ]
+            
+             </remarks>
+             <response code="200">Returns the newly created user</response>
+             <response code="404">Patch is null</response>
+        </member>
     </members>
 </doc>

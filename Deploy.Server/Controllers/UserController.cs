@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using Deploy.Core;
 using Microsoft.AspNetCore.Mvc;
+using SystemTextJsonPatch;
 
 namespace Deploy.Server.Controllers;
 
@@ -22,7 +23,7 @@ public class UserController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [Produces(MediaTypeNames.Application.Json)]  
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> GetUserAsync(int id)
     {
         Console.WriteLine($"Enter into /{id}");
@@ -56,7 +57,7 @@ public class UserController : ControllerBase
     [HttpPost("create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [Produces(MediaTypeNames.Application.Json)]  
+    [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PostUserAsync(User user)
     {
@@ -74,6 +75,54 @@ public class UserController : ControllerBase
     /// </summary>
     [ApiExplorerSettings(IgnoreApi = true)]
     public void IgnoredMethod() { }
+
+    // PATCH: patch/1
+    /// <summary>
+    /// Patch user
+    /// </summary>
+    /// <param name="id">Id of user to patch</param>
+    /// <param name="patch">Patch to apply</param>
+    /// <returns>A newly created User</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     PATCH /patch/1
+    ///     [
+    ///         {
+    ///             "op": "replace",
+    ///             "path": "/name",
+    ///             "value": "Greck"
+    ///         },
+    ///         {
+    ///             "op": "replace",
+    ///             "path": "/age",
+    ///             "value": 51
+    ///         }
+    ///     ]
+    ///
+    /// </remarks>
+    /// <response code="200">Returns the newly created user</response>
+    /// <response code="404">Patch is null</response>
+    [HttpPatch("patch/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<User>> PatchUserAsync(int id, JsonPatchDocument<User> patch)
+    {
+        Console.WriteLine($"Enter into /patch/{id}");
+
+        var user = await Program.GetUserAsync(id).ConfigureAwait(false);
+
+        if (patch is null)
+            return NotFound();
+
+        patch.ApplyTo(user!);
+
+        await Program.UpdateUserAsync(id, user!).ConfigureAwait(false);
+
+        return Ok(user);
+    }
 }
 
 #pragma warning restore CA1303
