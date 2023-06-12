@@ -33,7 +33,7 @@
             
              </remarks>
              <response code="201">Returns the newly created item</response>
-             <response code="404">User is null</response>
+             <response code="400">User is null</response>
         </member>
         <member name="M:Deploy.Server.Controllers.UserController.IgnoredMethod">
             <summary>
@@ -65,8 +65,8 @@
                  ]
             
              </remarks>
-             <response code="200">Returns the newly created user</response>
-             <response code="404">Patch is null</response>
+             <response code="201">Returns the newly created user</response>
+             <response code="400">Patch is null</response>
         </member>
     </members>
 </doc>

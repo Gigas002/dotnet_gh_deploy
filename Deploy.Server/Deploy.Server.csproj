@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
     <DocumentationFile>Deploy.Server.xml</DocumentationFile>
   </PropertyGroup>
 

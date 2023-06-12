@@ -11,6 +11,7 @@ namespace Deploy.Server.Controllers;
 /// User controller
 /// </summary>
 [ApiController]
+[ApiConventionType(typeof(DefaultApiConventions))]
 [Route("/")]
 public class UserController : ControllerBase
 {
@@ -21,8 +22,6 @@ public class UserController : ControllerBase
     /// <param name="id">User's id</param>
     /// <returns>User or response state</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> GetUserAsync(int id)
     {
@@ -53,19 +52,17 @@ public class UserController : ControllerBase
     ///
     /// </remarks>
     /// <response code="201">Returns the newly created item</response>
-    /// <response code="404">User is null</response>
+    /// <response code="400">User is null</response>
     [HttpPost("create")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PostUserAsync(User user)
     {
         Console.WriteLine("Enter into /create");
 
         await Program.AddUserAsync(user).ConfigureAwait(false);
 
-        if (user == null) return NotFound();
+        if (user == null) return BadRequest();
 
         return CreatedAtAction(nameof(GetUserAsync), new { id = user.Id }, user);
     }
@@ -101,27 +98,26 @@ public class UserController : ControllerBase
     ///     ]
     ///
     /// </remarks>
-    /// <response code="200">Returns the newly created user</response>
-    /// <response code="404">Patch is null</response>
+    /// <response code="201">Returns the newly created user</response>
+    /// <response code="400">Patch is null</response>
     [HttpPatch("patch/{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Consumes("application/json-patch+json")]
     [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PatchUserAsync(int id, JsonPatchDocument<User> patch)
     {
         Console.WriteLine($"Enter into /patch/{id}");
 
         var user = await Program.GetUserAsync(id).ConfigureAwait(false);
 
-        if (patch is null)
-            return NotFound();
+        if (patch is null) return BadRequest();
 
         patch.ApplyTo(user!);
 
         await Program.UpdateUserAsync(id, user!).ConfigureAwait(false);
 
-        return Ok(user);
+        return CreatedAtAction(nameof(GetUserAsync), new { id = user!.Id }, user);
     }
 }
 

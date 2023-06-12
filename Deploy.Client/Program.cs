@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Deploy.Core;
 using SystemTextJsonPatch;
@@ -60,14 +61,18 @@ public static class Program
         // PATCH
         Console.WriteLine("PATCH");
 
+        var patchUri = new Uri($"{serverAddress}/patch/{vladimirWithId!.Id}");
+
         var patch = new JsonPatchDocument<User>();
         patch.Replace((v) => v.Name, "Vovik");
         patch.Replace((v) => v.Age, 36);
 
         var patchJson = JsonSerializer.Serialize(patch, options: new());
+        using var content = new StringContent(patchJson, Encoding.UTF8, "application/json-patch+json");
 
-        using var patchResponse = await httpClient.PatchAsJsonAsync(new Uri($"{serverAddress}/patch/{vladimirWithId!.Id}"),
-                                                                    patch).ConfigureAwait(false);
+        using var patchResponse = await httpClient.PatchAsync(patchUri, content).ConfigureAwait(false);
+
+        // using var patchResponse = await httpClient.PatchAsJsonAsync(patchUri, patch).ConfigureAwait(false);
 
         var patchedUser = await patchResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
