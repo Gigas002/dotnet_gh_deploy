@@ -38,6 +38,14 @@ public static class Program
 
         #endregion
 
+        #region HEAD
+
+        Console.WriteLine("HEAD");
+
+        await HeadAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
+
         #region POST
 
         Console.WriteLine("POST");
@@ -63,19 +71,41 @@ public static class Program
     {
         if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-        using var getUserResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
+        using var response = await httpClient.GetAsync(uri).ConfigureAwait(false);
 
-        if (getUserResponse.StatusCode == HttpStatusCode.NotFound)
+        if (response.StatusCode == HttpStatusCode.NotFound)
         {
-            var responseText = await getUserResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             Console.WriteLine(responseText);
         }
         else
         {
-            var user = await getUserResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
+            var user = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
             WriteUserInfo(user!);
+        }
+    }
+
+    public static async Task HeadAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
+        using var request = new HttpRequestMessage(HttpMethod.Head, uri);
+
+        using var response = await httpClient.SendAsync(request).ConfigureAwait(false);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"Status code: {response.StatusCode}");
+            Console.WriteLine($"Content type: {response.Content.Headers.ContentType}");
+            Console.WriteLine($"Content length: {response.Content.Headers.ContentLength}");
+            Console.WriteLine($"Date: {response.Headers.Date}");
+            Console.WriteLine($"Server: {response.Headers.Server}");
+        }
+        else
+        {
+            Console.WriteLine($"Error: {response.ReasonPhrase}");
         }
     }
 
@@ -85,9 +115,9 @@ public static class Program
 
         var user = new User { Name = "Vladimir", Age = 99 };
 
-        using var createResponse = await httpClient.PostAsJsonAsync(uri, user).ConfigureAwait(false);
-        
-        var vladimirWithId = await createResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
+        using var response = await httpClient.PostAsJsonAsync(uri, user).ConfigureAwait(false);
+
+        var vladimirWithId = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
         WriteUserInfo(vladimirWithId!);
 
@@ -105,9 +135,9 @@ public static class Program
         var patchJson = JsonSerializer.Serialize(patch, options: new());
         using var content = new StringContent(patchJson, Encoding.UTF8, "application/json-patch+json");
 
-        using var patchResponse = await httpClient.PatchAsync(uri, content).ConfigureAwait(false);
+        using var response = await httpClient.PatchAsync(uri, content).ConfigureAwait(false);
 
-        var patchedUser = await patchResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
+        var patchedUser = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
         WriteUserInfo(patchedUser!);
     }
