@@ -150,7 +150,7 @@ public class UserController : ControllerBase
 
         await Program.UpdateUserAsync(_context, userToUpdate!, update!).ConfigureAwait(false);
 
-        return CreatedAtAction(nameof(GetUserAsync), new { id = update!.Id }, update);
+        return CreatedAtAction(nameof(GetUserAsync), new { id = userToUpdate!.Id }, userToUpdate);
     }
 
     #endregion

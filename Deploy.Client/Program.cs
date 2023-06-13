@@ -65,6 +65,16 @@ public static class Program
         await PatchAsync(httpClient, uri).ConfigureAwait(false);
 
         #endregion
+
+        #region PUT
+
+        Console.WriteLine("PUT");
+
+        uri = new Uri($"{serverAddress}/put/{postId}");
+
+        await PutAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
     }
 
     public static async Task GetAsync(HttpClient httpClient, Uri uri)
@@ -140,6 +150,23 @@ public static class Program
         var patchedUser = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
         WriteUserInfo(patchedUser!);
+    }
+
+    public static async Task PutAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
+        var user = new User
+        {
+            Name = "Warlock",
+            Age = 456
+        };
+
+        using var response = await httpClient.PutAsJsonAsync(uri, user).ConfigureAwait(false);
+
+        var updatedUser = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
+
+        WriteUserInfo(updatedUser!);
     }
 
     private static void WriteUserInfo(User user) =>
