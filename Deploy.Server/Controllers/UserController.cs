@@ -141,15 +141,16 @@ public class UserController : ControllerBase
     {
         Console.WriteLine($"Enter into PATCH: /patch/{id}");
 
-        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
+        var userToUpdate = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
+        var update = Program.CloneUser(userToUpdate!);
 
         if (patch is null) return BadRequest();
 
-        patch.ApplyTo(user!);
+        patch.ApplyTo(update!);
 
-        await Program.UpdateUserAsync(_context, id, user!).ConfigureAwait(false);
+        await Program.UpdateUserAsync(_context, userToUpdate!, update!).ConfigureAwait(false);
 
-        return CreatedAtAction(nameof(GetUserAsync), new { id = user!.Id }, user);
+        return CreatedAtAction(nameof(GetUserAsync), new { id = update!.Id }, update);
     }
 
     #endregion
@@ -188,9 +189,7 @@ public class UserController : ControllerBase
 
         if (newUser is null) return BadRequest();
 
-        Program.UpdateUser(ref user!, newUser);
-
-        await Program.UpdateUserAsync(_context, id, user!).ConfigureAwait(false);
+        await Program.UpdateUserAsync(_context, user!, newUser).ConfigureAwait(false);
 
         return Ok(user);
     }
@@ -229,9 +228,9 @@ public class UserController : ControllerBase
     {
         Console.WriteLine($"Enter into DELETE: /delete/{id}");
 
-        // var user = Program.GetUser(_context, id);
+        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
 
-        await Program.DeleteUserAsync(_context, id).ConfigureAwait(false);
+        await Program.DeleteUserAsync(_context, user!).ConfigureAwait(false);
 
         return Ok();
     }

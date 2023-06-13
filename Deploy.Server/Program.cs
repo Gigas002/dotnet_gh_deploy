@@ -112,24 +112,20 @@ public static class Program
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    public static async Task UpdateUserAsync(Context db, int id, User user)
+    public static async Task UpdateUserAsync(Context db, User userToUpdate, User update)
     {
         if (db == null) throw new ArgumentNullException(nameof(db));
+        if (userToUpdate == null) throw new ArgumentNullException(nameof(userToUpdate));
+        if (update == null) throw new ArgumentNullException(nameof(update));
 
-        var userToUpdate = await GetUserAsync(db, id);
-
-        if (user == null) throw new ArgumentNullException(nameof(user));
-
-        UpdateUser(ref userToUpdate!, user);
+        UpdateUser(ref userToUpdate, update);
 
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    public static async Task DeleteUserAsync(Context db, int id)
+    public static async Task DeleteUserAsync(Context db, User user)
     {
         if (db == null) throw new ArgumentNullException(nameof(db));
-
-        var user = await GetUserAsync(db, id);
 
         db.Users.Remove(user!);
 
@@ -142,6 +138,13 @@ public static class Program
         userToUpdate.Age = update.Age;
         userToUpdate.Company = update.Company;
     }
+
+    internal static User CloneUser(User userToClone) => new()
+    {
+        Name = userToClone.Name,
+        Age = userToClone.Age,
+        Company = userToClone.Company
+    };
 }
 
 #pragma warning restore CS1591
