@@ -18,6 +18,12 @@ You'll need to select a branch `gh-pages` for the first deployment, see: https:/
 
 Manual setting of these secrets required: `CODECOV_TOKEN`, `DOCKER_HUB_TOKEN`, `NUGET_API_KEY`, `SNYK_TOKEN`
 
+GitHub apps integrations:
+
+- [codacy](https://github.com/codacy)
+- [codecov](https://github.com/codecov)
+- [Dotnet Policy Service](https://github.com/microsoft1estools)
+
 ## Releases
 
 **Downloaded**
