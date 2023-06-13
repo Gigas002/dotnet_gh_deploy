@@ -37,15 +37,21 @@ public class UserController : ControllerBase
 
     #region Methods
 
-    #region GET
+    #region GET/HEAD
 
+    // HEAD: 5
     // GET: 5
     /// <summary>
     /// Get user from database by id
     /// </summary>
     /// <param name="id">User's id</param>
     /// <returns>User or response state</returns>
+    /// <response code="200">Returns the newly created user</response>
+    /// <response code="400">User is null</response>
     [HttpGet("{id}")]
+    [HttpHead("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<User> GetUser(int id)
     {
@@ -54,7 +60,7 @@ public class UserController : ControllerBase
         var user = Program.GetUser(_context, id);
 
         if (user is null)
-            return NotFound(new ProblemDetails { Detail = $"Object with id={id} doesn't exist" });
+            return BadRequest(new ProblemDetails { Detail = $"Object with id={id} doesn't exist" });
         else
             return Ok(user);
     }

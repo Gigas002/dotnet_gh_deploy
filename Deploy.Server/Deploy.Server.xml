@@ -20,6 +20,8 @@
             </summary>
             <param name="id">User's id</param>
             <returns>User or response state</returns>
+            <response code="200">Returns the newly created user</response>
+            <response code="400">User is null</response>
         </member>
         <member name="M:Deploy.Server.Controllers.UserController.PostUserAsync(Deploy.Core.User)">
              <summary>
