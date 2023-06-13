@@ -24,6 +24,8 @@ public static class Program
             });
         });
 
+        builder.Services.AddAntiforgery();
+
         builder.Services.AddDbContext<Context>();
 
         // for controllers-based approach
