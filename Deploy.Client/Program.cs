@@ -219,10 +219,7 @@ public static class Program
     {
         if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-        // TODO: test DeleteFromJsonAsync
-        using var response = await httpClient.DeleteAsync(uri).ConfigureAwait(false);
-
-        var deletedUser = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
+        var deletedUser = await httpClient.DeleteFromJsonAsync<User>(uri).ConfigureAwait(false);
 
         WriteUserInfo(deletedUser!);
     }
