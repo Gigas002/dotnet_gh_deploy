@@ -55,7 +55,7 @@ public class UserController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     public ActionResult<User> GetUser(int id)
     {
-        Console.WriteLine($"Enter into /{id}");
+        Console.WriteLine($"Enter into GET/HEAD: /{id}");
 
         var user = Program.GetUser(_context, id);
 
@@ -92,7 +92,7 @@ public class UserController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PostUserAsync(User user)
     {
-        Console.WriteLine("Enter into /create");
+        Console.WriteLine("Enter into POST: /create");
 
         await Program.AddUserAsync(_context, user).ConfigureAwait(false);
 
@@ -139,7 +139,7 @@ public class UserController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PatchUserAsync(int id, JsonPatchDocument<User> patch)
     {
-        Console.WriteLine($"Enter into /patch/{id}");
+        Console.WriteLine($"Enter into PATCH: /patch/{id}");
 
         var user = Program.GetUser(_context, id);
 
@@ -182,7 +182,7 @@ public class UserController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PutUserAsync(int id, User newUser)
     {
-        Console.WriteLine($"Enter into /put/{id}");
+        Console.WriteLine($"Enter into PUT: /put/{id}");
 
         var user = Program.GetUser(_context, id);
 
@@ -207,13 +207,35 @@ public class UserController : ControllerBase
     [HttpOptions]
     public ActionResult Options()
     {
+        Console.WriteLine("Enter into OPTIONS: /");
+
         Response.Headers.Add("Allow", "GET, HEAD, POST, PATCH, PUT, DELETE");
 
         return Ok();
     }
-
-
     
+    #endregion
+
+    #region DELETE
+
+    // DELETE: delete/1
+    /// <summary>
+    /// Delete user
+    /// </summary>
+    /// <param name="id">Id of user to delete</param>
+    /// <returns>Response code</returns>
+    [HttpDelete("delete/{id}")]
+    public async Task<ActionResult> DeleteUserAsync(int id)
+    {
+        Console.WriteLine($"Enter into DELETE: /delete/{id}");
+
+        // var user = Program.GetUser(_context, id);
+
+        await Program.DeleteUserAsync(_context, id).ConfigureAwait(false);
+
+        return Ok();
+    }
+
     #endregion
 
     /// <summary>

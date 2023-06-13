@@ -96,6 +96,23 @@
             </summary>
             <returns>Response code</returns>
         </member>
+        <member name="M:Deploy.Server.Controllers.UserController.DeleteUserAsync(System.Int32)">
+             <summary>
+             Delete user
+             </summary>
+             <param name="id">Id of user to delete</param>
+             <returns>Response code</returns>
+             <remarks>
+             Sample request:
+            
+                 PUT /put/1
+                 {
+                     "name": "Petka",
+                     "age": 88
+                 }
+            
+             </remarks>
+        </member>
         <member name="M:Deploy.Server.Controllers.UserController.IgnoredMethod">
             <summary>
             Ignore this

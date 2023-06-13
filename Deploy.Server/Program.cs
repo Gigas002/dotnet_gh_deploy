@@ -116,11 +116,22 @@ public static class Program
     {
         if (db == null) throw new ArgumentNullException(nameof(db));
 
-        var userToUpdate = db.Users.FirstOrDefault(u => u.Id == id);
+        var userToUpdate = GetUser(db, id);
 
         if (user == null) throw new ArgumentNullException(nameof(user));
 
         UpdateUser(ref userToUpdate!, user);
+
+        await db.SaveChangesAsync().ConfigureAwait(false);
+    }
+
+    public static async Task DeleteUserAsync(Context db, int id)
+    {
+        if (db == null) throw new ArgumentNullException(nameof(db));
+
+        var user = GetUser(db, id);
+
+        db.Users.Remove(user!);
 
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
