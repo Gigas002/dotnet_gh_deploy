@@ -17,7 +17,13 @@ namespace Deploy.Server.Controllers;
 [Route("/")]
 public class UserController : ControllerBase
 {
-   private readonly Context _context;
+    #region Properties
+
+    private readonly Context _context;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
     /// Database context
@@ -26,6 +32,12 @@ public class UserController : ControllerBase
     {
         _context = context;
     }
+
+    #endregion
+
+    #region Methods
+
+    #region GET
 
     // GET: 5
     /// <summary>
@@ -46,6 +58,10 @@ public class UserController : ControllerBase
         else
             return Ok(user);
     }
+
+    #endregion
+
+    #region POST
 
     // POST: create
     /// <summary>
@@ -79,11 +95,9 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
     }
 
-    /// <summary>
-    /// Ignore this
-    /// </summary>
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public void IgnoredMethod() { }
+    #endregion
+
+    #region PATCH
 
     // PATCH: patch/1
     /// <summary>
@@ -131,6 +145,59 @@ public class UserController : ControllerBase
 
         return CreatedAtAction(nameof(GetUser), new { id = user!.Id }, user);
     }
+
+    #endregion
+
+    #region PUT
+
+    // PUT: put/1
+    /// <summary>
+    /// Put user
+    /// </summary>
+    /// <param name="id">Id of user to update</param>
+    /// <param name="newUser">Update for user</param>
+    /// <returns>A newly created User</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     PUT /put/1
+    ///     {
+    ///         "name": "Petka",
+    ///         "age": 88
+    ///     }
+    ///
+    /// </remarks>
+    /// <response code="200">Returns the newly created user</response>
+    /// <response code="400">New user is null</response>
+    [HttpPut("put/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<User>> PutUserAsync(int id, User newUser)
+    {
+        Console.WriteLine($"Enter into /put/{id}");
+
+        var user = Program.GetUser(_context, id);
+
+        if (newUser is null) return BadRequest();
+
+        Program.UpdateUser(ref user!, newUser);
+
+        await Program.UpdateUserAsync(_context, id, user!).ConfigureAwait(false);
+
+        return Ok(user);
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Ignore this
+    /// </summary>
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public void IgnoredMethod() { }
+
+    #endregion
 }
 
 #pragma warning restore CA1303

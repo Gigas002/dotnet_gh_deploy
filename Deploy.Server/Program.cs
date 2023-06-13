@@ -125,7 +125,7 @@ public static class Program
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    private static void UpdateUser(ref User userToUpdate, User update)
+    internal static void UpdateUser(ref User userToUpdate, User update)
     {
         userToUpdate.Name = update.Name;
         userToUpdate.Age = update.Age;
