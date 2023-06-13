@@ -28,40 +28,75 @@ public static class Program
 
         httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
 
-        // GET
+        #region GET
+
         Console.WriteLine("GET");
 
-        var responseText = string.Empty;
+        var uri = new Uri($"{serverAddress}/{userId}");
 
-        using var getUserResponse = await httpClient.GetAsync(new Uri($"{serverAddress}/{userId}"))
-                                                    .ConfigureAwait(false);
+        await GetAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
+
+        #region POST
+
+        Console.WriteLine("POST");
+
+        uri = new Uri($"{serverAddress}/create");
+
+        var postId = await PostAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
+
+        #region PATCH
+
+        Console.WriteLine("PATCH");
+
+        uri = new Uri($"{serverAddress}/patch/{postId}");
+
+        await PatchAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
+    }
+
+    public static async Task GetAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
+        using var getUserResponse = await httpClient.GetAsync(uri).ConfigureAwait(false);
 
         if (getUserResponse.StatusCode == HttpStatusCode.NotFound)
         {
-            responseText = await getUserResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseText = await getUserResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+
             Console.WriteLine(responseText);
         }
         else
         {
             var user = await getUserResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
-            Console.WriteLine($"Id: {user?.Id} Name: {user?.Name} Age: {user?.Age}");
+            WriteUserInfo(user!);
         }
+    }
 
-        // POST
-        Console.WriteLine("POST");
+    public static async Task<int> PostAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
-        var vladimir = new User { Name = "Vladimir", Age = 99 };
+        var user = new User { Name = "Vladimir", Age = 99 };
 
-        using var createResponse = await httpClient.PostAsJsonAsync($"{serverAddress}/create", vladimir).ConfigureAwait(false);
+        using var createResponse = await httpClient.PostAsJsonAsync(uri, user).ConfigureAwait(false);
+        
         var vladimirWithId = await createResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
-        Console.WriteLine($"Id: {vladimirWithId?.Id} Name: {vladimirWithId?.Name} Age: {vladimirWithId?.Age}");
+        WriteUserInfo(vladimirWithId!);
 
-        // PATCH
-        Console.WriteLine("PATCH");
+        return vladimirWithId!.Id;
+    }
 
-        var patchUri = new Uri($"{serverAddress}/patch/{vladimirWithId!.Id}");
+    public static async Task PatchAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
         var patch = new JsonPatchDocument<User>();
         patch.Replace((v) => v.Name, "Vovik");
@@ -70,14 +105,15 @@ public static class Program
         var patchJson = JsonSerializer.Serialize(patch, options: new());
         using var content = new StringContent(patchJson, Encoding.UTF8, "application/json-patch+json");
 
-        using var patchResponse = await httpClient.PatchAsync(patchUri, content).ConfigureAwait(false);
-
-        // using var patchResponse = await httpClient.PatchAsJsonAsync(patchUri, patch).ConfigureAwait(false);
+        using var patchResponse = await httpClient.PatchAsync(uri, content).ConfigureAwait(false);
 
         var patchedUser = await patchResponse.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
-        Console.WriteLine($"Id: {patchedUser?.Id} Name: {patchedUser?.Name} Age: {patchedUser?.Age}");
+        WriteUserInfo(patchedUser!);
     }
+
+    private static void WriteUserInfo(User user) =>
+        Console.WriteLine($"Id: {user.Id} Name: {user.Name} Age: {user.Age}");
 }
 
 #pragma warning restore CA1303
