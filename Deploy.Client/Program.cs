@@ -75,6 +75,16 @@ public static class Program
         await PutAsync(httpClient, uri).ConfigureAwait(false);
 
         #endregion
+
+        #region OPTIONS
+
+        Console.WriteLine("OPTIONS");
+
+        uri = new Uri($"{serverAddress}");
+
+        await OptionsAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
     }
 
     public static async Task GetAsync(HttpClient httpClient, Uri uri)
@@ -167,6 +177,32 @@ public static class Program
         var updatedUser = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
 
         WriteUserInfo(updatedUser!);
+    }
+
+    public static async Task OptionsAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
+        using var request = new HttpRequestMessage(HttpMethod.Options, uri);
+
+        using var response = await httpClient.SendAsync(request).ConfigureAwait(false);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"Status code: {response.StatusCode}");
+            Console.WriteLine($"Content length: {response.Content.Headers.ContentLength}");
+            Console.WriteLine($"Date: {response.Headers.Date}");
+            Console.WriteLine($"Server: {response.Headers.Server}");
+
+            foreach (var allow in response.Content.Headers.Allow)
+            {
+                Console.WriteLine($"allow: {allow}");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Error: {response.ReasonPhrase}");
+        }
     }
 
     private static void WriteUserInfo(User user) =>

@@ -208,7 +208,7 @@ public class UserController : ControllerBase
     {
         Console.WriteLine("Enter into OPTIONS: /");
 
-        Response.Headers.Add("Allow", "GET, HEAD, POST, PATCH, PUT, OPTIONS, DELETE");
+        Response.Headers.Allow = "GET, HEAD, POST, PATCH, PUT, OPTIONS, DELETE";
 
         return Ok();
     }
