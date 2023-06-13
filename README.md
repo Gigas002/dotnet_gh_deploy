@@ -2,6 +2,7 @@
 
 ## Status
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e361b473a03e4f059a79b8feb4df3631)](https://app.codacy.com/gh/senketsu03/dotnet_gh_deploy?utm_source=github.com&utm_medium=referral&utm_content=senketsu03/dotnet_gh_deploy&utm_campaign=Badge_Grade)
 [![build-test-deploy](https://github.com/senketsu03/dotnet_gh_deploy/actions/workflows/build-test-deploy.yml/badge.svg)](https://github.com/senketsu03/dotnet_gh_deploy/actions/workflows/build-test-deploy.yml)
 
 ![Dependabot Status](https://flat.badgen.net/github/dependabot/senketsu03/dotnet_gh_deploy)
