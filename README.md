@@ -16,7 +16,7 @@ Training to use GitHub CI only to deploy dotnet stuff
 
 Grant actions more permissions. See Repo settings->Actions->General page
 
-You'll need to select a branch `gh-pages` for the first deployment, see: https://github.com/marketplace/actions/github-pages-action#%EF%B8%8F-first-deployment-with-github_token
+You'll need to select a branch `gh-pages` for the first deployment, see: [https://github.com/marketplace/actions/github-pages-action#%EF%B8%8F-first-deployment-with-github_token]
 
 Manual setting of these secrets required: `CODECOV_TOKEN`, `DOCKER_HUB_TOKEN`, `NUGET_API_KEY`, `SNYK_TOKEN`
 
@@ -52,7 +52,7 @@ Build.props are [not yet supported](https://docs.snyk.io/guides/snyk-for-.net-de
 
 ## Resources
 
-Icons: https://www.flaticon.com/packs/far-west
+Icons: [https://www.flaticon.com/packs/far-west]
 
 ## Sponsors
 
