@@ -53,11 +53,11 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
-    public ActionResult<User> GetUser(int id)
+    public async Task<ActionResult<User>> GetUserAsync(int id)
     {
         Console.WriteLine($"Enter into GET/HEAD: /{id}");
 
-        var user = Program.GetUser(_context, id);
+        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
 
         if (user is null)
             return BadRequest(new ProblemDetails { Detail = $"Object with id={id} doesn't exist" });
@@ -98,7 +98,7 @@ public class UserController : ControllerBase
 
         if (user == null) return BadRequest();
 
-        return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+        return CreatedAtAction(nameof(GetUserAsync), new { id = user.Id }, user);
     }
 
     #endregion
@@ -141,7 +141,7 @@ public class UserController : ControllerBase
     {
         Console.WriteLine($"Enter into PATCH: /patch/{id}");
 
-        var user = Program.GetUser(_context, id);
+        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
 
         if (patch is null) return BadRequest();
 
@@ -149,7 +149,7 @@ public class UserController : ControllerBase
 
         await Program.UpdateUserAsync(_context, id, user!).ConfigureAwait(false);
 
-        return CreatedAtAction(nameof(GetUser), new { id = user!.Id }, user);
+        return CreatedAtAction(nameof(GetUserAsync), new { id = user!.Id }, user);
     }
 
     #endregion
@@ -184,7 +184,7 @@ public class UserController : ControllerBase
     {
         Console.WriteLine($"Enter into PUT: /put/{id}");
 
-        var user = Program.GetUser(_context, id);
+        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
 
         if (newUser is null) return BadRequest();
 
@@ -209,7 +209,7 @@ public class UserController : ControllerBase
     {
         Console.WriteLine("Enter into OPTIONS: /");
 
-        Response.Headers.Add("Allow", "GET, HEAD, POST, PATCH, PUT, DELETE");
+        Response.Headers.Add("Allow", "GET, HEAD, POST, PATCH, PUT, OPTIONS, DELETE");
 
         return Ok();
     }

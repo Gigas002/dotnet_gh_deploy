@@ -14,7 +14,7 @@
             Database context
             </summary>
         </member>
-        <member name="M:Deploy.Server.Controllers.UserController.GetUser(System.Int32)">
+        <member name="M:Deploy.Server.Controllers.UserController.GetUserAsync(System.Int32)">
             <summary>
             Get user from database by id
             </summary>
@@ -97,21 +97,11 @@
             <returns>Response code</returns>
         </member>
         <member name="M:Deploy.Server.Controllers.UserController.DeleteUserAsync(System.Int32)">
-             <summary>
-             Delete user
-             </summary>
-             <param name="id">Id of user to delete</param>
-             <returns>Response code</returns>
-             <remarks>
-             Sample request:
-            
-                 PUT /put/1
-                 {
-                     "name": "Petka",
-                     "age": 88
-                 }
-            
-             </remarks>
+            <summary>
+            Delete user
+            </summary>
+            <param name="id">Id of user to delete</param>
+            <returns>Response code</returns>
         </member>
         <member name="M:Deploy.Server.Controllers.UserController.IgnoredMethod">
             <summary>

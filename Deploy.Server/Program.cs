@@ -96,11 +96,11 @@ public static class Program
         await db.SaveChangesAsync().ConfigureAwait(false);
     }
 
-    public static User? GetUser(Context db, int id)
+    public static ValueTask<User?> GetUserAsync(Context db, int id)
     {
         if (db == null) throw new ArgumentNullException(nameof(db));
 
-        return db.Users.FirstOrDefault(u => u.Id == id);
+        return db.Users.FindAsync(id);
     }
 
     public static async Task AddUserAsync(Context db, User user)
@@ -116,7 +116,7 @@ public static class Program
     {
         if (db == null) throw new ArgumentNullException(nameof(db));
 
-        var userToUpdate = GetUser(db, id);
+        var userToUpdate = await GetUserAsync(db, id);
 
         if (user == null) throw new ArgumentNullException(nameof(user));
 
@@ -129,7 +129,7 @@ public static class Program
     {
         if (db == null) throw new ArgumentNullException(nameof(db));
 
-        var user = GetUser(db, id);
+        var user = await GetUserAsync(db, id);
 
         db.Users.Remove(user!);
 
