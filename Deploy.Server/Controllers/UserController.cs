@@ -11,6 +11,7 @@ namespace Deploy.Server.Controllers;
 /// <summary>
 /// User controller
 /// </summary>
+// [AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route("/")]
@@ -41,7 +42,7 @@ public class UserController : ControllerBase
         var user = Program.GetUser(_context, id);
 
         if (user is null)
-            return NotFound(new { Message = $"Object with id={id} doesn't exist" });
+            return NotFound(new ProblemDetails { Detail = $"Object with id={id} doesn't exist" });
         else
             return Ok(user);
     }
