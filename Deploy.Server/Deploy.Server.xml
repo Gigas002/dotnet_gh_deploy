@@ -101,7 +101,7 @@
             Delete user
             </summary>
             <param name="id">Id of user to delete</param>
-            <returns>Response code</returns>
+            <returns>Deleted user</returns>
         </member>
         <member name="M:Deploy.Server.Controllers.UserController.IgnoredMethod">
             <summary>

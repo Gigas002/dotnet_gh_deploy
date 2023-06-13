@@ -85,6 +85,16 @@ public static class Program
         await OptionsAsync(httpClient, uri).ConfigureAwait(false);
 
         #endregion
+
+        #region DELETE
+
+        Console.WriteLine("DELETE");
+
+        uri = new Uri($"{serverAddress}/delete/{postId}");
+
+        await DeleteAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
     }
 
     public static async Task GetAsync(HttpClient httpClient, Uri uri)
@@ -203,6 +213,18 @@ public static class Program
         {
             Console.WriteLine($"Error: {response.ReasonPhrase}");
         }
+    }
+
+    public static async Task DeleteAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
+        // TODO: test DeleteFromJsonAsync
+        using var response = await httpClient.DeleteAsync(uri).ConfigureAwait(false);
+
+        var deletedUser = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
+
+        WriteUserInfo(deletedUser!);
     }
 
     private static void WriteUserInfo(User user) =>

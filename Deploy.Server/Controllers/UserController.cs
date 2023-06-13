@@ -212,7 +212,7 @@ public class UserController : ControllerBase
 
         return Ok();
     }
-    
+
     #endregion
 
     #region DELETE
@@ -222,8 +222,9 @@ public class UserController : ControllerBase
     /// Delete user
     /// </summary>
     /// <param name="id">Id of user to delete</param>
-    /// <returns>Response code</returns>
+    /// <returns>Deleted user</returns>
     [HttpDelete("delete/{id}")]
+    [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteUserAsync(int id)
     {
         Console.WriteLine($"Enter into DELETE: /delete/{id}");
@@ -232,7 +233,7 @@ public class UserController : ControllerBase
 
         await Program.DeleteUserAsync(_context, user!).ConfigureAwait(false);
 
-        return Ok();
+        return Ok(user);
     }
 
     #endregion
