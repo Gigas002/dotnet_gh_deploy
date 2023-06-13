@@ -13,7 +13,7 @@ public static class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.WebHost.ConfigureKestrel((context, options) =>
+        builder.WebHost.ConfigureKestrel((_, options) =>
         {
             options.ListenAnyIP(5230, listenOptions =>
             {
@@ -87,9 +87,9 @@ public static class Program
         await db.Database.EnsureDeletedAsync().ConfigureAwait(false);
         await db.Database.EnsureCreatedAsync().ConfigureAwait(false);
 
-        var vasya = new User() { Name = "Vasya", Age = 40 };
-        var petya = new User() { Name = "Petya", Age = 30 };
-        var katya = new User() { Name = "Katya", Age = 20 };
+        var vasya = new User { Name = "Vasya", Age = 40 };
+        var petya = new User { Name = "Petya", Age = 30 };
+        var katya = new User { Name = "Katya", Age = 20 };
 
         await db.AddRangeAsync(vasya, petya, katya).ConfigureAwait(false);
 

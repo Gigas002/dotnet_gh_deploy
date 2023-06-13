@@ -8,6 +8,8 @@
 
 [![codecov](https://codecov.io/github/senketsu03/dotnet_gh_deploy/branch/master/graph/badge.svg)](https://codecov.io/github/senketsu03/dotnet_gh_deploy)
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0830b8500252474481805631e4984392)](https://app.codacy.com/gh/senketsu03/dotnet_gh_deploy/dashboard)
+
 Training to use GitHub CI only to deploy dotnet stuff
 
 ## Configuration

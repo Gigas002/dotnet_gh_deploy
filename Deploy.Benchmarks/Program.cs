@@ -4,8 +4,8 @@ namespace Deploy.Benchmarks;
 
 public static class Program
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
-        var summary = BenchmarkRunner.Run<Md5VsSha256>();
+        BenchmarkRunner.Run<Md5VsSha256>();
     }
 }

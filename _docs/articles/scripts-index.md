@@ -20,7 +20,7 @@ And accounts on following platforms:
 
 ## Script/args
 
-test.ps1: 
+test.ps1:
 
 - [secure,optional] -codecovToken/-codecov-token
 - [optional] -r/-runsettingsXml/-runsettings-xml

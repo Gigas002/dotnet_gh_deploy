@@ -20,7 +20,7 @@ public static class Program
         var serverAddress = IPv4ServerAddress;
         var userId = 1;
 
-        using var httpClient = new HttpClient()
+        using var httpClient = new HttpClient
         {
             DefaultRequestVersion = HttpVersion.Version30,
             DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact
