@@ -197,6 +197,25 @@ public class UserController : ControllerBase
 
     #endregion
 
+    #region OPTIONS
+
+    // OPTIONS:
+    /// <summary>
+    /// Options
+    /// </summary>
+    /// <returns>Response code</returns>
+    [HttpOptions]
+    public ActionResult Options()
+    {
+        Response.Headers.Add("Allow", "GET, HEAD, POST, PATCH, PUT, DELETE");
+
+        return Ok();
+    }
+
+
+    
+    #endregion
+
     /// <summary>
     /// Ignore this
     /// </summary>

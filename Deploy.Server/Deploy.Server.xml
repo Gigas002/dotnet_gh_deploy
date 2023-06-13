@@ -90,6 +90,12 @@
              <response code="200">Returns the newly created user</response>
              <response code="400">New user is null</response>
         </member>
+        <member name="M:Deploy.Server.Controllers.UserController.Options">
+            <summary>
+            Options
+            </summary>
+            <returns>Response code</returns>
+        </member>
         <member name="M:Deploy.Server.Controllers.UserController.IgnoredMethod">
             <summary>
             Ignore this
