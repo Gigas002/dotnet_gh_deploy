@@ -296,7 +296,6 @@ public class UserController : ControllerBase
 
     #endregion
 
-
     /// <summary>
     /// Ignore this
     /// </summary>
