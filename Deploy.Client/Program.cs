@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -27,15 +28,19 @@ public static class Program
             DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact
         };
 
-        httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
-
         #region GET
 
         Console.WriteLine("GET");
 
         var uri = new Uri($"{serverAddress}/{userId}");
 
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
         await GetAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -43,7 +48,13 @@ public static class Program
 
         Console.WriteLine("HEAD");
 
+        stopwatch.Restart();
+
         await HeadAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -53,7 +64,13 @@ public static class Program
 
         uri = new Uri($"{serverAddress}/create");
 
+        stopwatch.Restart();
+
         var postId = await PostAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -63,7 +80,13 @@ public static class Program
 
         uri = new Uri($"{serverAddress}/patch/{postId}");
 
+        stopwatch.Restart();
+
         await PatchAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -73,7 +96,13 @@ public static class Program
 
         uri = new Uri($"{serverAddress}/put/{postId}");
 
+        stopwatch.Restart();
+
         await PutAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -83,7 +112,13 @@ public static class Program
 
         uri = new Uri($"{serverAddress}");
 
+        stopwatch.Restart();
+
         await OptionsAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -93,7 +128,13 @@ public static class Program
 
         uri = new Uri($"{serverAddress}/patch-exp/{postId}");
 
+        stopwatch.Restart();
+
         await PatchExpAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
 
@@ -103,7 +144,13 @@ public static class Program
 
         uri = new Uri($"{serverAddress}/delete/{postId}");
 
+        stopwatch.Restart();
+
         await DeleteAsync(httpClient, uri).ConfigureAwait(false);
+
+        stopwatch.Stop();
+
+        Console.WriteLine($"Elapsed time: {stopwatch.ElapsedMilliseconds}");
 
         #endregion
     }
