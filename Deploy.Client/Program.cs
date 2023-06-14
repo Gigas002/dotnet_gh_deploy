@@ -122,6 +122,8 @@ public static class Program
         if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
         using var request = new HttpRequestMessage(HttpMethod.Head, uri);
+        request.Version = httpClient.DefaultRequestVersion;
+        request.VersionPolicy = httpClient.DefaultVersionPolicy;
 
         using var response = await httpClient.SendAsync(request).ConfigureAwait(false);
 
@@ -194,6 +196,8 @@ public static class Program
         if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
 
         using var request = new HttpRequestMessage(HttpMethod.Options, uri);
+        request.Version = httpClient.DefaultRequestVersion;
+        request.VersionPolicy = httpClient.DefaultVersionPolicy;
 
         using var response = await httpClient.SendAsync(request).ConfigureAwait(false);
 
