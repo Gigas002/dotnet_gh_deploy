@@ -2,6 +2,7 @@ using System.Net.Mime;
 using Deploy.Core;
 using Microsoft.AspNetCore.Mvc;
 using SystemTextJsonPatch;
+using SystemTextJsonPatch.Operations;
 
 namespace Deploy.Server.Controllers;
 
@@ -225,6 +226,7 @@ public class UserController : ControllerBase
     /// </summary>
     /// <param name="id">Id of user to delete</param>
     /// <returns>Deleted user</returns>
+    /// <response code="200">Returns the removed user</response>
     [HttpDelete("delete/{id}")]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult> DeleteUserAsync(int id)
@@ -239,6 +241,61 @@ public class UserController : ControllerBase
     }
 
     #endregion
+
+    #region PATCH (experimental)
+
+    // PATCH: patch-exp/1
+    /// <summary>
+    /// Patch user
+    /// </summary>
+    /// <param name="id">Id of user to patch</param>
+    /// <param name="operations">Patch to apply</param>
+    /// <returns>A newly created User</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     PATCH /patch-exp/1
+    ///     [
+    ///         {
+    ///             "op": "replace",
+    ///             "path": "/name",
+    ///             "value": "Greck"
+    ///         },
+    ///         {
+    ///             "op": "replace",
+    ///             "path": "/age",
+    ///             "value": 51
+    ///         }
+    ///     ]
+    ///
+    /// </remarks>
+    /// <response code="201">Returns the newly created user</response>
+    /// <response code="400">Patch is null</response>
+    [HttpPatch("patch-exp/{id}")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Consumes("application/json-patch+json")]
+    [Produces(MediaTypeNames.Application.Json)]
+    public async Task<ActionResult<User>> PatchUserExpAsync(int id, IEnumerable<Operation<User>> operations)
+    {
+        Console.WriteLine($"Enter into PATCH: /patch-exp/{id}");
+
+        if (operations is null) return BadRequest();
+
+        var patch = new JsonPatchDocument<User>(operations.ToList(), new());
+
+        var userToUpdate = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
+        var update = Program.CloneUser(userToUpdate!);
+
+        patch.ApplyTo(update!);
+
+        await Program.UpdateUserAsync(_context, userToUpdate!, update!).ConfigureAwait(false);
+
+        return CreatedAtAction(nameof(GetUserAsync), new { id = userToUpdate!.Id }, userToUpdate);
+    }
+
+    #endregion
+
 
     /// <summary>
     /// Ignore this

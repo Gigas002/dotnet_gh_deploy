@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using Deploy.Core;
 using SystemTextJsonPatch;
+using SystemTextJsonPatch.Operations;
 
 #pragma warning disable CA1303
 
@@ -83,6 +84,16 @@ public static class Program
         uri = new Uri($"{serverAddress}");
 
         await OptionsAsync(httpClient, uri).ConfigureAwait(false);
+
+        #endregion
+
+        #region PATCH (experimental)
+
+        Console.WriteLine("PATCH (experimental)");
+
+        uri = new Uri($"{serverAddress}/patch-exp/{postId}");
+
+        await PatchExpAsync(httpClient, uri).ConfigureAwait(false);
 
         #endregion
 
@@ -226,6 +237,27 @@ public static class Program
         var deletedUser = await httpClient.DeleteFromJsonAsync<User>(uri).ConfigureAwait(false);
 
         WriteUserInfo(deletedUser!);
+    }
+
+    public static async Task PatchExpAsync(HttpClient httpClient, Uri uri)
+    {
+        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+
+        // TODO: see: https://github.com/Havunen/SystemTextJsonPatch/issues/20
+        var operations = new List<Operation<User>>
+        {
+            new Operation<User>(OperationType.Replace.ToString(), "/name", null, "Barbariska"),
+            new Operation<User>("replace", "/age", null, 678)
+        };
+
+        var patchJson = JsonSerializer.Serialize(operations, options: new());
+        using var content = new StringContent(patchJson, Encoding.UTF8, "application/json-patch+json");
+
+        using var response = await httpClient.PatchAsync(uri, content).ConfigureAwait(false);
+
+        var patchedUser = await response.Content.ReadFromJsonAsync<User>().ConfigureAwait(false);
+
+        WriteUserInfo(patchedUser!);
     }
 
     private static void WriteUserInfo(User user) =>

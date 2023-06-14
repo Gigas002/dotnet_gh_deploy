@@ -102,6 +102,35 @@
             </summary>
             <param name="id">Id of user to delete</param>
             <returns>Deleted user</returns>
+            <response code="200">Returns the removed user</response>
+        </member>
+        <member name="M:Deploy.Server.Controllers.UserController.PatchUserExpAsync(System.Int32,System.Collections.Generic.IEnumerable{SystemTextJsonPatch.Operations.Operation{Deploy.Core.User}})">
+             <summary>
+             Patch user
+             </summary>
+             <param name="id">Id of user to patch</param>
+             <param name="operations">Patch to apply</param>
+             <returns>A newly created User</returns>
+             <remarks>
+             Sample request:
+            
+                 PATCH /patch-exp/1
+                 [
+                     {
+                         "op": "replace",
+                         "path": "/name",
+                         "value": "Greck"
+                     },
+                     {
+                         "op": "replace",
+                         "path": "/age",
+                         "value": 51
+                     }
+                 ]
+            
+             </remarks>
+             <response code="201">Returns the newly created user</response>
+             <response code="400">Patch is null</response>
         </member>
         <member name="M:Deploy.Server.Controllers.UserController.IgnoredMethod">
             <summary>
