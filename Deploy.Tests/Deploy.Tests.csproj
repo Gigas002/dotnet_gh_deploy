@@ -18,11 +18,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
 
-  <ItemGroup>
     <ProjectReference Include="..\Deploy.Core\Deploy.Core.csproj" />
     <ProjectReference Include="..\Deploy.Core.Dummy\Deploy.Core.Dummy.csproj" />
+
   </ItemGroup>
 
 </Project>
