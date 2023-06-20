@@ -15,6 +15,6 @@ docs/
 *.7z
 *.zip
 *.sarif
-.vscode/
+# .vscode/
 *-shm
 *-wal
