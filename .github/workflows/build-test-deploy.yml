@@ -22,23 +22,51 @@ jobs:
 # passing env to jobs
 # see: https://github.com/orgs/community/discussions/26671
 
-# building and testing tasks
+# building tasks
 
-  build-test-windows:
-    uses: ./.github/workflows/build-test.yml
+  build-windows:
+    uses: ./.github/workflows/build.yml
     with:
       runs-on: windows-latest
       dotnet-version: '7.x'
-    secrets: inherit
-  build-test-linux:
-    uses: ./.github/workflows/build-test.yml
+
+  build-linux:
+    uses: ./.github/workflows/build.yml
     with:
       runs-on: ubuntu-latest
       dotnet-version: '7.x'
-    secrets: inherit
-  build-test-macos:
-    uses: ./.github/workflows/build-test.yml
+
+  build-macos:
+    uses: ./.github/workflows/build.yml
     with:
+      runs-on: macos-latest
+      dotnet-version: '7.x'
+
+# testing tasks
+
+  test-windows:
+    needs: build-windows
+    uses: ./.github/workflows/test.yml
+    with:
+      runs-on: windows-latest
+      projects: '["Deploy.Tests/Deploy.tests.csproj"]'
+      dotnet-version: '7.x'
+    secrets: inherit
+
+  test-linux:
+    needs: build-linux
+    uses: ./.github/workflows/test.yml
+    with:
+      projects: '["Deploy.Tests/Deploy.tests.csproj"]'
+      runs-on: ubuntu-latest
+      dotnet-version: '7.x'
+    secrets: inherit
+    
+  test-macos:
+    needs: build-macos
+    uses: ./.github/workflows/test.yml
+    with:
+      projects: '["Deploy.Tests/Deploy.tests.csproj"]'
       runs-on: macos-latest
       dotnet-version: '7.x'
     secrets: inherit
@@ -46,7 +74,7 @@ jobs:
 # deploy binaries
 
   deploy-binaries-windows:
-    needs: build-test-windows
+    needs: test-windows
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
     with:
@@ -59,7 +87,7 @@ jobs:
     secrets: inherit
     
   deploy-binaries-linux:
-    needs: build-test-linux
+    needs: test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
     with:
@@ -72,7 +100,7 @@ jobs:
     secrets: inherit
     
   deploy-binaries-macos:
-    needs: build-test-macos
+    needs: test-macos
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-binaries.yml
     with:
@@ -87,7 +115,7 @@ jobs:
 # deploy pages
 
   deploy-pages-linux:
-    needs: build-test-linux
+    needs: test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-pages.yml
     with:
@@ -100,7 +128,7 @@ jobs:
 # deploy src
 
   deploy-src-linux:
-    needs: build-test-linux
+    needs: test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-src.yml
     with:
@@ -113,7 +141,7 @@ jobs:
 # deploy peckages
     
   deploy-packages-nuget-linux:
-    needs: build-test-linux
+    needs: test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-packages.yml
     with:
@@ -127,7 +155,7 @@ jobs:
       TOKEN: ${{secrets.NUGET_API_KEY}}
       
   deploy-packages-github-linux:
-    needs: build-test-linux
+    needs: test-linux
     if: github.ref == 'refs/heads/master'
     uses: ./.github/workflows/deploy-packages.yml
     with:
@@ -143,7 +171,7 @@ jobs:
 # deploy docker
 
   deploy-docker-docker-hub-linux:
-    needs: build-test-linux
+    needs: test-linux
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
@@ -160,7 +188,7 @@ jobs:
       TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
     
   deploy-docker-github-linux:
-    needs: build-test-linux
+    needs: test-linux
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
