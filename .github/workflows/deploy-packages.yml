@@ -46,7 +46,7 @@ jobs:
       matrix:
         package: ${{fromJson(inputs.packages)}}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         
       - name: read-version
         id: read-version
