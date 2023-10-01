@@ -1,5 +1,4 @@
 {
-  "homepages": [],
   "source_base_path": "/home/runner/work/dotnet_gh_deploy/dotnet_gh_deploy",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -190,7 +189,6 @@
       "version": ""
     }
   ],
-  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"
