@@ -241,5 +241,5 @@ jobs:
       runs-on: ubuntu-latest
       registry: 'ghcr.io'
       project: ${{matrix.project}}
-      username: ${{github.repository_owner}}
+      username: gigas002
     secrets: inherit
