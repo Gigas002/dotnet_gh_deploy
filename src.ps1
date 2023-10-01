@@ -6,7 +6,7 @@
     ./script.ps1 -p "publish" -continious-tag "continious" -b "Directory.Build.props"
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
     https://git-scm.com/docs/git-archive
 #>
 

@@ -6,7 +6,7 @@
     ./script.ps1 -p "publish" -github-feed-name "name" -i "proj1/proj1.csproj","proj2/proj2.csproj" -b "Directory.Build.props"
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
 #>
 
 [CmdletBinding(PositionalBinding = $false)]
@@ -39,7 +39,7 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("github-feed-name")]
-    [string] $githubFeedName = "senketsu03",
+    [string] $githubFeedName = "Gigas002",
 
     # Directory.Build.props path
     [Parameter ()]

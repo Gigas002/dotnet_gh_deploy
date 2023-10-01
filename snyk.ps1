@@ -9,7 +9,7 @@
     ./script.ps1 -docker-hub-username trolltrollski -github-username senketsu03 -inputs-docker @{"dotnet.cli"="Cli.Dockerfile";"dotnet.benchmarks"="Benchmarks.Dockerfile"} -github-repo-name dotnet_gh_deploy -b "Directory.Build.props" -docker-continious-tag "latest"
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
     https://github.com/snyk/cli/releases
     https://docs.snyk.io/snyk-cli/commands
     https://docs.snyk.io/snyk-cli/test-for-vulnerabilities/set-severity-thresholds-for-cli-tests

@@ -6,7 +6,7 @@
     For additional usage info, please use Get-Help -Full and see related scripts source code
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
 #>
 
 [CmdletBinding(PositionalBinding = $false)]
@@ -60,13 +60,13 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("github-username")]
-    [string] $githubUsername = "senketsu03",
+    [string] $githubUsername = "Gigas002",
  
     # Github package feed name
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("github-feed-name")]
-    [string] $githubFeedName = "senketsu03",
+    [string] $githubFeedName = "Gigas002",
 
     # Github repo name
     [Parameter ()]

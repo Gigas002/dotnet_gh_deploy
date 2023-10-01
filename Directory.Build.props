@@ -14,13 +14,13 @@
 
     <!-- metadata -->
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Authors>senketsu03</Authors>
-    <Company>senketsu03</Company>
+    <Authors>Gigas002</Authors>
+    <Company>Gigas002</Company>
     <Description>Deploy study library</Description>
-    <Copyright>Copyright © senketsu03 2023</Copyright>
-    <PackageProjectUrl>https://senketsu03.github.io/dotnet_gh_deploy</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/senketsu03/dotnet_gh_deploy</RepositoryUrl>
-    <PackageReleaseNotes>https://github.com/senketsu03/dotnet_gh_deploy/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <Copyright>Copyright © Gigas002 2023</Copyright>
+    <PackageProjectUrl>https://Gigas002.github.io/dotnet_gh_deploy</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Gigas002/dotnet_gh_deploy</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/Gigas002/dotnet_gh_deploy/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <PackageTags>test</PackageTags>
 

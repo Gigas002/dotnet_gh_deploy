@@ -9,7 +9,7 @@
     tuple: versionPrefix, versionSuffix, buildVersion, dockerTag
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
 #>
 
 [CmdletBinding(PositionalBinding = $false)]

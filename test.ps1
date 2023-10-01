@@ -9,7 +9,7 @@
     ./script.ps1 -r "runsettings.xml"
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
     https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md
 #>
 

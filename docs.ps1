@@ -9,7 +9,7 @@
     ./script.ps1 -docfx-json "docfx.json"
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
     https://dotnet.github.io/docfx/docs/basic-concepts.html
 #>
 

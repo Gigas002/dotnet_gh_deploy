@@ -6,7 +6,7 @@
     ./script.ps1 -p "publish" -i "proj1/proj1.csproj","proj2/proj2.csproj"
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
 #>
 
 [CmdletBinding(PositionalBinding = $false)]

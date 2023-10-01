@@ -3,10 +3,10 @@
     Script for deploying docker images
 
 .EXAMPLE
-    ./script.ps1 -docker-hub-username trolltrollski -github-username senketsu03 -i @{"dotnet.cli"="Cli.Dockerfile";"dotnet.benchmarks"="Benchmarks.Dockerfile"} -github-repo-name dotnet_gh_deploy -b "Directory.Build.props" -docker-continious-tag "latest"
+    ./script.ps1 -docker-hub-username trolltrollski -github-username Gigas002 -i @{"dotnet.cli"="Cli.Dockerfile";"dotnet.benchmarks"="Benchmarks.Dockerfile"} -github-repo-name dotnet_gh_deploy -b "Directory.Build.props" -docker-continious-tag "latest"
 
 .LINK
-    https://github.com/senketsu03/dotnet_gh_deploy
+    https://github.com/Gigas002/dotnet_gh_deploy
 #>
 
 [CmdletBinding(PositionalBinding = $false)]
@@ -31,7 +31,7 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("github-username")]
-    [string] $githubUsername = "senketsu03",
+    [string] $githubUsername = "Gigas002",
 
     # Dictionary<ProjectName,DockerfilePath>
     [Parameter ()]
