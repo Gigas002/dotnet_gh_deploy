@@ -183,7 +183,7 @@ jobs:
       project: ${{matrix.project}}
       build-props-path: 'Directory.Build.props'
       continious-tag: 'latest'
-      username: ${{github.repository_owner}}
+      username: gigas002
     secrets:
       TOKEN: ${{secrets.DOCKER_HUB_TOKEN}}
     
@@ -227,7 +227,7 @@ jobs:
       runs-on: ubuntu-latest
       registry: 'docker.io'
       project: ${{matrix.project}}
-      username: ${{github.repository_owner}}
+      username: gigas002
     secrets: inherit
 
   snyk-check-docker-github-linux:
