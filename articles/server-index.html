@@ -29,11 +29,7 @@
       <meta name="loc:copy" content="Copy">
   </head>
 
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
+  <script type="module" src="./../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -93,6 +89,7 @@
 <li>Install <code>msquic</code> with your package manager (e.g. from <a href="https://aur.archlinux.org/packages/msquic">AUR</a>; there's no <a href="https://github.com/microsoft/msquic/discussions/3700">native nuget package for linux</a>)</li>
 <li>Install <code>devcerts</code>. See <a href="https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&amp;tabs=visual-studio%2Clinux-ubuntu#trust-https-certificate-on-linux">official docs</a>, <a href="https://github.com/dotnet/aspnetcore/issues/32842#issuecomment-1107951047">related issue</a> and <a href="https://github.com/BorisWilhelms/create-dotnet-devcert">this repo</a>. Note, that these solutions doesn't provide ipv6 support yet</li>
 </ol>
+
 </article>
 
         <div class="contribution d-print-none">
@@ -100,7 +97,7 @@
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">

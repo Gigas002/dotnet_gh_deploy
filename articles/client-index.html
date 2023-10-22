@@ -29,11 +29,7 @@
       <meta name="loc:copy" content="Copy">
   </head>
 
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
+  <script type="module" src="./../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -88,6 +84,7 @@
 <p>Uses <code>HTTP/3</code> only. Probably needs <a href="nuget.org/packages/Microsoft.Native.Quic.MsQuic.OpenSSL">Microsoft.Native.Quic.MsQuic.OpenSSL</a> package for systems, other than win-11</p>
 <h2 id="requirements">Requirements</h2>
 <p>Read server docs, it's the same</p>
+
 </article>
 
         <div class="contribution d-print-none">
@@ -95,7 +92,7 @@
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
