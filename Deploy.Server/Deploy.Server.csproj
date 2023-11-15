@@ -9,7 +9,7 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.5.0" />
-    <PackageReference Include="SystemTextJsonPatch" Version="3.0.1" />
+    <PackageReference Include="SystemTextJsonPatch" Version="3.1.0" />
 
     <ProjectReference Include="..\Deploy.Core\Deploy.Core.csproj" />
   </ItemGroup>
