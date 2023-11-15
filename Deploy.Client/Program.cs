@@ -157,7 +157,7 @@ public static class Program
 
     public static async Task GetAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         using var response = await httpClient.GetAsync(uri).ConfigureAwait(false);
 
@@ -177,7 +177,7 @@ public static class Program
 
     public static async Task HeadAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         using var request = new HttpRequestMessage(HttpMethod.Head, uri);
         request.Version = httpClient.DefaultRequestVersion;
@@ -201,7 +201,7 @@ public static class Program
 
     public static async Task<int> PostAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         var user = new User { Name = "Vladimir", Age = 99 };
 
@@ -216,7 +216,7 @@ public static class Program
 
     public static async Task PatchAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         var patch = new JsonPatchDocument<User>();
         patch.Replace((v) => v.Name, "Vovik");
@@ -234,7 +234,7 @@ public static class Program
 
     public static async Task PutAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         var user = new User
         {
@@ -251,7 +251,7 @@ public static class Program
 
     public static async Task OptionsAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         using var request = new HttpRequestMessage(HttpMethod.Options, uri);
         request.Version = httpClient.DefaultRequestVersion;
@@ -279,7 +279,7 @@ public static class Program
 
     public static async Task DeleteAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         var deletedUser = await httpClient.DeleteFromJsonAsync<User>(uri).ConfigureAwait(false);
 
@@ -288,7 +288,7 @@ public static class Program
 
     public static async Task PatchExpAsync(HttpClient httpClient, Uri uri)
     {
-        if (httpClient == null) throw new ArgumentNullException(nameof(httpClient));
+        ArgumentNullException.ThrowIfNull(httpClient);
 
         // TODO: see: https://github.com/Havunen/SystemTextJsonPatch/issues/20
         var operations = new List<Operation<User>>
