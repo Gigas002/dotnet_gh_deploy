@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- essential build info -->
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <!-- requires net8.0 -->
     <!-- <UseArtifactsOutput>true</UseArtifactsOutput> -->
     <!-- <Platofrms>AnyCPU;x64</Platofrms> -->

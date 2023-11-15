@@ -98,14 +98,14 @@ public static class Program
 
     public static ValueTask<User?> GetUserAsync(Context db, int id)
     {
-        if (db == null) throw new ArgumentNullException(nameof(db));
+        ArgumentNullException.ThrowIfNull(db);
 
         return db.Users.FindAsync(id);
     }
 
     public static async Task AddUserAsync(Context db, User user)
     {
-        if (db == null) throw new ArgumentNullException(nameof(db));
+        ArgumentNullException.ThrowIfNull(db);
 
         await db.Users.AddAsync(user).ConfigureAwait(false);
 
@@ -114,9 +114,9 @@ public static class Program
 
     public static async Task UpdateUserAsync(Context db, User userToUpdate, User update)
     {
-        if (db == null) throw new ArgumentNullException(nameof(db));
-        if (userToUpdate == null) throw new ArgumentNullException(nameof(userToUpdate));
-        if (update == null) throw new ArgumentNullException(nameof(update));
+        ArgumentNullException.ThrowIfNull(db);
+        ArgumentNullException.ThrowIfNull(userToUpdate);
+        ArgumentNullException.ThrowIfNull(update);
 
         UpdateUser(ref userToUpdate, update);
 
@@ -125,7 +125,7 @@ public static class Program
 
     public static async Task DeleteUserAsync(Context db, User user)
     {
-        if (db == null) throw new ArgumentNullException(nameof(db));
+        ArgumentNullException.ThrowIfNull(db);
 
         db.Users.Remove(user!);
 
