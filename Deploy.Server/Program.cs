@@ -45,7 +45,7 @@ public static class Program
                 Description = "A sample API to demo Swashbuckle",
                 Contact = new OpenApiContact
                 {
-                    Name = "senketsu03",
+                    Name = "gigas002",
                     Email = "test@test.test"
                 },
                 License = new OpenApiLicense

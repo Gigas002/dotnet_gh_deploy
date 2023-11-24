@@ -49,7 +49,7 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("docker-hub-username")]
-    [string] $dockerHubUsername = "trolltrollski",
+    [string] $dockerHubUsername = "gigas002",
 
     # Github token
     [Parameter ()]

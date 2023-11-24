@@ -1,5 +1,10 @@
 # Changelog
 
+## Release 0.6.0
+
+- Bump dependencies
+- Use `net8.0`
+
 ## Release 0.4.0
 
 - Add `HTTP/1.1, 2, 3` server with generatable swagger/redoc API page

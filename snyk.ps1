@@ -6,7 +6,7 @@
     Requires snyk tool
 
 .EXAMPLE
-    ./script.ps1 -docker-hub-username trolltrollski -github-username senketsu03 -inputs-docker @{"dotnet.cli"="Cli.Dockerfile";"dotnet.benchmarks"="Benchmarks.Dockerfile"} -github-repo-name dotnet_gh_deploy -b "Directory.Build.props" -docker-continious-tag "latest"
+    ./script.ps1 -docker-hub-username gigas002 -github-username Gigas002 -inputs-docker @{"dotnet.cli"="Cli.Dockerfile";"dotnet.benchmarks"="Benchmarks.Dockerfile"} -github-repo-name dotnet_gh_deploy -b "Directory.Build.props" -docker-continious-tag "latest"
 
 .LINK
     https://github.com/Gigas002/dotnet_gh_deploy
@@ -52,13 +52,13 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("docker-hub-username")]
-    [string] $dockerHubUsername = "trolltrollski",
+    [string] $dockerHubUsername = "gigas002",
 
     # Github username
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("github-username")]
-    [string] $githubUsername = "senketsu03"
+    [string] $githubUsername = "Gigas002"
 )
 
 #region Constants

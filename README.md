@@ -42,9 +42,9 @@ GitHub Releases: [![Release](https://img.shields.io/github/release/Gigas002/dotn
 
 NuGet: [![NuGet](https://img.shields.io/nuget/v/Deploy.Core.svg)](https://www.nuget.org/packages/Deploy.Core/)
 
-Deploy.Cli on Docker Hub: [![Docker Image (latest/tagged)](https://img.shields.io/docker/v/trolltrollski/deploy.cli)](https://hub.docker.com/repository/docker/trolltrollski/deploy.cli)
+Deploy.Cli on Docker Hub: [![Docker Image (latest/tagged)](https://img.shields.io/docker/v/gigas002/deploy.cli)](https://hub.docker.com/repository/docker/gigas002/deploy.cli)
 
-Deploy.Benchmarks on Docker Hub: [![Docker Image (latest/tagged)](https://img.shields.io/docker/v/trolltrollski/deploy.benchmarks)](https://hub.docker.com/repository/docker/trolltrollski/deploy.benchmarks)
+Deploy.Benchmarks on Docker Hub: [![Docker Image (latest/tagged)](https://img.shields.io/docker/v/gigas002/deploy.benchmarks)](https://hub.docker.com/repository/docker/gigas002/deploy.benchmarks)
 
 ## Vulnerabilities
 
