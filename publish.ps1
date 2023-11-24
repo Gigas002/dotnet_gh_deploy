@@ -32,7 +32,7 @@ param (
 function DotnetPublish([string] $project, [string] $pub, [string] $rid) {
     Write-Host "Publishing $project into $pub..." -ForegroundColor Yellow
 
-    dotnet publish /tl "$project" -c Release -r $rid -o "$pub" --sc false --verbosity quiet
+    dotnet publish --tl "$project" -c Release -r $rid -o "$pub" --sc false --verbosity quiet
 
     Write-Host "Publishing $project finished" -ForegroundColor Green
 }

@@ -29,10 +29,10 @@ param (
 Write-Host "Started test/codecov process..." -ForegroundColor Yellow
 
 if ($runsettingsXml) {
-    dotnet test /tl --collect:"XPlat Code Coverage" --settings $runsettingsXml
+    dotnet test --tl --collect:"XPlat Code Coverage" --settings $runsettingsXml
 }
 else {
-    dotnet test /tl --collect:"XPlat Code Coverage"
+    dotnet test --tl --collect:"XPlat Code Coverage"
 }
 
 if ($codecovToken -and $codecovToken.Length -gt 0) {

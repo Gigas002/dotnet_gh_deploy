@@ -65,15 +65,15 @@ function DotnetPack([string] $versionSuffix, [string] $buildVersion) {
     foreach ($project in $inputs) {
         Write-Host "Building: $project" -ForegroundColor Yellow
 
-        dotnet build $project /tl -c Release --verbosity quiet
+        dotnet build $project --tl -c Release --verbosity quiet
 
         if ("$versionSuffix") {
             Write-Host "Pack prerelease (build): $buildVersion" -ForegroundColor Yellow
-            dotnet pack $project /tl -c Release -o $publishPath --no-build --verbosity quiet --version-suffix ci-$buildVersion
+            dotnet pack $project --tl -c Release -o $publishPath --no-build --verbosity quiet --version-suffix ci-$buildVersion
         }
         else {
             Write-Host "Pack release: $versionPrefix" -ForegroundColor Yellow
-            dotnet pack $project /tl -c Release -o $publishPath --no-build --verbosity quiet
+            dotnet pack $project --tl -c Release -o $publishPath --no-build --verbosity quiet
         }
     }
 
