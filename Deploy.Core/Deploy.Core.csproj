@@ -16,11 +16,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
-    <!-- TODO: redundant in net8.0: https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-5/#sdk-source-link-is-part-of-the-net-sdk -->
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
 
 </Project>
