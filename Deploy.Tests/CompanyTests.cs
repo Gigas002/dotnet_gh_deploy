@@ -9,16 +9,16 @@ public class CompanyTests
     [Test]
     public void EmptyConstructorTest()
     {
-        Company company = new Company();
+        var company = new Company();
 
-        Assert.IsNotNull(company);
+        Assert.That(company, Is.Not.Null);
     }
 
     [Test]
     public void PropertiesTest()
     {
         // ctor and setters
-        Company company = new Company(1, "microsoft");
+        var company = new Company(1, "microsoft");
 
         // id
         var id = company.Id;
@@ -31,7 +31,7 @@ public class CompanyTests
         // users
         var mockUsers = new Mock<IEnumerable<User>>();
         company.Users = mockUsers.Object;
-        Assert.NotNull(company.Users);
+        Assert.That(company.Users, Is.Not.Null);
     }
 
     [Test]

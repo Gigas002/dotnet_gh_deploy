@@ -9,16 +9,16 @@ public class UserTests
     [Test]
     public void EmptyConstructorTest()
     {
-        User user = new User();
+        var user = new User();
 
-        Assert.NotNull(user);
+        Assert.That(user, Is.Not.Null);
     }
 
     [Test]
     public void PropertiesTest()
     {
         // ctor and setters
-        User user = new User(1, "Tom", 30);
+        var user = new User(1, "Tom", 30);
 
         // id
         var id = user.Id;
@@ -35,14 +35,14 @@ public class UserTests
         // company
         var mockCompany = new Mock<Company>();
         user.Company = mockCompany.Object;
-        Assert.NotNull(user.Company);
+        Assert.That(user.Company, Is.Not.Null);
     }
 
     [TestCase(1)]
     [TestCase(2)]
     public void AddAgeTest(int addNumber)
     {
-        User user = new User(1, "Tom", 30);
+        var user = new User(1, "Tom", 30);
 
         var actual = user.Age + addNumber;
 

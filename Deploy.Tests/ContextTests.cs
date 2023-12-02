@@ -13,7 +13,7 @@ public class ContextTests
     {
         var db = new Context();
 
-        Assert.IsNotNull(db);
+        Assert.That(db, Is.Not.Null);
 
         db.Dispose();
     }
@@ -27,12 +27,12 @@ public class ContextTests
         // users
         var mockUsers = new Mock<DbSet<User>>();
         db.Users = mockUsers.Object;
-        Assert.NotNull(db.Users);
+        Assert.That(db.Users, Is.Not.Null);
 
         // companies
         var mockCompanies = new Mock<DbSet<Company>>();
         db.Companies = mockCompanies.Object;
-        Assert.NotNull(db.Companies);
+        Assert.That(db.Companies, Is.Not.Null);
 
         db.Dispose();
     }
@@ -46,12 +46,12 @@ public class ContextTests
         // users
         var mockUsers = new Mock<DbSet<User>>();
         db.Users = mockUsers.Object;
-        Assert.NotNull(db.Users);
+        Assert.That(db.Users, Is.Not.Null);
 
         // companies
         var mockCompanies = new Mock<DbSet<Company>>();
         db.Companies = mockCompanies.Object;
-        Assert.NotNull(db.Companies);
+        Assert.That(db.Companies, Is.Not.Null);
 
         Assert.DoesNotThrow(() => db.SaveChanges());
 

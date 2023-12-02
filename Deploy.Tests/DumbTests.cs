@@ -9,9 +9,9 @@ public class DumbTests
     [Test]
     public void EmptyConstructorTest()
     {
-        Dumb dumb = new Dumb();
+        var dumb = new Dumb();
 
-        Assert.NotNull(dumb);
+        Assert.That(dumb, Is.Not.Null);
     }
 
     [Test]
@@ -24,6 +24,6 @@ public class DumbTests
         var dumb = new Dumb(mockUser.Object);
 
         // check prop getter
-        Assert.NotNull(dumb.User);
+        Assert.That(dumb.User, Is.Not.Null);
     }
 }
