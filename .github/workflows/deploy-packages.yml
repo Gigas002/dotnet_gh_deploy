@@ -13,7 +13,7 @@ on:
       publish-base:
         description: 'Base path to publish artifact'
         required: false
-        default: 'publish'
+        default: 'artifacts/publish'
         type: string
       package-feed:
         description: 'Where to publish package'
@@ -60,7 +60,7 @@ jobs:
           dotnet-version: ${{inputs.dotnet-version}}
         
       - name: dotnet-build
-        run: dotnet build "${{matrix.package}}" -c Release
+        run: dotnet build "${{matrix.package}}" --tl -c Release
         
       - name: dotnet-pack
         run: |
@@ -81,5 +81,3 @@ jobs:
           publish-base: ${{inputs.publish-base}}
           api-key: ${{secrets.TOKEN}}
           package-feed: ${{inputs.package-feed}}
-          
-      

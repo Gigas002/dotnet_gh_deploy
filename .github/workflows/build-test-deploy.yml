@@ -80,7 +80,7 @@ jobs:
     with:
       runs-on: windows-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj", "Deploy.Server/Deploy.Server.csproj", "Deploy.Client/Deploy.Client.csproj"]'
-      publish-base: 'publish'
+      publish-base: 'artifacts/publish'
       continious-tag: 'continious'
       dotnet-version: '8.x'
       build-props-path: 'Directory.Build.props'
@@ -93,7 +93,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj", "Deploy.Server/Deploy.Server.csproj", "Deploy.Client/Deploy.Client.csproj"]'
-      publish-base: 'publish'
+      publish-base: 'artifacts/publish'
       continious-tag: 'continious'
       dotnet-version: '8.x'
       build-props-path: 'Directory.Build.props'
@@ -106,7 +106,7 @@ jobs:
     with:
       runs-on: macos-latest
       projects: '["Deploy.Cli/Deploy.Cli.csproj", "Deploy.Gui/Deploy.Gui.csproj", "Deploy.Server/Deploy.Server.csproj", "Deploy.Client/Deploy.Client.csproj"]'
-      publish-base: 'publish'
+      publish-base: 'artifacts/publish'
       continious-tag: 'continious'
       dotnet-version: '8.x'
       build-props-path: 'Directory.Build.props'
@@ -133,7 +133,7 @@ jobs:
     uses: ./.github/workflows/deploy-src.yml
     with:
       runs-on: ubuntu-latest
-      publish-base: 'publish'
+      publish-base: 'artifacts/publish'
       continious-tag: 'continious'
       build-props-path: 'Directory.Build.props'
     secrets: inherit
@@ -147,7 +147,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj", "Deploy.Core.Dummy/Deploy.Core.Dummy.csproj"]'
-      publish-base: 'publish'
+      publish-base: 'artifacts/publish'
       package-feed: "https://api.nuget.org/v3/index.json"
       dotnet-version: '8.x'
       build-props-path: 'Directory.Build.props'
@@ -161,7 +161,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       packages: '["Deploy.Core/Deploy.Core.csproj", "Deploy.Core.Dummy/Deploy.Core.Dummy.csproj"]'
-      publish-base: 'publish'
+      publish-base: 'artifacts/publish'
       package-feed: "https://nuget.pkg.github.com/${{github.repository_owner}}/index.json"
       dotnet-version: '8.x'
       build-props-path: 'Directory.Build.props'

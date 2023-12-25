@@ -11,7 +11,7 @@ on:
           - windows-latest
           - macos-latest
       projects:
-        description: 'Array of projects to publish'
+        description: 'Array of projects to test'
         required: true
         type: string
       dotnet-version:
@@ -26,7 +26,7 @@ on:
         required: true
         type: string
       projects:
-        description: 'Array of projects to publish'
+        description: 'Array of projects to test'
         required: true
         type: string
       dotnet-version:
@@ -57,12 +57,28 @@ jobs:
           run: dotnet restore "${{matrix.project}}"
         
         - name: dotnet-build
-          run: dotnet build "${{matrix.project}}" --no-restore -c Release
+          run: dotnet build "${{matrix.project}}" --tl --no-restore -c Release
         
         - name: dotnet-test
-          run: dotnet test "${{matrix.project}}" --no-restore -c Release --collect:"XPlat Code Coverage;SkipAutoProps=true"
+          run: dotnet test "${{matrix.project}}" --no-restore -c Release --collect "XPlat Code Coverage;SkipAutoProps=true"
         
-        - name: codecov
-          uses: codecov/codecov-action@v3
+        - name: upload-artifact
+          uses: actions/upload-artifact@v4
           with:
-            token: ${{secrets.CODECOV_TOKEN}}        
+            name: coverage-${{matrix.project}}
+            path: ${{matrix.project}}/TestResults/**/*.xml
+
+  codecov:
+    needs: test
+    runs-on: ${{inputs.runs-on}}
+    steps:
+      - name: download-artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: coverage
+      
+      - name: codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          files: ./coverage/**/*.xml

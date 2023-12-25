@@ -14,7 +14,7 @@ on:
         description: 'Base path to publish artifact'
         required: false
         type: string
-        default: 'publish'
+        default: 'artifacts/publish'
       continious-tag:
         description: 'Tag name for continious builds'
         required: false
@@ -35,7 +35,7 @@ on:
         description: 'Base path to publish artifact'
         required: false
         type: string
-        default: 'publish'
+        default: 'artifacts/publish'
       continious-tag:
         description: 'Tag name for continious builds'
         required: false
@@ -97,4 +97,3 @@ jobs:
             files: ${{env.src-path}}
             token: ${{secrets.GITHUB_TOKEN}}
             prerelease: ${{env.prerelease}}
-        
