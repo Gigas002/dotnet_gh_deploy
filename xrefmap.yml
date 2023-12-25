@@ -99,6 +99,34 @@ references:
   commentId: T:Deploy.Core.Context
   fullName: Deploy.Core.Context
   nameWithType: Context
+- uid: Deploy.Core.Context.#ctor
+  name: Context()
+  href: api/Deploy.Core.Context.html#Deploy_Core_Context__ctor
+  commentId: M:Deploy.Core.Context.#ctor
+  name.vb: New()
+  fullName: Deploy.Core.Context.Context()
+  fullName.vb: Deploy.Core.Context.New()
+  nameWithType: Context.Context()
+  nameWithType.vb: Context.New()
+- uid: Deploy.Core.Context.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Deploy.Core.Context})
+  name: Context(DbContextOptions<Context>)
+  href: api/Deploy.Core.Context.html#Deploy_Core_Context__ctor_Microsoft_EntityFrameworkCore_DbContextOptions_Deploy_Core_Context__
+  commentId: M:Deploy.Core.Context.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Deploy.Core.Context})
+  name.vb: New(DbContextOptions(Of Context))
+  fullName: Deploy.Core.Context.Context(Microsoft.EntityFrameworkCore.DbContextOptions<Deploy.Core.Context>)
+  fullName.vb: Deploy.Core.Context.New(Microsoft.EntityFrameworkCore.DbContextOptions(Of Deploy.Core.Context))
+  nameWithType: Context.Context(DbContextOptions<Context>)
+  nameWithType.vb: Context.New(DbContextOptions(Of Context))
+- uid: Deploy.Core.Context.#ctor*
+  name: Context
+  href: api/Deploy.Core.Context.html#Deploy_Core_Context__ctor_
+  commentId: Overload:Deploy.Core.Context.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Deploy.Core.Context.Context
+  fullName.vb: Deploy.Core.Context.New
+  nameWithType: Context.Context
+  nameWithType.vb: Context.New
 - uid: Deploy.Core.Context.Companies
   name: Companies
   href: api/Deploy.Core.Context.html#Deploy_Core_Context_Companies
@@ -254,6 +282,19 @@ references:
   isSpec: "True"
   fullName: Deploy.Core.User.Age
   nameWithType: User.Age
+- uid: Deploy.Core.User.Clone
+  name: Clone()
+  href: api/Deploy.Core.User.html#Deploy_Core_User_Clone
+  commentId: M:Deploy.Core.User.Clone
+  fullName: Deploy.Core.User.Clone()
+  nameWithType: User.Clone()
+- uid: Deploy.Core.User.Clone*
+  name: Clone
+  href: api/Deploy.Core.User.html#Deploy_Core_User_Clone_
+  commentId: Overload:Deploy.Core.User.Clone
+  isSpec: "True"
+  fullName: Deploy.Core.User.Clone
+  nameWithType: User.Clone
 - uid: Deploy.Core.User.Company
   name: Company
   href: api/Deploy.Core.User.html#Deploy_Core_User_Company
