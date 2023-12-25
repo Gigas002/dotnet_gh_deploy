@@ -5,10 +5,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <!-- <Platofrms>AnyCPU;x64</Platofrms> -->
-    <VersionPrefix>0.6.1</VersionPrefix>
+    <VersionPrefix>0.7.0</VersionPrefix>
     <VersionSuffix>preview.1</VersionSuffix>
-    <AssemblyVersion>0.6.1</AssemblyVersion>
-    <FileVersion>0.6.1.0</FileVersion>
+    <AssemblyVersion>0.7.0.1</AssemblyVersion>
+    <FileVersion>0.7.0.1</FileVersion>
     <Configurations>Debug;Release</Configurations>
 
     <!-- metadata -->
@@ -39,9 +39,7 @@
     <!-- <PackageLicenseFile>LICENSE.md</PackageLicenseFile> -->
     <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-
-    <!-- TODO: this is ignored -->
-    <!-- <GenerateDocumentationFile>true</GenerateDocumentationFile> -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

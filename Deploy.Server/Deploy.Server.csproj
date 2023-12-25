@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
-    <DocumentationFile>Deploy.Server.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
