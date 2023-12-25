@@ -15,7 +15,7 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("p", "publish-path")]
-    [string] $publishPath = "publish",
+    [string] $publishPath = "artifacts/publish",
 
     # Paths to projects to publish
     [Parameter ()]

@@ -16,7 +16,7 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("p", "publish-path")]
-    [string] $publishPath = "publish",
+    [string] $publishPath = "artifacts/publish",
 
     # continious tag
     [Parameter ()]
@@ -39,7 +39,7 @@ Set-Variable ArchiveName -Option ReadOnly -Value "src"
 
 Write-Host "Started compressing the repo into .zip..." -ForegroundColor Yellow
 
-$versionPrefix, $versionSuffix, $_, $_ = ./read_version.ps1 -p $buildPropsPath
+$versionPrefix, $versionSuffix, $_, $_ = ./read_version.ps1 -b $buildPropsPath
 
 if ("$versionSuffix") {
     $version = "$continiousTag"

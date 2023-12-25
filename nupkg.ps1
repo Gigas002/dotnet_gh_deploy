@@ -33,7 +33,7 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("p", "publish-path")]
-    [string] $publishPath = "publish",
+    [string] $publishPath = "artifacts/publish",
 
     # Github package feed name
     [Parameter ()]

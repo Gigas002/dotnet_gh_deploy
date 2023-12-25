@@ -18,7 +18,7 @@
 [CmdletBinding(PositionalBinding = $false)]
 param (
     # snyk token
-    [Parameter (Mandatory = $true)]
+    [Parameter ()]
     [Alias("snyk-token")]
     [SecureString] $snykToken = (Read-Host "Enter your snyk token" -AsSecureString),
 
@@ -70,27 +70,32 @@ Set-Variable GithubRegistry -Option ReadOnly -Value "ghcr.io"
 
 #endregion
 
-Write-Host "Started snyk analyzis in process..." -ForegroundColor Yellow
+if ($snykToken -and $snykToken.Length -gt 0) {
+    Write-Host "Started snyk analyzis in process..." -ForegroundColor Yellow
 
-snyk auth $snykToken
+    snyk auth $snykToken
 
-# || true means dont throw if error
-snyk code test --sarif > "$ReportsBase/$CodeSarif" || true
+    # || true means dont throw if error
+    snyk code test --sarif > "$ReportsBase/$CodeSarif" || true
 
-# fails due to https://docs.snyk.io/guides/snyk-for-.net-developers#not-supported-in-.net
-snyk monitor --all-projects || true
+    # fails due to https://docs.snyk.io/guides/snyk-for-.net-developers#not-supported-in-.net
+    snyk monitor --all-projects || true
 
-# check docker images
-$_, $_, $_, $dockerTag = ./read_version.ps1 -b $buildPropsPath -dockerContiniousTag $dockerContiniousTag
+    # check docker images
+    $_, $_, $_, $dockerTag = ./read_version.ps1 -b $buildPropsPath -dockerContiniousTag $dockerContiniousTag
 
-foreach ($imageKey in $inputsDocker.Keys) {
-    $dockerHubTag = "$dockerHubUsername/${imageKey}:$dockerTag"
-    $githubTag = "$GithubRegistry/$githubUserName/$githubRepoName/${imageKey}:$dockerTag"
+    foreach ($imageKey in $inputsDocker.Keys) {
+        $dockerHubTag = "$dockerHubUsername/${imageKey}:$dockerTag"
+        $githubTag = "$GithubRegistry/$githubUserName/$githubRepoName/${imageKey}:$dockerTag"
 
-    $dockerHubSarif = "$ReportsBase/{$imageKey}_dockerhub.sarif"
-    $githubSarif = "$ReportsBase/{$imageKey}_github.sarif"
-    snyk container test $dockerHubTag --file $inputsDocker[$imageKey] --sarif-file-output=$dockerHubSarif --exclude-base-image-vulns=true
-    snyk container test $githubTag --file $inputsDocker[$imageKey] --sarif-file-output=$githubSarif --exclude-base-image-vulns=true
+        $dockerHubSarif = "$ReportsBase/{$imageKey}_dockerhub.sarif"
+        $githubSarif = "$ReportsBase/{$imageKey}_github.sarif"
+        snyk container test $dockerHubTag --file $inputsDocker[$imageKey] --sarif-file-output=$dockerHubSarif --exclude-base-image-vulns=true
+        snyk container test $githubTag --file $inputsDocker[$imageKey] --sarif-file-output=$githubSarif --exclude-base-image-vulns=true
+    }
+
+    Write-Host "Snyk analyzis finished" -ForegroundColor Green
 }
-
-Write-Host "Snyk analyzis finished" -ForegroundColor Green
+else {
+    Write-Host "No snyk-token specified, skipping..." -ForegroundColor Yellow
+}

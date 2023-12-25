@@ -83,12 +83,20 @@ param (
     [Parameter ()]
     [ValidateNotNullOrEmpty ()]
     [Alias("p", "publish-path")]
-    [string] $publishPath = "publish",
+    [string] $publishPath = "artifacts/publish",
 
     # runsettings.xml path
     [Parameter ()]
     [Alias("r", "runsettings-xml")]
     [string] $runsettingsXml = "",
+
+    # Paths to projects to test
+    [Parameter ()]
+    [ValidateNotNullOrEmpty ()]
+    [Alias("inputs-tests")]
+    [string[]] $inputsTests = ("Deploy.Tests/Deploy.Tests.csproj",
+                               "Deploy.Server.Tests/Deploy.Server.Tests.csproj"
+    ),    
 
     # Paths to projects to publish
     [Parameter ()]
@@ -98,7 +106,8 @@ param (
                                  "Deploy.Benchmarks/Deploy.Benchmarks.csproj",
                                  "Deploy.Gui/Deploy.Gui.csproj",
                                  "Deploy.Server/Deploy.Server.csproj",
-                                 "Deploy.Client/Deploy.Client.csproj"),
+                                 "Deploy.Client/Deploy.Client.csproj"
+    ),
 
     # Paths to packages to publish
     [Parameter ()]
@@ -136,7 +145,7 @@ Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
 ./src.ps1 -p $publishPath -continious-tag $continiousTag -b $buildPropsPath
 
 # build and test + upload report if needed
-./test.ps1 -codecov-token $codecovToken -r $runsettingsXml
+./test.ps1 -i $inputsTests -codecov-token $codecovToken -r $runsettingsXml
 
 # build docs
 ./docs.ps1 -docfx-json $docfxJson
@@ -150,9 +159,7 @@ Remove-Item -Path $publishPath -Recurse -Force -ErrorAction SilentlyContinue
 # publish docker
 ./docker.ps1 -docker-hub-token $dockerHubToken -github-token $githubToken -docker-hub-username $dockerHubUsername -github-username $githubUsername -i $inputsDocker -github-repo-name $githubRepoName -b $buildPropsPath -docker-continious-tag $dockerContiniousTag
 
-# run secirity analyzis if needed
-if ($snykToken -and $snykToken.Length -gt 0) {
-    ./snyk.ps1 -snyk-token $snykToken -docker-hub-token $dockerHubToken -github-token $githubToken -docker-hub-username $dockerHubUsername -github-username $githubUsername -inputs-docker $inputsDocker -github-repo-name $githubRepoName -b $buildPropsPath -docker-continious-tag $dockerContiniousTag
-}
+# run secirity analyzis
+./snyk.ps1 -snyk-token $snykToken -docker-hub-token $dockerHubToken -github-token $githubToken -docker-hub-username $dockerHubUsername -github-username $githubUsername -inputs-docker $inputsDocker -github-repo-name $githubRepoName -b $buildPropsPath -docker-continious-tag $dockerContiniousTag
 
 Write-Host "Deploy complete" -ForegroundColor Green
