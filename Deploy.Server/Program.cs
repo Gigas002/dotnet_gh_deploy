@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Deploy.Core;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
+// using NSwag;
 
 namespace Deploy.Server;
 
@@ -41,9 +42,14 @@ public static class Program
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
+
+        // for swashbuckle:
         builder.Services.AddSwaggerGen(options =>
+        // builder.Services.AddOpenApiDocument(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo
+            // options.PostProcess = document => {
+            // document.Info = new OpenApiInfo
             {
                 Title = "My API - V1",
                 Version = "v1",
@@ -57,23 +63,32 @@ public static class Program
                 {
                     Name = "GPL-3.0-only",
                     Url = new Uri("https://www.gnu.org/licenses/gpl-3.0.txt")
+                    // Url = "https://www.gnu.org/licenses/gpl-3.0.txt"
                 }
             });
+            // };
 
             // uses reflection
             // var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, $"{nameof(Deploy)}.{nameof(Server)}.xml");
             options.IncludeXmlComments(xmlPath);
         });
+        // };
 
         var app = builder.Build();
 
         // for swagger
         app.UseSwagger();
         app.UseSwaggerUI();
+        // app.UseOpenApi();
+        // app.UseSwaggerUi();
 
         // for redoc, path /api-docs by default
         app.UseReDoc();
+        // app.UseReDoc(options =>
+        // {
+        //     options.Path = "/redoc";
+        // });
 
         app.UseHttpsRedirection();
 
