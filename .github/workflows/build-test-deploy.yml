@@ -49,7 +49,7 @@ jobs:
     uses: ./.github/workflows/test.yml
     with:
       runs-on: windows-latest
-      projects: '["Deploy.Tests/Deploy.Tests.csproj"]'
+      projects: '["Deploy.Tests/Deploy.Tests.csproj", "Deploy.Server.Tests/Deploy.Server.Tests.csproj"]'
       dotnet-version: '8.x'
     secrets: inherit
 
@@ -57,7 +57,7 @@ jobs:
     needs: build-linux
     uses: ./.github/workflows/test.yml
     with:
-      projects: '["Deploy.Tests/Deploy.Tests.csproj"]'
+      projects: '["Deploy.Tests/Deploy.Tests.csproj", "Deploy.Server.Tests/Deploy.Server.Tests.csproj"]'
       runs-on: ubuntu-latest
       dotnet-version: '8.x'
     secrets: inherit
@@ -66,7 +66,7 @@ jobs:
     needs: build-macos
     uses: ./.github/workflows/test.yml
     with:
-      projects: '["Deploy.Tests/Deploy.Tests.csproj"]'
+      projects: '["Deploy.Tests/Deploy.Tests.csproj", "Deploy.Server.Tests/Deploy.Server.Tests.csproj"]'
       runs-on: macos-latest
       dotnet-version: '8.x'
     secrets: inherit
