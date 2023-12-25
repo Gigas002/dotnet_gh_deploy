@@ -43,7 +43,8 @@ jobs:
       run:
         shell: pwsh
     env:
-      project-name: ''    
+      project-name: ''
+      now: ''   
     strategy:
       matrix:
         project: ${{fromJson(inputs.projects)}}
@@ -53,7 +54,9 @@ jobs:
         - name: set-env
           run: |
             $projectName = Split-Path -Path "${{matrix.project}}" -Leaf -Resolve | Split-Path -LeafBase
+            $now = Get-Date -Format yyyymmddHHmmssfff
             Write-Output "project-name=$projectName" >> $env:GITHUB_ENV
+            Write-Output "now=$now" >> $env:GITHUB_ENV
 
         - name: dotnet-setup
           uses: actions/setup-dotnet@v4
@@ -72,8 +75,9 @@ jobs:
         - name: upload-artifact
           uses: actions/upload-artifact@v4
           with:
-            name: coverage-${{env.project-name}}
+            name: coverage-${{env.project-name}}-${{env.now}}
             path: ${{env.project-name}}/TestResults/**/*.xml
+            retention-days: 1
 
   codecov:
     needs: test
@@ -89,3 +93,8 @@ jobs:
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           files: ./coverage/**/*.xml
+
+      - uses: geekyeggo/delete-artifact@v4
+        with:
+            token: ${{secrets.GITHUB_TOKEN}}
+            name: my-artifact
