@@ -1,5 +1,15 @@
 # Changelog
 
+## Release 0.7.0
+
+- Bump dependencies
+- Implement repository pattern /w tests
+- Add server tests
+- Upload coverage from several tests as one
+- Update scripts
+- test.ps1 now takes array of tests
+- Simplify docs generation
+
 ## Release 0.6.0
 
 - Bump dependencies
