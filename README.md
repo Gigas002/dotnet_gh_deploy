@@ -28,7 +28,7 @@ GitHub apps integrations:
 
 ## Releases
 
-**Downloaded**
+**Download statistics**
 
 On Github: [![GitHub all releases](https://img.shields.io/github/downloads/Gigas002/dotnet_gh_deploy/total)](https://github.com/Gigas002/dotnet_gh_deploy/releases)
 
@@ -36,7 +36,7 @@ Deploy.Core: [![Nuget](https://img.shields.io/nuget/dt/Deploy.Core)](https://www
 
 Deploy.Core.Dummy: [![Nuget](https://img.shields.io/nuget/dt/Deploy.Core.Dummy)](https://www.nuget.org/packages/Deploy.Core.Dummy/)
 
-**Grab binaries**
+**Download links**
 
 GitHub Releases: [![Release](https://img.shields.io/github/release/Gigas002/dotnet_gh_deploy.svg)](https://github.com/Gigas002/dotnet_gh_deploy/releases/latest)
 
