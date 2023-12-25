@@ -20,7 +20,19 @@ public class Context : DbContext
     /// <inheritdoc/>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        ArgumentNullException.ThrowIfNull(optionsBuilder);
+
+        if (optionsBuilder.IsConfigured) return;
+
         optionsBuilder.UseSqlite("Data Source=../deploy.db")
                       .UseSnakeCaseNamingConvention();
     }
+
+    /// <inheritdoc/>
+    public Context() : base()
+    { }
+
+    /// <inheritdoc/>
+    public Context(DbContextOptions<Context> options) : base(options)
+    { }
 }

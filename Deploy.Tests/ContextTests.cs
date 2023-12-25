@@ -10,13 +10,20 @@ public class ContextTests
     { }
 
     [Test]
-    public void EmptyConstructorTest()
+    public void ConstructorTest()
     {
         var db = new Context();
-
+        var options = new DbContextOptions<Context>();
+        var db2 = new Context(options);
+        
         Assert.That(db, Is.Not.Null);
+        Assert.Throws<ArgumentNullException>(() => 
+        {
+            _ = new Context(null);
+        });
 
         db.Dispose();
+        db2.Dispose();
     }
 
     [Test]
