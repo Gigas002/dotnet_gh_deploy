@@ -1,5 +1,7 @@
 namespace Deploy.Tests;
 
+#pragma warning disable CS1591
+
 public class UserTests
 {
     [SetUp]
@@ -49,5 +51,20 @@ public class UserTests
         user.AddAge(addNumber);
 
         Assert.That(actual, Is.EqualTo(user.Age));
+    }
+
+    [Test]
+    public void CloneTest()
+    {
+        var user = new User(1, "Tom", 30);
+
+        var clone = user.Clone();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(user.Name, Is.EqualTo(clone.Name));
+            Assert.That(user.Age, Is.EqualTo(clone.Age));
+            Assert.That(user.Company, Is.EqualTo(clone.Company));
+        });
     }
 }

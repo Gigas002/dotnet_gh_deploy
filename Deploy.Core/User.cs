@@ -46,4 +46,15 @@ public class User
     {
         Age += addNumber;
     }
+
+    /// <summary>
+    /// Clone this user's fields
+    /// </summary>
+    /// <returns>Cloned user</returns>
+    public User Clone() => new()
+    {
+        Name = Name,
+        Age = Age,
+        Company = Company
+    };
 }
