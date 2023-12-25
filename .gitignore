@@ -19,3 +19,4 @@ docs/
 *-shm
 *-wal
 .idea/
+*.patch
