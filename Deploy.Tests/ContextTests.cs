@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Deploy.Tests;
+
+#pragma warning disable CS8625
+#pragma warning disable CS1591
 
 public class ContextTests
 {

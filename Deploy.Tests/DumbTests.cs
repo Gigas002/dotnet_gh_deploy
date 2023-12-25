@@ -1,4 +1,8 @@
+using Deploy.Core.Dummy;
+
 namespace Deploy.Tests;
+
+#pragma warning disable CS1591
 
 public class DumbTests
 {

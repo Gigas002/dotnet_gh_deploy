@@ -1,5 +1,7 @@
 namespace Deploy.Tests;
 
+#pragma warning disable CS1591
+
 public class CompanyTests
 {
     [SetUp]
