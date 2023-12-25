@@ -96,8 +96,8 @@ jobs:
             Write-Output "rid=$rid" >> $env:GITHUB_ENV
             
             $projectName = Split-Path -Path "${{matrix.project}}" -Leaf -Resolve | Split-Path -LeafBase
-            $publishPath = "${{inputs.publish-base}}/$projectName/$rid"
-            $artifactPath = "${{inputs.publish-base}}/$projectName_$rid.zip"
+            $publishPath = "${{inputs.publish-base}}/${projectName}/$rid"
+            $artifactPath = "${{inputs.publish-base}}/${projectName}_$rid.zip"
             Write-Output "project-name=$projectName" >> $env:GITHUB_ENV
             Write-Output "publish-path=$publishPath" >> $env:GITHUB_ENV
             Write-Output "artifact-path=$artifactPath" >> $env:GITHUB_ENV
