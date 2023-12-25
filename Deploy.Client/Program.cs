@@ -7,9 +7,10 @@ using Deploy.Core;
 using SystemTextJsonPatch;
 using SystemTextJsonPatch.Operations;
 
-#pragma warning disable CA1303
-
 namespace Deploy.Client;
+
+#pragma warning disable CA1303
+#pragma warning disable CS1591
 
 public static class Program
 {

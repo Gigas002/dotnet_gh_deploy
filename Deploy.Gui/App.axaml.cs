@@ -6,6 +6,8 @@ using Deploy.Gui.Views;
 
 namespace Deploy.Gui;
 
+#pragma warning disable CS1591
+
 public partial class App : Application
 {
     public override void Initialize()

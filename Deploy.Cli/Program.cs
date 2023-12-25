@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Deploy.Core;
 
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
-
 namespace Deploy.Cli;
+
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+#pragma warning disable CS1591
 
 public static class Program
 {

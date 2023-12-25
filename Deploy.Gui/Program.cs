@@ -1,8 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
-using System;
 
 namespace Deploy.Gui;
+
+#pragma warning disable CS1591
 
 public static class Program
 {
