@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Deploy.Core;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Deploy.Server;
 
@@ -25,6 +26,10 @@ public static class Program
         });
 
         builder.Services.AddAntiforgery();
+        builder.Services.AddMvc(options =>
+        {
+            options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+        });
 
         builder.Services.AddDbContext<Context>();
 

@@ -6,15 +6,12 @@ using SystemTextJsonPatch.Operations;
 
 namespace Deploy.Server.Controllers;
 
-// TODO: https://devblogs.microsoft.com/dotnet/asp-net-core-updates-in-dotnet-8-preview-5/#support-for-generic-attributes
-
 #pragma warning disable CA1303
-#pragma warning disable CA1721
 
 /// <summary>
 /// User controller
 /// </summary>
-// [AutoValidateAntiforgeryToken]
+[AutoValidateAntiforgeryToken]
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route("/")]
