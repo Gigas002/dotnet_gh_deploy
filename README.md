@@ -48,7 +48,7 @@ Deploy.Benchmarks on Docker Hub: [![Docker Image (latest/tagged)](https://img.sh
 
 ## Vulnerabilities
 
-Build.props are [not yet supported](https://docs.snyk.io/guides/snyk-for-.net-developers#not-supported-in-.net) by snyk
+Build.props are [not yet supported](https://docs.snyk.io/scan-using-snyk/supported-languages-and-frameworks/.net/troubleshooting-.net#not-supported-in-snyk-open-source-for-.net) by snyk
 
 ## Resources
 
