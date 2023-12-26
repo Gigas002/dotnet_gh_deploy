@@ -64,6 +64,36 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "_docs/api/Deploy.Core.Repositories.IUserRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Deploy.Core.Repositories.IUserRepository.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_docs/api/Deploy.Core.Repositories.UserRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Deploy.Core.Repositories.UserRepository.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "_docs/api/Deploy.Core.Repositories.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Deploy.Core.Repositories.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "_docs/api/Deploy.Core.User.yml",
       "output": {
         ".html": {

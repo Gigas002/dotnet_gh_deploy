@@ -82,13 +82,13 @@
         <article data-uid="">
 <h1 id="deployserver">Deploy.Server</h1>
 
-<p>Uses <code>HTTP/1.1</code>, <code>HTTP/2</code> and <code>HTTP/3</code>. See the API on <code>https://localhost:5230/swagger</code> or <code>https://localhost:5230/api-docs</code></p>
+<p>Uses <code>HTTP/1.1</code>, <code>HTTP/2</code> and <code>HTTP/3</code>. See the API on <code>https://localhost:5230/swagger</code> or <code>https://localhost:5230/api-docs</code> for redoc. The <code>ipv6</code> address is following: <code>https://[::1]:5230/swagger</code></p>
 <h2 id="requirements">Requirements</h2>
-<p>If you're running on <code>win11</code> -- you're good to go, just build the solution and run the apps. For <code>linux</code> you'll need some stuff been done, otherwise server/client will fail on runtime:</p>
+<p>If you're running on <code>win11</code> -- you only need to run <code>dotnet dev-certs https --trust</code>, see <a href="https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&amp;tabs=visual-studio%2Clinux-ubuntu#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos">this link</a> for more info. Then, just build the solution and run the apps. For <code>linux</code> you'll need some stuff been done, otherwise server/client will fail on runtime:</p>
 <ol>
-<li>Install dependencies: <code>dotnet</code>, <code>nss</code>, <code>openssl</code></li>
-<li>Install <code>msquic</code> with your package manager (e.g. from <a href="https://aur.archlinux.org/packages/msquic">AUR</a>; there's no <a href="https://github.com/microsoft/msquic/discussions/3700">native nuget package for linux</a>)</li>
-<li>Install <code>devcerts</code>. See <a href="https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&amp;tabs=visual-studio%2Clinux-ubuntu#trust-https-certificate-on-linux">official docs</a>, <a href="https://github.com/dotnet/aspnetcore/issues/32842#issuecomment-1107951047">related issue</a> and <a href="https://github.com/BorisWilhelms/create-dotnet-devcert">this repo</a>. Note, that these solutions doesn't provide ipv6 support yet</li>
+<li>Install dependencies: <code>dotnet</code>, <code>nss</code>, <code>openssl</code> (<em>3.0+</em>)</li>
+<li>Install <code>msquic</code> with your package manager or build it manually (e.g. from <a href="https://aur.archlinux.org/packages/msquic">AUR</a>; there's no <a href="https://github.com/microsoft/msquic/discussions/3700">native nuget package for linux</a>)</li>
+<li>Install <code>devcerts</code>. See <a href="https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&amp;tabs=visual-studio%2Clinux-ubuntu#trust-https-certificate-on-linux">official docs</a>, <a href="https://github.com/dotnet/aspnetcore/issues/32842#issuecomment-1107951047">related issue</a> and <a href="https://github.com/BorisWilhelms/create-dotnet-devcert">this repo</a>. Note, that these solutions doesn't provide ipv6 support on linux yet</li>
 </ol>
 
 </article>

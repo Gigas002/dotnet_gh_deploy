@@ -139,6 +139,9 @@
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.set#microsoft-entityframeworkcore-dbcontext-set-1(system-string)">DbContext.Set&lt;TEntity&gt;(string)</a>
     </div>
     <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.onconfiguring">DbContext.OnConfiguring(DbContextOptionsBuilder)</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.configureconventions">DbContext.ConfigureConventions(ModelConfigurationBuilder)</a>
     </div>
     <div>
@@ -304,45 +307,13 @@
 
   <a id="Deploy_Core_Context__ctor_" data-uid="Deploy.Core.Context.#ctor*"></a>
 
-  <h3 id="Deploy_Core_Context__ctor" data-uid="Deploy.Core.Context.#ctor">
-  Context()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Gigas002/dotnet_gh_deploy/blob/master/Deploy.Core/Context.cs/#L32"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> class. The
-<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.onconfiguring">OnConfiguring(DbContextOptionsBuilder)</a>
-method will be called to configure the database (and other options) to be used for this context.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Context()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-  <h4 class="section" id="Deploy_Core_Context__ctor_remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>See <a href="https://aka.ms/efcore-docs-dbcontext">DbContext lifetime, configuration, and initialization</a>
-for more information and examples.</p>
-</div>
-
-
-
-
-  <a id="Deploy_Core_Context__ctor_" data-uid="Deploy.Core.Context.#ctor*"></a>
-
   <h3 id="Deploy_Core_Context__ctor_Microsoft_EntityFrameworkCore_DbContextOptions_Deploy_Core_Context__" data-uid="Deploy.Core.Context.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Deploy.Core.Context})">
   Context(DbContextOptions&lt;Context&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Gigas002/dotnet_gh_deploy/blob/master/Deploy.Core/Context.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Gigas002/dotnet_gh_deploy/blob/master/Deploy.Core/Context.cs/#L8"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Database context</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -430,58 +401,6 @@ for more information and examples.</p>
 
 
 
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="Deploy_Core_Context_OnConfiguring_" data-uid="Deploy.Core.Context.OnConfiguring*"></a>
-
-  <h3 id="Deploy_Core_Context_OnConfiguring_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder_" data-uid="Deploy.Core.Context.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
-  OnConfiguring(DbContextOptionsBuilder)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Gigas002/dotnet_gh_deploy/blob/master/Deploy.Core/Context.cs/#L21"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Override this method to configure the database (and other options) to be used for this context.
-This method is called for each instance of the context that is created.
-The base implementation does nothing.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>optionsBuilder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder">DbContextOptionsBuilder</a></dt>
-    <dd><p>A builder used to create or modify options for this context. Databases (and other extensions)
-typically define extension methods on this object that allow you to configure the context.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h4 class="section" id="Deploy_Core_Context_OnConfiguring_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>
-                    In situations where an instance of <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions">DbContextOptions</a> may or may not have been passed
-                    to the constructor, you can use <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder.isconfigured">IsConfigured</a> to determine if
-                    the options have already been set, and skip some or all of the logic in
-                    <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.onconfiguring">OnConfiguring(DbContextOptionsBuilder)</a>.
-                </p>
-<p>
-                    See <a href="https://aka.ms/efcore-docs-dbcontext">DbContext lifetime, configuration, and initialization</a>
-                    for more information and examples.
-                </p>
-</div>
 
 
 

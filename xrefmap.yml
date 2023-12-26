@@ -99,15 +99,6 @@ references:
   commentId: T:Deploy.Core.Context
   fullName: Deploy.Core.Context
   nameWithType: Context
-- uid: Deploy.Core.Context.#ctor
-  name: Context()
-  href: api/Deploy.Core.Context.html#Deploy_Core_Context__ctor
-  commentId: M:Deploy.Core.Context.#ctor
-  name.vb: New()
-  fullName: Deploy.Core.Context.Context()
-  fullName.vb: Deploy.Core.Context.New()
-  nameWithType: Context.Context()
-  nameWithType.vb: Context.New()
 - uid: Deploy.Core.Context.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Deploy.Core.Context})
   name: Context(DbContextOptions<Context>)
   href: api/Deploy.Core.Context.html#Deploy_Core_Context__ctor_Microsoft_EntityFrameworkCore_DbContextOptions_Deploy_Core_Context__
@@ -140,19 +131,6 @@ references:
   isSpec: "True"
   fullName: Deploy.Core.Context.Companies
   nameWithType: Context.Companies
-- uid: Deploy.Core.Context.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)
-  name: OnConfiguring(DbContextOptionsBuilder)
-  href: api/Deploy.Core.Context.html#Deploy_Core_Context_OnConfiguring_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder_
-  commentId: M:Deploy.Core.Context.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)
-  fullName: Deploy.Core.Context.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)
-  nameWithType: Context.OnConfiguring(DbContextOptionsBuilder)
-- uid: Deploy.Core.Context.OnConfiguring*
-  name: OnConfiguring
-  href: api/Deploy.Core.Context.html#Deploy_Core_Context_OnConfiguring_
-  commentId: Overload:Deploy.Core.Context.OnConfiguring
-  isSpec: "True"
-  fullName: Deploy.Core.Context.OnConfiguring
-  nameWithType: Context.OnConfiguring
 - uid: Deploy.Core.Context.Users
   name: Users
   href: api/Deploy.Core.Context.html#Deploy_Core_Context_Users
@@ -219,6 +197,153 @@ references:
   isSpec: "True"
   fullName: Deploy.Core.Dummy.Dumb.User
   nameWithType: Dumb.User
+- uid: Deploy.Core.Repositories
+  name: Deploy.Core.Repositories
+  href: api/Deploy.Core.Repositories.html
+  commentId: N:Deploy.Core.Repositories
+  fullName: Deploy.Core.Repositories
+  nameWithType: Deploy.Core.Repositories
+- uid: Deploy.Core.Repositories.IUserRepository
+  name: IUserRepository
+  href: api/Deploy.Core.Repositories.IUserRepository.html
+  commentId: T:Deploy.Core.Repositories.IUserRepository
+  fullName: Deploy.Core.Repositories.IUserRepository
+  nameWithType: IUserRepository
+- uid: Deploy.Core.Repositories.IUserRepository.AddUserAsync(Deploy.Core.User)
+  name: AddUserAsync(User)
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_AddUserAsync_Deploy_Core_User_
+  commentId: M:Deploy.Core.Repositories.IUserRepository.AddUserAsync(Deploy.Core.User)
+  fullName: Deploy.Core.Repositories.IUserRepository.AddUserAsync(Deploy.Core.User)
+  nameWithType: IUserRepository.AddUserAsync(User)
+- uid: Deploy.Core.Repositories.IUserRepository.AddUserAsync*
+  name: AddUserAsync
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_AddUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.IUserRepository.AddUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.IUserRepository.AddUserAsync
+  nameWithType: IUserRepository.AddUserAsync
+- uid: Deploy.Core.Repositories.IUserRepository.DeleteUserAsync(Deploy.Core.User)
+  name: DeleteUserAsync(User)
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_DeleteUserAsync_Deploy_Core_User_
+  commentId: M:Deploy.Core.Repositories.IUserRepository.DeleteUserAsync(Deploy.Core.User)
+  fullName: Deploy.Core.Repositories.IUserRepository.DeleteUserAsync(Deploy.Core.User)
+  nameWithType: IUserRepository.DeleteUserAsync(User)
+- uid: Deploy.Core.Repositories.IUserRepository.DeleteUserAsync*
+  name: DeleteUserAsync
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_DeleteUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.IUserRepository.DeleteUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.IUserRepository.DeleteUserAsync
+  nameWithType: IUserRepository.DeleteUserAsync
+- uid: Deploy.Core.Repositories.IUserRepository.GetUserAsync(System.Int32)
+  name: GetUserAsync(int)
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_GetUserAsync_System_Int32_
+  commentId: M:Deploy.Core.Repositories.IUserRepository.GetUserAsync(System.Int32)
+  name.vb: GetUserAsync(Integer)
+  fullName: Deploy.Core.Repositories.IUserRepository.GetUserAsync(int)
+  fullName.vb: Deploy.Core.Repositories.IUserRepository.GetUserAsync(Integer)
+  nameWithType: IUserRepository.GetUserAsync(int)
+  nameWithType.vb: IUserRepository.GetUserAsync(Integer)
+- uid: Deploy.Core.Repositories.IUserRepository.GetUserAsync*
+  name: GetUserAsync
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_GetUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.IUserRepository.GetUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.IUserRepository.GetUserAsync
+  nameWithType: IUserRepository.GetUserAsync
+- uid: Deploy.Core.Repositories.IUserRepository.UpdateUserAsync(Deploy.Core.User,Deploy.Core.User)
+  name: UpdateUserAsync(User, User)
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_UpdateUserAsync_Deploy_Core_User_Deploy_Core_User_
+  commentId: M:Deploy.Core.Repositories.IUserRepository.UpdateUserAsync(Deploy.Core.User,Deploy.Core.User)
+  fullName: Deploy.Core.Repositories.IUserRepository.UpdateUserAsync(Deploy.Core.User, Deploy.Core.User)
+  nameWithType: IUserRepository.UpdateUserAsync(User, User)
+- uid: Deploy.Core.Repositories.IUserRepository.UpdateUserAsync*
+  name: UpdateUserAsync
+  href: api/Deploy.Core.Repositories.IUserRepository.html#Deploy_Core_Repositories_IUserRepository_UpdateUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.IUserRepository.UpdateUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.IUserRepository.UpdateUserAsync
+  nameWithType: IUserRepository.UpdateUserAsync
+- uid: Deploy.Core.Repositories.UserRepository
+  name: UserRepository
+  href: api/Deploy.Core.Repositories.UserRepository.html
+  commentId: T:Deploy.Core.Repositories.UserRepository
+  fullName: Deploy.Core.Repositories.UserRepository
+  nameWithType: UserRepository
+- uid: Deploy.Core.Repositories.UserRepository.#ctor(Deploy.Core.Context)
+  name: UserRepository(Context)
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository__ctor_Deploy_Core_Context_
+  commentId: M:Deploy.Core.Repositories.UserRepository.#ctor(Deploy.Core.Context)
+  name.vb: New(Context)
+  fullName: Deploy.Core.Repositories.UserRepository.UserRepository(Deploy.Core.Context)
+  fullName.vb: Deploy.Core.Repositories.UserRepository.New(Deploy.Core.Context)
+  nameWithType: UserRepository.UserRepository(Context)
+  nameWithType.vb: UserRepository.New(Context)
+- uid: Deploy.Core.Repositories.UserRepository.#ctor*
+  name: UserRepository
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository__ctor_
+  commentId: Overload:Deploy.Core.Repositories.UserRepository.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Deploy.Core.Repositories.UserRepository.UserRepository
+  fullName.vb: Deploy.Core.Repositories.UserRepository.New
+  nameWithType: UserRepository.UserRepository
+  nameWithType.vb: UserRepository.New
+- uid: Deploy.Core.Repositories.UserRepository.AddUserAsync(Deploy.Core.User)
+  name: AddUserAsync(User)
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_AddUserAsync_Deploy_Core_User_
+  commentId: M:Deploy.Core.Repositories.UserRepository.AddUserAsync(Deploy.Core.User)
+  fullName: Deploy.Core.Repositories.UserRepository.AddUserAsync(Deploy.Core.User)
+  nameWithType: UserRepository.AddUserAsync(User)
+- uid: Deploy.Core.Repositories.UserRepository.AddUserAsync*
+  name: AddUserAsync
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_AddUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.UserRepository.AddUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.UserRepository.AddUserAsync
+  nameWithType: UserRepository.AddUserAsync
+- uid: Deploy.Core.Repositories.UserRepository.DeleteUserAsync(Deploy.Core.User)
+  name: DeleteUserAsync(User)
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_DeleteUserAsync_Deploy_Core_User_
+  commentId: M:Deploy.Core.Repositories.UserRepository.DeleteUserAsync(Deploy.Core.User)
+  fullName: Deploy.Core.Repositories.UserRepository.DeleteUserAsync(Deploy.Core.User)
+  nameWithType: UserRepository.DeleteUserAsync(User)
+- uid: Deploy.Core.Repositories.UserRepository.DeleteUserAsync*
+  name: DeleteUserAsync
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_DeleteUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.UserRepository.DeleteUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.UserRepository.DeleteUserAsync
+  nameWithType: UserRepository.DeleteUserAsync
+- uid: Deploy.Core.Repositories.UserRepository.GetUserAsync(System.Int32)
+  name: GetUserAsync(int)
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_GetUserAsync_System_Int32_
+  commentId: M:Deploy.Core.Repositories.UserRepository.GetUserAsync(System.Int32)
+  name.vb: GetUserAsync(Integer)
+  fullName: Deploy.Core.Repositories.UserRepository.GetUserAsync(int)
+  fullName.vb: Deploy.Core.Repositories.UserRepository.GetUserAsync(Integer)
+  nameWithType: UserRepository.GetUserAsync(int)
+  nameWithType.vb: UserRepository.GetUserAsync(Integer)
+- uid: Deploy.Core.Repositories.UserRepository.GetUserAsync*
+  name: GetUserAsync
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_GetUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.UserRepository.GetUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.UserRepository.GetUserAsync
+  nameWithType: UserRepository.GetUserAsync
+- uid: Deploy.Core.Repositories.UserRepository.UpdateUserAsync(Deploy.Core.User,Deploy.Core.User)
+  name: UpdateUserAsync(User, User)
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_UpdateUserAsync_Deploy_Core_User_Deploy_Core_User_
+  commentId: M:Deploy.Core.Repositories.UserRepository.UpdateUserAsync(Deploy.Core.User,Deploy.Core.User)
+  fullName: Deploy.Core.Repositories.UserRepository.UpdateUserAsync(Deploy.Core.User, Deploy.Core.User)
+  nameWithType: UserRepository.UpdateUserAsync(User, User)
+- uid: Deploy.Core.Repositories.UserRepository.UpdateUserAsync*
+  name: UpdateUserAsync
+  href: api/Deploy.Core.Repositories.UserRepository.html#Deploy_Core_Repositories_UserRepository_UpdateUserAsync_
+  commentId: Overload:Deploy.Core.Repositories.UserRepository.UpdateUserAsync
+  isSpec: "True"
+  fullName: Deploy.Core.Repositories.UserRepository.UpdateUserAsync
+  nameWithType: UserRepository.UpdateUserAsync
 - uid: Deploy.Core.User
   name: User
   href: api/Deploy.Core.User.html
