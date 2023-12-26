@@ -23,6 +23,7 @@ And accounts on following platforms:
 test.ps1:
 
 - [secure,optional] -codecovToken/-codecov-token
+- [optional] -i/-inputs
 - [optional] -r/-runsettingsXml/-runsettings-xml
 
 src.ps1 -> ./read_version.ps1:
@@ -67,7 +68,7 @@ docker.ps1 -> read_version.ps1:
 
 snyk.ps1 -> read_version.ps1:
 
-- [secury,mandatory] -snykToken/-snyk-token
+- [secury,optional] -snykToken/-snyk-token
 - [optional] -inputsDocker/-inputs-docker
 - [optional] -b/-buildPropsPath/-build-props-path
 - [optional] -dockerContiniousTag/-docker-continious-tag
@@ -101,3 +102,4 @@ build_test_deploy.ps1 exclusive args:
 - -inputsPublish/-inputs-publish
 - -inputsNupkg/-inputs-nupgkg
 - -inputsDocker/-inputs-docker
+- -inputsTests/-inputs-tests
