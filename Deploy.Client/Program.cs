@@ -294,8 +294,8 @@ public static class Program
         // TODO: see: https://github.com/Havunen/SystemTextJsonPatch/issues/20
         var operations = new List<Operation<User>>
         {
-            new Operation<User>(OperationType.Replace.ToString(), "/name", null, "Barbariska"),
-            new Operation<User>("replace", "/age", null, 678)
+            new(OperationType.Replace.ToString(), "/name", null, "Barbariska"),
+            new("replace", "/age", null, 678)
         };
 
         var patchJson = JsonSerializer.Serialize(operations, options: new());

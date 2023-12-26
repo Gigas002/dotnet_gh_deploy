@@ -8,6 +8,9 @@ namespace Deploy.Cli;
 
 public static class Program
 {
+    private static DbContextOptionsBuilder<Context> _contextOptions = new DbContextOptionsBuilder<Context>()
+            .UseSqlite("Data Source=../deploy.db").UseSnakeCaseNamingConvention();
+
     public static async Task Main(string[] args)
     {
         bool runTest = args?.Length > 0;
@@ -21,7 +24,7 @@ public static class Program
     public static async Task TestDb()
     {
         // add data
-        using (var db = new Context())
+        using (var db = new Context(_contextOptions.Options))
         {
             var user1 = new User { Name = "Bob", Age = 30 };
             var user2 = new User { Name = "Tom", Age = 21 };
@@ -40,7 +43,7 @@ public static class Program
         }
 
         // get data
-        using (var db = new Context())
+        using (var db = new Context(_contextOptions.Options))
         {
             foreach (var user in db.Users.Include(u => u.Company))
             {

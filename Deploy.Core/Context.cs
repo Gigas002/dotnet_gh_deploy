@@ -5,7 +5,7 @@ namespace Deploy.Core;
 /// <summary>
 /// Database context
 /// </summary>
-public class Context : DbContext
+public class Context(DbContextOptions<Context> options) : DbContext(options)
 {
     /// <summary>
     /// Users table
@@ -16,23 +16,4 @@ public class Context : DbContext
     /// Companies table
     /// </summary>
     public DbSet<Company> Companies { get; set; } = null!;
-
-    /// <inheritdoc/>
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        ArgumentNullException.ThrowIfNull(optionsBuilder);
-
-        if (optionsBuilder.IsConfigured) return;
-
-        optionsBuilder.UseSqlite("Data Source=../deploy.db")
-                      .UseSnakeCaseNamingConvention();
-    }
-
-    /// <inheritdoc/>
-    public Context() : base()
-    { }
-
-    /// <inheritdoc/>
-    public Context(DbContextOptions<Context> options) : base(options)
-    { }
 }
