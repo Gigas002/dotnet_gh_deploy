@@ -5,7 +5,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/Deploy.Client/bin/Debug/net7.0/Deploy.Client.dll",
+      "program": "${workspaceFolder}/artifacts/bin/Deploy.Server/debug/Deploy.Server.dll",
       "args": [],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false,
