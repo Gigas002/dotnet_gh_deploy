@@ -1,171 +1,24 @@
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Deploy.Core;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Mvc;
-// using NSwag;
+using Microsoft.EntityFrameworkCore;
 
 namespace Deploy.Server;
 
 #pragma warning disable CS1591
-#pragma warning disable CA2007
 
 public static class Program
 {
+    private static readonly DbContextOptionsBuilder<Context> _contextOptions = new DbContextOptionsBuilder<Context>()
+                                                                        .UseSqlite(DbContextConfigurator.DataSource)
+                                                                        .UseSnakeCaseNamingConvention();
+
     public static async Task Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        const bool isSwashbuckle = true;
+        var builder = WebApplicationBuilderConfigurator.Configure(args, isSwashbuckle);
+        var application = WebApplicationConfigurator.Configure(builder, isSwashbuckle);
 
-        builder.WebHost.ConfigureKestrel((_, options) =>
-        {
-            options.ListenAnyIP(5230, listenOptions =>
-            {
-                // for http1.1 and http2 support set to: Http1AndHttp2AndHttp3
-                // listenOptions.Protocols = HttpProtocols.Http3;
-                listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
-                listenOptions.UseHttps();
-            });
-        });
+        await DbContextConfigurator.ConfigureAsync(_contextOptions.Options).ConfigureAwait(false);
 
-        builder.Services.AddAntiforgery();
-        builder.Services.AddMvc(options =>
-        {
-            options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-        });
-
-        builder.Services.AddDbContext<Context>();
-
-        // for controllers-based approach
-        builder.Services.AddControllers(options =>
-        {
-            options.SuppressAsyncSuffixInActionNames = false;
-        });
-
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-
-        // for swashbuckle:
-        builder.Services.AddSwaggerGen(options =>
-        // builder.Services.AddOpenApiDocument(options =>
-        {
-            options.SwaggerDoc("v1", new OpenApiInfo
-            // options.PostProcess = document => {
-            // document.Info = new OpenApiInfo
-            {
-                Title = "My API - V1",
-                Version = "v1",
-                Description = "A sample API to demo Swashbuckle",
-                Contact = new OpenApiContact
-                {
-                    Name = "gigas002",
-                    Email = "test@test.test"
-                },
-                License = new OpenApiLicense
-                {
-                    Name = "GPL-3.0-only",
-                    Url = new Uri("https://www.gnu.org/licenses/gpl-3.0.txt")
-                    // Url = "https://www.gnu.org/licenses/gpl-3.0.txt"
-                }
-            });
-            // };
-
-            // uses reflection
-            // var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, $"{nameof(Deploy)}.{nameof(Server)}.xml");
-            options.IncludeXmlComments(xmlPath);
-        });
-        // };
-
-        var app = builder.Build();
-
-        // for swagger
-        app.UseSwagger();
-        app.UseSwaggerUI();
-        // app.UseOpenApi();
-        // app.UseSwaggerUi();
-
-        // for redoc, path /api-docs by default
-        app.UseReDoc();
-        // app.UseReDoc(options =>
-        // {
-        //     options.Path = "/redoc";
-        // });
-
-        app.UseHttpsRedirection();
-
-        await InitDbAsync().ConfigureAwait(false);
-
-        // for controllers-based approach
-        app.MapControllers();
-
-        await app.RunAsync().ConfigureAwait(false);
+        await application.RunAsync().ConfigureAwait(false);
     }
-
-    public static async Task InitDbAsync()
-    {
-        await using var db = new Context();
-
-        await db.Database.EnsureDeletedAsync().ConfigureAwait(false);
-        await db.Database.EnsureCreatedAsync().ConfigureAwait(false);
-
-        var vasya = new User { Name = "Vasya", Age = 40 };
-        var petya = new User { Name = "Petya", Age = 30 };
-        var katya = new User { Name = "Katya", Age = 20 };
-
-        await db.AddRangeAsync(vasya, petya, katya).ConfigureAwait(false);
-
-        await db.SaveChangesAsync().ConfigureAwait(false);
-    }
-
-    public static ValueTask<User?> GetUserAsync(Context db, int id)
-    {
-        ArgumentNullException.ThrowIfNull(db);
-
-        return db.Users.FindAsync(id);
-    }
-
-    public static async Task AddUserAsync(Context db, User user)
-    {
-        ArgumentNullException.ThrowIfNull(db);
-
-        await db.Users.AddAsync(user).ConfigureAwait(false);
-
-        await db.SaveChangesAsync().ConfigureAwait(false);
-    }
-
-    public static async Task UpdateUserAsync(Context db, User userToUpdate, User update)
-    {
-        ArgumentNullException.ThrowIfNull(db);
-        ArgumentNullException.ThrowIfNull(userToUpdate);
-        ArgumentNullException.ThrowIfNull(update);
-
-        UpdateUser(ref userToUpdate, update);
-
-        await db.SaveChangesAsync().ConfigureAwait(false);
-    }
-
-    public static async Task DeleteUserAsync(Context db, User user)
-    {
-        ArgumentNullException.ThrowIfNull(db);
-
-        db.Users.Remove(user!);
-
-        await db.SaveChangesAsync().ConfigureAwait(false);
-    }
-
-    internal static void UpdateUser(ref User userToUpdate, User update)
-    {
-        userToUpdate.Name = update.Name;
-        userToUpdate.Age = update.Age;
-        userToUpdate.Company = update.Company;
-    }
-
-    internal static User CloneUser(User userToClone) => new()
-    {
-        Name = userToClone.Name,
-        Age = userToClone.Age,
-        Company = userToClone.Company
-    };
 }
-
-#pragma warning restore CS1591
-#pragma warning restore CA2007
