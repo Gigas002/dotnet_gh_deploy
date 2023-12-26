@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using Deploy.Core;
+using Deploy.Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using SystemTextJsonPatch;
 using SystemTextJsonPatch.Operations;
@@ -8,6 +9,11 @@ namespace Deploy.Server.Controllers;
 
 #pragma warning disable CA1303
 
+// TODO: attributes are replaceable with:
+// [ProducesResponseType<User>(StatusCodes.Status201Created, MediaTypeNames.Application.Json)]
+// [ProducesResponseType(StatusCodes.Status400BadRequest)]
+// but works only with NSwag, doesn't work with Swashbuckle
+
 /// <summary>
 /// User controller
 /// </summary>
@@ -15,23 +21,11 @@ namespace Deploy.Server.Controllers;
 [ApiController]
 [ApiConventionType(typeof(DefaultApiConventions))]
 [Route("/")]
-public class UserController : ControllerBase
+public class UserController(IUserRepository userRepository) : ControllerBase
 {
     #region Properties
 
-    private readonly Context _context;
-
-    #endregion
-
-    #region Constructors
-
-    /// <summary>
-    /// Database context
-    /// </summary>
-    public UserController(Context context)
-    {
-        _context = context;
-    }
+    private readonly IUserRepository _userRepository = userRepository;
 
     #endregion
 
@@ -50,14 +44,14 @@ public class UserController : ControllerBase
     /// <response code="400">User is null</response>
     [HttpGet("{id}")]
     [HttpHead("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType<User>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> GetUserAsync(int id)
     {
         Console.WriteLine($"Enter into GET/HEAD: /{id}");
 
-        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
+        var user = await _userRepository.GetUserAsync(id).ConfigureAwait(false);
 
         if (user is null)
             return BadRequest(new ProblemDetails { Detail = $"Object with id={id} doesn't exist" });
@@ -88,17 +82,19 @@ public class UserController : ControllerBase
     /// <response code="201">Returns the newly created item</response>
     /// <response code="400">User is null</response>
     [HttpPost("create")]
+    [ProducesResponseType<User>(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PostUserAsync(User user)
     {
         Console.WriteLine("Enter into POST: /create");
 
-        await Program.AddUserAsync(_context, user).ConfigureAwait(false);
+        if (user is null) return BadRequest();
 
-        if (user == null) return BadRequest();
+        (_, var result) = await _userRepository.AddUserAsync(user).ConfigureAwait(false);
 
-        return CreatedAtAction(nameof(GetUserAsync), new { id = user.Id }, user);
+        return CreatedAtAction(nameof(GetUserAsync), new { id = result!.Id }, result);
     }
 
     #endregion
@@ -133,22 +129,22 @@ public class UserController : ControllerBase
     /// <response code="201">Returns the newly created user</response>
     /// <response code="400">Patch is null</response>
     [HttpPatch("patch/{id}")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType<User>(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Consumes("application/json-patch+json")]
+    [Consumes(MediaTypeNames.Application.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PatchUserAsync(int id, JsonPatchDocument<User> patch)
     {
         Console.WriteLine($"Enter into PATCH: /patch/{id}");
 
-        var userToUpdate = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
-        var update = Program.CloneUser(userToUpdate!);
+        var userToUpdate = await _userRepository.GetUserAsync(id).ConfigureAwait(false);
+        var update = userToUpdate!.Clone();
 
         if (patch is null) return BadRequest();
 
         patch.ApplyTo(update!);
 
-        await Program.UpdateUserAsync(_context, userToUpdate!, update!).ConfigureAwait(false);
+        await _userRepository.UpdateUserAsync(userToUpdate, update).ConfigureAwait(false);
 
         return CreatedAtAction(nameof(GetUserAsync), new { id = userToUpdate!.Id }, userToUpdate);
     }
@@ -177,7 +173,7 @@ public class UserController : ControllerBase
     /// <response code="200">Returns the newly created user</response>
     /// <response code="400">New user is null</response>
     [HttpPut("put/{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType<User>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
@@ -185,11 +181,11 @@ public class UserController : ControllerBase
     {
         Console.WriteLine($"Enter into PUT: /put/{id}");
 
-        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
+        var user = await _userRepository.GetUserAsync(id).ConfigureAwait(false);
 
         if (newUser is null) return BadRequest();
 
-        await Program.UpdateUserAsync(_context, user!, newUser).ConfigureAwait(false);
+        await _userRepository.UpdateUserAsync(user!, newUser).ConfigureAwait(false);
 
         return Ok(user);
     }
@@ -226,15 +222,14 @@ public class UserController : ControllerBase
     /// <response code="200">Returns the removed user</response>
     [HttpDelete("delete/{id}")]
     [Produces(MediaTypeNames.Application.Json)]
-    public async Task<ActionResult> DeleteUserAsync(int id)
+    public async Task<ActionResult<User>> DeleteUserAsync(int id)
     {
         Console.WriteLine($"Enter into DELETE: /delete/{id}");
 
-        var user = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
+        var user = await _userRepository.GetUserAsync(id).ConfigureAwait(false);
+        (_, var result) = await _userRepository.DeleteUserAsync(user!).ConfigureAwait(false);
 
-        await Program.DeleteUserAsync(_context, user!).ConfigureAwait(false);
-
-        return Ok(user);
+        return Ok(result);
     }
 
     #endregion
@@ -269,9 +264,9 @@ public class UserController : ControllerBase
     /// <response code="201">Returns the newly created user</response>
     /// <response code="400">Patch is null</response>
     [HttpPatch("patch-exp/{id}")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType<User>(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Consumes("application/json-patch+json")]
+    [Consumes(MediaTypeNames.Application.JsonPatch)]
     [Produces(MediaTypeNames.Application.Json)]
     public async Task<ActionResult<User>> PatchUserExpAsync(int id, IEnumerable<Operation<User>> operations)
     {
@@ -281,12 +276,12 @@ public class UserController : ControllerBase
 
         var patch = new JsonPatchDocument<User>(operations.ToList(), new());
 
-        var userToUpdate = await Program.GetUserAsync(_context, id).ConfigureAwait(false);
-        var update = Program.CloneUser(userToUpdate!);
+        var userToUpdate = await _userRepository.GetUserAsync(id).ConfigureAwait(false);
+        var update = userToUpdate!.Clone();
 
         patch.ApplyTo(update!);
 
-        await Program.UpdateUserAsync(_context, userToUpdate!, update!).ConfigureAwait(false);
+        await _userRepository.UpdateUserAsync(userToUpdate, update).ConfigureAwait(false);
 
         return CreatedAtAction(nameof(GetUserAsync), new { id = userToUpdate!.Id }, userToUpdate);
     }
