@@ -51,6 +51,7 @@ jobs:
       runs-on: windows-latest
       projects: '["Deploy.Tests/Deploy.Tests.csproj", "Deploy.Server.Tests/Deploy.Server.Tests.csproj"]'
       dotnet-version: '8.x'
+      upload-coverage: false
     secrets: inherit
 
   test-linux:
@@ -60,6 +61,7 @@ jobs:
       projects: '["Deploy.Tests/Deploy.Tests.csproj", "Deploy.Server.Tests/Deploy.Server.Tests.csproj"]'
       runs-on: ubuntu-latest
       dotnet-version: '8.x'
+      upload-coverage: true
     secrets: inherit
     
   test-macos:
@@ -69,6 +71,7 @@ jobs:
       projects: '["Deploy.Tests/Deploy.Tests.csproj", "Deploy.Server.Tests/Deploy.Server.Tests.csproj"]'
       runs-on: macos-latest
       dotnet-version: '8.x'
+      upload-coverage: false
     secrets: inherit
       
 # deploy binaries

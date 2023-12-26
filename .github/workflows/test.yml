@@ -19,6 +19,10 @@ on:
         required: false
         type: string
         default: '8.x'
+      upload-coverage:
+        description: 'Should upload coverage report?'
+        required: false
+        type: boolean
   workflow_call:
     inputs:
       runs-on:
@@ -34,6 +38,10 @@ on:
         required: false
         type: string
         default: '8.x'
+      upload-coverage:
+        description: 'Should upload coverage report?'
+        required: false
+        type: boolean  
  
 jobs:
 
@@ -81,6 +89,7 @@ jobs:
 
   codecov:
     needs: test
+    if: ${{inputs.upload-coverage == 'true'}}
     runs-on: ${{inputs.runs-on}}
     steps:
       - name: download-artifacts
@@ -93,8 +102,3 @@ jobs:
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           files: coverage/**/*.xml
-
-      - uses: geekyeggo/delete-artifact@v4
-        with:
-            token: ${{secrets.GITHUB_TOKEN}}
-            name: my-artifact
