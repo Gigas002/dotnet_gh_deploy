@@ -95,6 +95,8 @@ jobs:
     if: ${{inputs.upload-coverage == true}}
     runs-on: ${{inputs.runs-on}}
     steps:
+      - uses: actions/checkout@v4
+
       - name: download-artifacts
         uses: actions/download-artifact@v4
         with:
