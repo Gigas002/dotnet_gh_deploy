@@ -80,6 +80,22 @@ jobs:
         - name: dotnet-test
           run: dotnet test "${{matrix.project}}" --no-restore -c Release --collect "XPlat Code Coverage;SkipAutoProps=true"
         
+        - name: up-true-bool
+          if: ${{inputs.upload-coverage == true}}
+          run: echo "${{inputs.upload-coverage}}"
+
+        - name: up-true-string
+          if: ${{inputs.upload-coverage == 'true'}}
+          run: echo "${{inputs.upload-coverage}}"
+
+        - name: up-false-bool
+          if: ${{inputs.upload-coverage == false}}
+          run: echo "${{inputs.upload-coverage}}"
+
+        - name: up-false-string
+          if: ${{inputs.upload-coverage == 'false'}}
+          run: echo "${{inputs.upload-coverage}}"
+
         - name: upload-artifact
           uses: actions/upload-artifact@v4
           with:
