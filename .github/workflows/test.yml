@@ -23,6 +23,7 @@ on:
         description: 'Should upload coverage report?'
         required: false
         type: boolean
+        default: false
   workflow_call:
     inputs:
       runs-on:
@@ -41,7 +42,8 @@ on:
       upload-coverage:
         description: 'Should upload coverage report?'
         required: false
-        type: boolean  
+        type: boolean
+        default: false
  
 jobs:
 
@@ -80,23 +82,8 @@ jobs:
         - name: dotnet-test
           run: dotnet test "${{matrix.project}}" --no-restore -c Release --collect "XPlat Code Coverage;SkipAutoProps=true"
         
-        - name: up-true-bool
-          if: ${{inputs.upload-coverage == true}}
-          run: echo "${{inputs.upload-coverage}}"
-
-        - name: up-true-string
-          if: ${{inputs.upload-coverage == 'true'}}
-          run: echo "${{inputs.upload-coverage}}"
-
-        - name: up-false-bool
-          if: ${{inputs.upload-coverage == false}}
-          run: echo "${{inputs.upload-coverage}}"
-
-        - name: up-false-string
-          if: ${{inputs.upload-coverage == 'false'}}
-          run: echo "${{inputs.upload-coverage}}"
-
         - name: upload-artifact
+          if: ${{inputs.upload-coverage == true}}
           uses: actions/upload-artifact@v4
           with:
             name: coverage-${{env.project-name}}-${{env.now}}
@@ -105,7 +92,7 @@ jobs:
 
   codecov:
     needs: test
-    if: ${{inputs.upload-coverage == 'true'}}
+    if: ${{inputs.upload-coverage == true}}
     runs-on: ${{inputs.runs-on}}
     steps:
       - name: download-artifacts
