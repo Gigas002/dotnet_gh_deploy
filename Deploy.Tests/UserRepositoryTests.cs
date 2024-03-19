@@ -146,7 +146,7 @@ public sealed class UserRepositoryTests : IDisposable
         Assert.Multiple(() =>
         {
             Assert.That(success, Is.EqualTo(1));
-            Assert.That(result, Is.EqualTo(expected));
+            Assert.That(result, Is.EqualTo(expected).UsingPropertiesComparer());
         });
         Assert.ThrowsAsync<ArgumentNullException>(async () => await userRepository.UpdateUserAsync(null, new()));
         Assert.ThrowsAsync<ArgumentNullException>(async () => await userRepository.UpdateUserAsync(new(), null));
