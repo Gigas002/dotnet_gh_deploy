@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Deploy.Core\Deploy.Core.csproj" />
 
-    <PackageReference Include="SystemTextJsonPatch" Version="3.1.0" />
+    <PackageReference Include="SystemTextJsonPatch" Version="3.2.0" />
   </ItemGroup>
 
 </Project>
