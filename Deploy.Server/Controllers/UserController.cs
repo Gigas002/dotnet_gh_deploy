@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using System.Text.Json;
 using Deploy.Core;
 using Deploy.Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -274,7 +275,11 @@ public class UserController(IUserRepository userRepository) : ControllerBase
 
         if (operations is null) return BadRequest();
 
-        var patch = new JsonPatchDocument<User>(operations.ToList(), new());
+        var jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+        };
+        var patch = new JsonPatchDocument<User>(operations.ToList(), jsonSerializerOptions);
 
         var userToUpdate = await _userRepository.GetUserAsync(id).ConfigureAwait(false);
         var update = userToUpdate!.Clone();
