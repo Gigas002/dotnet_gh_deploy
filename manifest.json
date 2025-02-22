@@ -30,7 +30,11 @@
           "relative_path": "api/Deploy.Core.Company.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.Company",
+      "Summary": "<p sourcefile=\"_docs/api/Deploy.Core.Company.yml\" sourcestartlinenumber=\"1\">Company</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -40,7 +44,11 @@
           "relative_path": "api/Deploy.Core.Context.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.Context",
+      "Summary": "<p sourcefile=\"_docs/api/Deploy.Core.Context.yml\" sourcestartlinenumber=\"1\">Database context</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -50,7 +58,11 @@
           "relative_path": "api/Deploy.Core.Dummy.Dumb.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.Dummy.Dumb",
+      "Summary": "<p sourcefile=\"_docs/api/Deploy.Core.Dummy.Dumb.yml\" sourcestartlinenumber=\"1\">Dumb da-dumb</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -60,7 +72,11 @@
           "relative_path": "api/Deploy.Core.Dummy.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.Dummy",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -70,7 +86,11 @@
           "relative_path": "api/Deploy.Core.Repositories.IUserRepository.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.Repositories.IUserRepository",
+      "Summary": "<p sourcefile=\"_docs/api/Deploy.Core.Repositories.IUserRepository.yml\" sourcestartlinenumber=\"1\">Repository pattern to communicate to database</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -80,7 +100,11 @@
           "relative_path": "api/Deploy.Core.Repositories.UserRepository.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.Repositories.UserRepository",
+      "Summary": "<p sourcefile=\"_docs/api/Deploy.Core.Repositories.UserRepository.yml\" sourcestartlinenumber=\"1\">Supports all classes in the .NET class hierarchy and provides low-level services to derived classes. This is the ultimate base class of all .NET classes; it is the root of the type hierarchy.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -90,7 +114,11 @@
           "relative_path": "api/Deploy.Core.Repositories.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.Repositories",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -100,7 +128,11 @@
           "relative_path": "api/Deploy.Core.User.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core.User",
+      "Summary": "<p sourcefile=\"_docs/api/Deploy.Core.User.yml\" sourcestartlinenumber=\"1\">User</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -110,7 +142,11 @@
           "relative_path": "api/Deploy.Core.html"
         }
       },
-      "version": ""
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deploy.Core",
+      "Summary": null
     },
     {
       "type": "Toc",
