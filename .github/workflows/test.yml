@@ -84,7 +84,7 @@ jobs:
         
         - name: upload-artifact
           if: ${{inputs.upload-coverage == true}}
-          uses: actions/upload-artifact@v4
+          uses: actions/upload-artifact@v5
           with:
             name: coverage-${{env.project-name}}-${{env.now}}
             path: ${{env.project-name}}/TestResults/**/*.xml
