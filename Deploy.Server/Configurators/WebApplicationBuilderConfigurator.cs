@@ -46,17 +46,17 @@ public class WebApplicationBuilderConfigurator(string[] args)
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         Builder.Services.AddEndpointsApiExplorer();
 
-        var openApiInfo = new Microsoft.OpenApi.Models.OpenApiInfo
+        var openApiInfo = new Microsoft.OpenApi.OpenApiInfo
         {
             Title = "My API - V1",
             Version = "v1",
             Description = "A sample API to demo Swashbuckle",
-            Contact = new Microsoft.OpenApi.Models.OpenApiContact
+            Contact = new Microsoft.OpenApi.OpenApiContact
             {
                 Name = "gigas002",
                 Email = "test@test.test"
             },
-            License = new Microsoft.OpenApi.Models.OpenApiLicense
+            License = new Microsoft.OpenApi.OpenApiLicense
             {
                 Name = "GPL-3.0-only",
                 Url = new Uri("https://www.gnu.org/licenses/gpl-3.0.txt")
