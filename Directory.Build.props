@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <!-- essential build info -->
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <!-- <Platofrms>AnyCPU;x64</Platofrms> -->
-    <VersionPrefix>0.7.1</VersionPrefix>
+    <VersionPrefix>0.7.2</VersionPrefix>
     <VersionSuffix>preview.1</VersionSuffix>
-    <AssemblyVersion>0.7.1.1</AssemblyVersion>
-    <FileVersion>0.7.1.1</FileVersion>
+    <AssemblyVersion>0.7.2.1</AssemblyVersion>
+    <FileVersion>0.7.2.1</FileVersion>
     <Configurations>Debug;Release</Configurations>
 
     <!-- metadata -->
