@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.7" />
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="10.1.7" />
-    <PackageReference Include="NSwag.AspNetCore" Version="14.7.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.7.1" />
     <PackageReference Include="SystemTextJsonPatch" Version="5.0.0" />
 
     <ProjectReference Include="..\Deploy.Core\Deploy.Core.csproj" />
