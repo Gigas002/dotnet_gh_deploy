@@ -24,12 +24,12 @@ jobs:
         dotnet-version: '9.x'
 
     - name: init-codeql
-      uses: github/codeql-action/init@v4
+      uses: github/codeql-action/init@v4.37.3
       with:
         languages: csharp
 
     - name: autobuild
-      uses: github/codeql-action/autobuild@v4
+      uses: github/codeql-action/autobuild@v4.37.3
 
     - name: codeql-analyze
-      uses: github/codeql-action/analyze@v4
+      uses: github/codeql-action/analyze@v4.37.3
